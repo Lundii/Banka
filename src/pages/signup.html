@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>Banka</title>
+        <link rel="stylesheet" type="text/css" href="../css/index.css">
+    </head>
+    <body style="background-image: url('../../public/images/image4.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="container bgrd-dark">
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-5 nav">
+                    <ul> 
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a>About</a></li>
+                        <li><a>Services</a></li>
+                        <li><a>Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-1 nav">
+                    <ul>
+                        <li onclick="loginSignup('login')"><a class="active">LogIn</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="container">
+                        <div class="panel-sm"></div>
+                        <div class="row">
+                            <div id="loginCont" class="col-6 pd-default bgrd-default shadow pointer" onclick="loginSignup('login')">
+                                <label class="txt-md"> Login</label>
+                            </div>
+                            <div id="signupCont" class="col-6 pd-default bgrd-default shadow bgrd-gray pointer"  onclick="loginSignup()">
+                                <label class="txt-md"> SignUp</label>
+                            </div>
+                        </div>
+                        <div id="registerCont" class="row hidden">
+                            <div class="col-12 pd-default bgrd-default shadow">
+                                <label class="txt-md"> Create Account</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                    <div id="login" class="card-primary">
+                                        <form>
+                                            <div class="form-items-group">
+                                                <input type="text" class="form-item" id="acctNum" placeholder="Enter AcctNum/Email">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="password" class="form-item" id="pwrd" placeholder="Password">
+                                            </div>
+                                            <button class="btn-default">Log In</button>
+                                        </form>
+                                        <div class="col-primary pd-default width-lg">
+                                            <pre class="txt-sm undline-pri-hov width-sm">Forgot password?</pre>
+                                            <div class="panel-sm"></div>
+                                            <pre class="txt-sm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? <span>Create Account</span></pre>
+                                        </div>
+                                    </div>
+                                    <div id="signup" class="card-primary hidden">
+                                        <form>
+                                            <div class="form-items-group">
+                                                <input type="text" class="form-item" id="acctNum" placeholder="Enter Acct Number">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="email" class="form-item" id="email" placeholder="Enter Email">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="password" class="form-item" id="pwrd" placeholder="Password">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="password" class="form-item" id="pwrd2" placeholder="Re-enter Password">
+                                            </div>
+                                            <button class="btn-default">Sign Up</button>
+                                        </form>
+                                        <div class="col-primary pd-default width-lg">
+                                                <pre class="txt-sm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? <span>Create Account</span></pre>
+                                            </div>
+                                    </div>
+                                    <div id="register" class="card-primary hidden">
+                                        <form>
+                                            <div class="form-items-group">
+                                                <input type="text" class="form-item" id="firstName" Placeholder="First Name">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="text" class="form-item" id="lastName" placeholder="Last Name">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="text" class="form-item" id="otherName" placeholder="Other Name">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="text" class="form-item" id="sex" placeholder="Sex">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="number" class="form-item" id="phoneNo" placeholder="Phone Number">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="date" class="form-item" id="dob" placeholder="Date of Birth">
+                                            </div>
+                                            <div class="form-items-group">
+                                                <input type="email" class="form-item" id="email" placeholder="Enter Email">
+                                            </div>
+                                            <button class="btn-default">Register</button>
+                                        </form>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
+        <script src="../js/index.js"></script>
+    </body>
+</html>
