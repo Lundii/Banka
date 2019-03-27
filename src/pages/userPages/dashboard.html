@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>Banka app beta</title>
+        <link rel="stylesheet" type="text/css" href="../../css/index.css">
+    </head>
+    <body style="background-image: url('../../../public/images/image1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="container bgrd-primary" style="z-index: 5">
+            <div class="row ">
+                <div class="col-2">
+                    <label class="txt-md  col-default">Banka</label>
+                </div>
+                <div class="col-9"></div>
+                <div class="col-1 nav">
+                    <ul> 
+                        <li><a class="active" href="../../../index.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 card nav-vert">
+                    <ul> 
+                        <li class="shadow" onclick="showAcctSummary()"><a>Account Summary</a></li>
+                        <li class="shadow"><a>Transfer fund</a></li>
+                        <li class="shadow"><a>Buy Airtime</a></li>
+                        <li class="shadow"><a>Account Setting</a></li>
+                    </ul>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-7">
+                    <div class="panel-lg"></div>
+                    <div id="acctSummary" class="card-primary">
+                        <ul class="ul-no"> 
+                            <li class="shadow bgrd-gray txt-md acctlist" onclick="showAcctHistory()">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                            <label>Savings Account</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 lf-align pd-default col-primary">
+                                            <label>1982904889</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>&#x20A6 23,600.40</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                            <li class="shadow bgrd-gray txt-md acctlist" onclick="showAcctHistory()">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                            <label>Current Account</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 pd-default lf-align col-primary">
+                                            <label>2048938356</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>&#x20A6 43,000.97</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="acctHistory" class="card-primary hidden">
+                        <ul class="ul-no"> 
+                            <li class="shadow bgrd-gray txt-md">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                            <label>12/6/2019</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 lf-align pd-default col-primary">
+                                            <label>Credit/Lundii</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>&#x20A6 15,000.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                            <li class="shadow bgrd-gray txt-md">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                            <label>12/4/2019</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 pd-default lf-align col-primary">
+                                            <label>Debit/Withdrawal</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-danger">
+                                            <label>- &#x20A6 3,000.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                            <li class="shadow bgrd-gray txt-md">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                            <label>09/3/2019</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 lf-align pd-default col-primary">
+                                            <label>Debit/Airtime Recharge/MTN</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-danger">
+                                            <label>- &#x20A6 500.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                            <li class="shadow bgrd-gray txt-md">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                            <label>24/2/2019</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 pd-default lf-align col-primary">
+                                            <label>Debit/Transfer</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-danger">
+                                            <label>- &#x20A6 5,000.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+       </div>
+        <script src="../../js/index.js"></script>
+    </body>
+</html>
