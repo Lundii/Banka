@@ -26,3 +26,13 @@ function registerUi(){
     document.querySelector("#register").style.display = "block";
     document.querySelector("#registerCont").style.display = "block";
 }
+
+function showAcctHistory(){
+    document.querySelector("#acctHistory").style.display = "block";
+    document.querySelector("#acctSummary").style.display = "none";
+}
+
+function showAcctSummary(){
+    document.querySelector("#acctHistory").style.display = "none";
+    document.querySelector("#acctSummary").style.display = "block";
+}
