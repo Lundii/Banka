@@ -4,12 +4,13 @@
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <title>Banka app beta</title>
         <link rel="stylesheet" type="text/css" href="../../css/index.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <body style="background-image: url('../../../public/images/image1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
-        <div class="container bgrd-primary" style="z-index: 5">
+    <body class="image1">
+            <div class="container bgrd-primary z-md">
             <div class="row ">
-                <div class="col-2">
-                    <label class="txt-md  col-default">Banka</label>
+                <div class="col-2 pd-default">
+                    <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
                 </div>
                 <div class="col-9"></div>
                 <div class="col-1 nav">
@@ -23,18 +24,34 @@
             <div class="row">
                 <div class="col-3 card nav-vert">
                     <ul> 
-                        <li class="shadow" onclick="showAcctSummary()"><a>Account Summary</a></li>
-                        <li class="shadow"><a>Transfer fund</a></li>
-                        <li class="shadow"><a>Buy Airtime</a></li>
-                        <li class="shadow"><a>Account Setting</a></li>
+                        <li class="shadow"><a href="./dashboard.html">Account Summary</a></li>
+                        <li class="shadow"><a href="./transferFunds.html">Transfer fund</a></li>
+                        <li class="shadow"><a href="./buyAirtime.html">Buy Airtime</a></li>
+                        <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
                     </ul>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-7">
-                    <div class="panel-lg"></div>
-                    <div id="acctSummary" class="card-primary">
+                <div id="accountSummary" class="col-7">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                    <label>Account Summary</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 lf-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                                <div class="col-6 rt-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-primary">
                         <ul class="ul-no"> 
-                            <li class="shadow bgrd-gray txt-md acctlist" onclick="showAcctHistory()">
+                            <li class="shadow bgrd-gray txt-sm" onclick="showAcctHistory()">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -51,7 +68,7 @@
                                     </div>
                                 </div>
                             </li> 
-                            <li class="shadow bgrd-gray txt-md acctlist" onclick="showAcctHistory()">
+                            <li class="shadow bgrd-gray txt-sm" onclick="showAcctHistory()">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -70,9 +87,28 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="acctHistory" class="card-primary hidden">
+                </div>
+                <div id="accountHistory" class="col-7 hidden">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                    <label>Transaction History</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 lf-align pd-default col-primary">
+                                    <label>1982904889</label>
+                                </div>
+                                <div class="col-6 rt-align pd-default col-primary">
+                                    <label>&#x20A6 23,600.40</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-primary">
                         <ul class="ul-no"> 
-                            <li class="shadow bgrd-gray txt-md">
+                            <li class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -89,7 +125,7 @@
                                     </div>
                                 </div>
                             </li> 
-                            <li class="shadow bgrd-gray txt-md">
+                            <li class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -106,7 +142,7 @@
                                     </div>
                                 </div>
                             </li> 
-                            <li class="shadow bgrd-gray txt-md">
+                            <li class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -123,7 +159,7 @@
                                     </div>
                                 </div>
                             </li> 
-                            <li class="shadow bgrd-gray txt-md">
+                            <li class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
