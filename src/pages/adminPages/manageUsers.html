@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>Banka app beta</title>
+        <link rel="stylesheet" type="text/css" href="../../css/index.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body class="image1">
+            <div class="container bgrd-primary z-md">
+            <div class="row ">
+                <div class="col-2 pd-default">
+                    <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
+                </div>
+                <div class="col-9"></div>
+                <div class="col-1 nav">
+                    <ul> 
+                        <li><a class="active" href="../../../index.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 card nav-vert">
+                    <ul> 
+                        <li class="shadow"><a href="./manageUsers.html">Manage Users</a></li>
+                        <li class="shadow"><a href="./manageStaffs.html">Manage Staffs</a></li>
+                        <li class="shadow"><a href="./manageAdmins.html">Manage Admins</a></li>
+                        <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
+                    </ul>
+                </div>
+                <div class="col-1"></div>
+                <div id="manageUsers" class="col-7">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                    <label>Manage Users</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 lf-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                                <div class="col-6 rt-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="acctHistory" class="card-primary">
+                        <ul class="ul-no"> 
+                            <li onclick="showUserDetails()" class="shadow bgrd-gray txt-sm">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-10 lf-align pd-default bgrd-primary col-default">
+                                            <label>Adamu Rufayat Atinuke</label>
+                                        </div>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
+                                            <label><i class="material-icons md">delete</i></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 lf-align pd-default col-primary">
+                                            <label>2093483785</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>&#x20A6 45,000.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                            <li onclick="showUserDetails()" class="shadow bgrd-gray txt-sm">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-10 lf-align pd-default bgrd-primary col-default">
+                                            <label>Audu John Eche</label>
+                                        </div>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
+                                            <label><i class="material-icons md">delete</i></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 pd-default lf-align col-primary">
+                                            <label>2919309898</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>&#x20A6 1,235,000.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                            <li onclick="showUserDetails()" class="shadow bgrd-gray txt-sm">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-10 lf-align pd-default bgrd-primary col-default">
+                                            <label>Peter Tunde Abiodun</label>
+                                        </div>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
+                                            <label><i class="material-icons md">delete</i></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 lf-align pd-default col-primary">
+                                            <label>3094834890</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>&#x20A6 27,500.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                            <li onclick="showUserDetails()" class="shadow bgrd-gray txt-sm">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-10 lf-align pd-default bgrd-primary col-default">
+                                            <label>Nwachukwu Vincent </label>
+                                        </div>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
+                                            <label><i class="material-icons md">delete</i></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 pd-default lf-align col-primary">
+                                            <label>3897627873</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>&#x20A6 835,000.00</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="userDetails" class="col-7 hidden">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-9 lf-align pd-default bgrd-primary col-default">
+                                    <label>Onu Monday Emmanuel</label>
+                                </div>
+                                <div class="col-3 rt-align pd-default bgrd-primary col-default">
+                                    <label>2012345676</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 lf-align pd-default col-primary shadow pointer tranHis">
+                                    <label class="pointer"><a href="./transactionHistory.html">TRANSACTION HISTORY</a></label>
+                                </div>
+                                <div class="col-4"></div>
+                                <div class="col-4 rt-align pd-default col-danger shadow pointer">
+                                    <label class="pointer">DEACTIVATE ACCOUNT</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="acctHistory" class="card-primary">
+                        <form> 
+                            <div class="form-items-group txt-sm">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-item" name="firstName" id="firstName" placeholder="Full Name">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="acctNum">Account Number</label>
+                                <input type="number" class="form-item" name="acctNum" id="acctNum" placeholder="Account Number">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="sex">Sex</label>
+                                <input type="text" class="form-item" name="sex" id="sex" placeholder="Sex">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="text" class="form-item" name="dob" id="dob" placeholder="Date of Birth">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="phoneNo">Phone Number</label>
+                                <input type="text" class="form-item" name="phoneNo" id="phoneNo" placeholder="Phone Number">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="emailAddr">Email Address</label>
+                                <input type="text" class="form-item" name="emailAddr" id="emailAddr" placeholder="Email Address">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="contAddr">Contact Address</label>
+                                <input type="text" class="form-item" name="contAddr" id="contAddr" placeholder="Contact Address">
+                            </div>
+                            <input type="button" class="btn-default" onclick="location.href='./userPages/dashboard.html';" value="Update">
+                        </form>
+                </div>
+                <div class="col-1"></div>
+            </div>
+       </div>
+        <script src="../../js/index.js"></script>
+    </body>
+</html>
