@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>Banka app beta</title>
+        <link rel="stylesheet" type="text/css" href="../../css/index.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body class="image1">
+            <div class="container bgrd-primary z-md">
+            <div class="row ">
+                <div class="col-2 pd-default">
+                    <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
+                </div>
+                <div class="col-9"></div>
+                <div class="col-1 nav">
+                    <ul> 
+                        <li><a class="active" href="../../../index.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 card nav-vert">
+                    <ul> 
+                        <li class="shadow"><a href="./manageUsers.html">Manage Users</a></li>
+                        <li class="shadow"><a href="./manageStaffs.html">Manage Staffs</a></li>
+                        <li class="shadow"><a href="./manageAdmins.html">Manage Admins</a></li>
+                        <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
+                    </ul>
+                </div>
+                <div class="col-1"></div>
+                <div id="manageAdmins" class="col-7">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-8 lf-align pd-default bgrd-primary col-default">
+                                    <label>Manage Admins</label>
+                                </div>
+                                <div class="col-4 rt-align pd-default bgrd-primary col-default pointer shadow addNew">
+                                    <label><a href="./createUser.html">+ New Admin</a></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 lf-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                                <div class="col-6 rt-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="acctHistory" class="card-primary">
+                        <ul class="ul-no"> 
+                            <li onclick="showAdminDetails()" class="shadow bgrd-gray txt-sm">
+                                <div class="container mg-default">
+                                    <div class="row">
+                                        <div class="col-10 lf-align pd-default bgrd-primary col-default">
+                                            <label>Onu Monday Emmanuel</label>
+                                        </div>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
+                                            <label><i class="material-icons md">delete</i></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 lf-align pd-default col-primary">
+                                            <label>Admin</label>
+                                        </div>
+                                        <div class="col-6 rt-align pd-default col-primary">
+                                            <label>Staff ID: 0008912</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+                <div id="adminDetails" class="col-7 hidden">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-8 lf-align pd-default bgrd-primary col-default">
+                                    <label>Onu Monday Emmanuel</label>
+                                </div>
+                                <div class="col-4 rt-align pd-default bgrd-primary col-default">
+                                    <label>Staff ID: 1003425</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8 lf-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                                <div class="col-4 shadow pd-default col-danger pointer">
+                                    <label class="pointer">DEACTIVATE ACCOUNT</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-primary">
+                        <form> 
+                            <div class="form-items-group txt-sm">
+                                <label for="firstName">Full Name</label>
+                                <input type="text" class="form-item" name="firstName" id="firstName" placeholder="Full Name">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="sex">Sex</label>
+                                <input type="text" class="form-item" name="sex" id="sex" placeholder="Sex">
+                            </div>
+                            
+                            <div class="form-items-group">
+                                <label for="staffID">Staff ID</label>
+                                <input type="text" class="form-item" name="staffID" id="staffID" placeholder="Staff ID">
+                            </div>
+                            <div class="form-items-group">
+                                <label for="jobRole">Job Role</label>
+                                <input type="text" class="form-item" name="jobRole" id="jobRole" placeholder="Job Title">
+                            </div>
+                            <input type="button" class="btn-default" onclick="location.href='./userPages/dashboard.html';" value="Update">
+                        </form>
+                </div>
+                <div class="col-1"></div>
+            </div>
+       </div>
+        <script src="../../js/index.js"></script>
+    </body>
+</html>
