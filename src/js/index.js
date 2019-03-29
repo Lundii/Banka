@@ -48,7 +48,7 @@ function createNewAdmin(){
 }
 
 function displayView(){
-    let view = document.querySelector("#acctNumEmail").value.toLowerCase();
+    let view = document.querySelector("#acctNumEmail").value.toLowerCase() || "default";
     switch (view){
         case "user":
             window.location.href = "../pages/userPages/dashboard.html";
