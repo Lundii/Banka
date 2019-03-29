@@ -46,17 +46,20 @@
                                 <div id="login" class="card-primary">
                                     <form>
                                         <div class="form-items-group">
-                                            <input type="text" class="form-item" id="acctNum" placeholder="Enter AcctNum/Email">
+                                            <input type="text" class="form-item" id="acctNumEmail" placeholder="Enter AcctNum/Email">
                                         </div>
                                         <div class="form-items-group">
                                             <input type="password" class="form-item" id="pwrd" placeholder="Password">
                                         </div>
-                                        <input type="button" class="btn-default" onclick="location.href='./userPages/dashboard.html';" value="LogIn">
+                                        <input type="button" class="btn-default" onclick="displayView()" value="LogIn">
                                     </form>
                                     <div class="col-primary pd-default width-lg">
-                                        <pre class="txt-ssm undline-pri-hov width-sm">Forgot password?</pre>
+                                        <p class="txt-ssm undline-pri-hov width-sm">Forgot password?</pre>
                                         <div class="panel-sm"></div>
-                                        <pre class="txt-ssm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? <span>Create Account</span></pre>
+                                        <p class="txt-ssm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? Create Account</p>
+                                        <p class="col-danger txt-ssm">Enter USER, ADMIN OR STAFF as the AcctNum/Email
+                                            on the login page to see their respective view, defaults to user view.
+                                        </p>
                                     </div>
                                 </div>
                                 <div id="signup" class="card-primary hidden">
@@ -76,7 +79,10 @@
                                         <input type="button" class="btn-default" onclick="" value="Sign Up">
                                     </form>
                                     <div class="col-primary pd-default width-lg">
-                                        <pre class="txt-ssm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? <span>Create Account</span></pre>
+                                        <p class="txt-ssm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? Create Account</p>
+                                        <p class="col-danger txt-ssm">Enter USER, ADMIN OR STAFF as the AcctNum/Email
+                                            on the login page to see their respective view, defaults to user view.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -111,6 +117,9 @@
                                             <input type="email" class="form-item" id="email" placeholder="Enter Email">
                                         </div>
                                         <button class="btn-default">Register</button>
+                                        <p class="col-danger txt-ssm">Enter USER, ADMIN OR STAFF as the AcctNum/Email
+                                            on the login page to see their respective view, defaults to user view.
+                                        </p>
                                     </form>
                                 </div>
                             </div>
