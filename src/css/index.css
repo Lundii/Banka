@@ -7,6 +7,22 @@ body {
     margin: 0;
     background-color: white
 }
+body.image1 {
+    background-image: url('../../public/images/image1.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+}
+
+.z-md {
+    z-index:1;
+}
+body.image2 {
+    background-image: url('../../public/images/image4.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+}
 html {
     height: 100%;
 }
@@ -117,8 +133,17 @@ li a {
     padding: 15px;
     text-align: center;
 }
-.txt-sm {
+.addNew > label > a {
+    color: white;
+}
+.tranHis > label > a {
+    color: rgb(18, 18, 107);
+}
+.txt-ssm {
     font-size: 10px;
+}
+.txt-sm {
+    font-size: 15px;
 }
 .txt-md {
     font-size: 20px;
@@ -284,25 +309,36 @@ form {
 }
 .form-items-group {
     margin-bottom: 15px;
+    text-align: left;
+    font-size: 15px;
+    color: rgb(18, 18, 107);
 }
 .form-item {
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid blue;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid black;
     border-radius: 4px;
 }
 .card-primary {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),  0 0 8px rgba(102, 175, 233, .6);
     width: 100%;
-    background-color: white;
+    background-color: rgb(240, 240, 240);
     min-height: 400px;
+    max-height: 500px;
     margin: 0% auto;
     padding: 20px;
+    overflow: auto;
 }
 
+.login > .card-primary, 
+.signup > .card-primary,
+.register > .card-primary
+ {
+    background-color: white;
+}
 .card {
     height: 100vh;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),  0 0 8px rgba(102, 175, 233, .6);
@@ -353,14 +389,17 @@ form {
   .panel-sm  {
       width: 100%;
       height: 30px;
+      padding: 15px;
   }
   .panel-md {
       width:100%;
       height: 60px;
+      padding: 15px;
   }
   .panel-lg {
     width:100%;
     height: 100px;
+    padding: 15px 0px;
 }
   .pd-default {
       padding: 10px;
@@ -411,11 +450,8 @@ form {
       color: white;
       text-align: left;
       padding: 15px;
-      font-size: 20px;
+      font-size: 15px;
       margin: 8px;
-  }
-  .thumbnail {
-      
   }
   .ul-no {
       list-style-type: none;
@@ -423,6 +459,7 @@ form {
       padding: 15px;
   }
 
+  .ul-no > li:hover {
   .ul-no > .acctlist:hover {
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.24);
@@ -430,3 +467,14 @@ form {
   .mg-default {
       margin: 15px;
   }
+
+  .material-icons.md {
+      font-size: 16px;
+  }
+  .material-icons.md:hover {
+      cursor: pointer;
+      font-size: 17px;
+}
+.logo {
+    font-size: 25px;
+}
