@@ -460,7 +460,6 @@ form {
   }
 
   .ul-no > li:hover {
-  .ul-no > .acctlist:hover {
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.24);
   }
