@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>Banka app beta</title>
+        <link rel="stylesheet" type="text/css" href="../../css/index.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body class="image1">
+            <div class="container bgrd-primary z-md">
+            <div class="row ">
+                <div class="col-2 pd-default">
+                    <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
+                </div>
+                <div class="col-9"></div>
+                <div class="col-1 nav">
+                    <ul> 
+                        <li><a class="active" href="../../../index.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 card nav-vert">
+                    <ul> 
+                        <li class="shadow"><a href="./manageUsers.html">Manage Users</a></li>
+                        <li class="shadow"><a href="./manageStaffs.html">Manage Staffs</a></li>
+                        <li class="shadow"><a href="./creditAcct.html">Credit Account</a></li>
+                        <li class="shadow"><a href="./debitAcct.html">Debit Account</a></li>
+                        <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
+                    </ul>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                    <label>Credit Account</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 lf-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                                <div class="col-6 rt-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="login" class="card-primary">
+                                <form>
+                                    <div class="form-items-group">
+                                        <input type="text" class="form-item" id="acctNum" name="acctNum" placeholder="Account Number">
+                                    </div>
+                                    <div class="form-items-group">
+                                        <input type="text" class="form-item" id="acctName" name="acctName" placeholder="Account Name">
+                                    </div>
+                                    <div class="form-items-group">
+                                        <input type="text" class="form-item" id="bal" name="bal" value="Bal: &#x20A6 123,000.00">
+                                    </div>
+                                    <div class="form-items-group">
+                                        <input type="number" class="form-item" id="bal" name="bal" placeholder="Credit Amount">
+                                    </div>
+                                    <input type="button" class="btn-default" onclick="" value="Credit Account">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+       </div>
+        <script src="../../js/index.js"></script>
+    </body>
+</html>
