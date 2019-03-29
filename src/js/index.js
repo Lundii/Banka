@@ -46,3 +46,21 @@ function createNewAdmin(){
     document.querySelector("#adminDetails").style.display = "block";
     document.querySelector("#createNewAdmin").style.display = "block";
 }
+
+function displayView(){
+    let view = document.querySelector("#acctNumEmail").value.toLowerCase();
+    switch (view){
+        case "user":
+            window.location.href = "../pages/userPages/dashboard.html";
+            break;
+        case "admin":
+            window.location.href = "../pages/adminPages/manageUsers.html";
+            break;
+        case "staff":
+            window.location.href = "../pages/Staff(Cashier) pages/manageUsers.html";
+            break;
+        case "default":
+            window.location.href = "../pages/userPages/dashboard.html";
+            break;
+    }
+}
