@@ -64,3 +64,43 @@ function displayView(){
             break;
     }
 }
+
+window.addEventListener("resize", getWidth)
+
+function getWidth(){
+    let width = document.documentElement.clientWidth;
+    if (width >= "720"){
+        toggleMenu("hide");
+    }
+}
+function toggleMenu(src){
+    if(src == "hide"){
+        if(document.querySelector(".nav-resp-vert") != null){
+            document.querySelector(".nav-resp-vert").style.display ="none";
+        }
+        else if (document.querySelector(".nav-vert-cont") != null){
+            document.querySelector(".nav-vert-cont").style.display ="none";
+        }
+        return;
+    }
+    console.log("i was clicked")
+    if (src){
+        let toggle = document.querySelector(".nav-vert-cont");
+        if (toggle.style.display.length == 0 || toggle.style.display == "none"){
+            toggle.style.display = "block";
+        }
+        else {
+            toggle.style.display = "none";
+        }
+    }
+    else {
+        console.log("i got here")
+        let toggle = document.querySelector(".nav-resp-vert");
+        if (toggle.style.display.length == 0 || toggle.style.display == "none"){
+            toggle.style.display = "block";
+        }
+        else {
+            toggle.style.display = "none";
+        }
+    }
+} 

@@ -7,33 +7,53 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body class="image2">
-        <div class="container bgrd-primary">
-            <div class="row">
-                <div class="col-6 pd-default">
-                    <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
+        <div class="container relative bgrd-primary">
+            <div class="container">
+                <div class="row nav-cont">
+                    <div class="col-5 pd-default">
+                        <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
+                    </div>
+                    <div class="col-6 nav">
+                        <ul> 
+                            <li><a href="../../index.html">Home</a></li>
+                            <li><a>About</a></li>
+                            <li><a>Services</a></li>
+                            <li><a>Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-1 nav">
+                        <ul>
+                            <li onclick="loginSignup('login')"><a class="active">LogIn</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-5 nav">
+                <div class="row nav-resp hidden">
+                        <div class="col-10">
+                        <label class="txt-md col-default logo" onclick="toggleMenu()"><i class="material-icons">menu</i>Banka</label>
+                        </div>
+                        <div class="col-2">
+                        <label class="txt-md col-default"><a href="./signup.html">LogIn</a></label>
+                        </div>
+                </div>
+            </div>
+            <div class="row nav-resp-vert width-lg absolute hidden">
+                <div class="col-3 card nav-vert">
                     <ul> 
-                        <li><a href="../../index.html">Home</a></li>
-                        <li><a>About</a></li>
-                        <li><a>Services</a></li>
-                        <li><a>Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-1 nav">
-                    <ul>
-                        <li onclick="loginSignup('login')"><a class="active">LogIn</a></li>
+                        <li class="shadow"><a href="./index.html">Home</a></li>
+                        <li class="shadow"><a>About</a></li>
+                        <li class="shadow"><a>Services</a></li>
+                        <li class="shadow"><a>Contact</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-4"></div>
+            <div class="row login-main">
+                <div class="col-4 login-pad"></div>
                 <div id="loginSignupCont" class="col-4">
                     <div class="container">
                         <div class="panel-sm"></div>
-                        <div class="row">
+                        <div class="row login-resp">
                             <div id="loginCont" class="col-6 pd-default bgrd-default shadow pointer" onclick="loginSignup('login')">
                                 <label class="txt-md"> Login</label>
                             </div>
@@ -126,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4"></div>
+                <div class="col-4 login-pad"></div>
             </div>
         </div>
         <script src="../js/index.js"></script>
