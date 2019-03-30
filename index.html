@@ -8,11 +8,11 @@
     </head>
     <body>
         <div class="container absolute z-md">
-                <div class="row ">
-                    <div class="col-6 pd-default">
-                        <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
+                <div class="row nav-cont">
+                    <div class="col-5 pd-default">
+                        <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
                     </div>
-                    <div class="col-5 nav">
+                    <div class="col-6 nav">
                         <ul> 
                             <li><a class="active" href="../../index.html">Home</a></li>
                             <li><a>About</a></li>
@@ -26,27 +26,54 @@
                         </ul>
                     </div>
                 </div>
+                <div class="row nav-resp hidden">
+                     <div class="col-10">
+                        <label class="txt-md col-default logo" onclick="toggleMenu()"><i class="material-icons">menu</i>Banka</label>
+                     </div>
+                     <div class="col-2">
+                        <label class="txt-md col-default"><a href="./src/pages/signup.html">LogIn</a></label>
+                     </div>
+                </div>
+                <div class="row nav-resp-vert hidden">
+                    <div class="col-3 card nav-vert nav-resp-items">
+                        <ul> 
+                            <li class="shadow"><a href="./index.html">Home</a></li>
+                            <li class="shadow"><a>About</a></li>
+                            <li class="shadow"><a>Services</a></li>
+                            <li class="shadow"><a>Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
+       
         <div class="row height-lg">
                <div class="bg_slideshow">
                    <div class="bg_slideshow_items">
                         <div class="item image1">
-                            <pre class="slideshow_caption txt-lg"> Check your account transactions directly 
-on your device.
-                            </pre>
-                            <button>Learn More</button>
+                            <div class="slideshow_caption">
+                                <p class="txt-lg"> Check your account transactions directly 
+                                    on your device.
+                                </p>
+                                <button>Learn More</button>
+                            </div>
                         </div>
                         <div class="item image2">
-                                <pre class="slideshow_caption txt-lg">Easily create an account without 
-visiting the bank.
-                                </pre>
-                                <button>Learn More</button>
+                            <div class="slideshow_caption"> 
+                                <p class="txt-lg">Easily create an account without 
+                                        visiting the bank.
+                                </p>
+                                <button class="button">Learn More</button>
+                            </div>
+                                
                         </div>
                         <div class="item image3">
-                                <pre class="slideshow_caption txt-lg">An online banking platform that serves
-your basic banking needs.
-                                </pre>
+                            <div class="slideshow_caption">
+                                <p class="txt-lg">An online banking platform that serves
+                                     your basic banking needs.
+                                </p>
                                 <button>Learn More</button>
+                            </div>
                         </div>
                    </div>
                </div>
