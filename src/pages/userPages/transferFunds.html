@@ -7,31 +7,52 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body class="image1">
-            <div class="container bgrd-primary z-md">
-            <div class="row ">
-                <div class="col-2 pd-default">
-                    <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
-                </div>
-                <div class="col-9"></div>
-                <div class="col-1 nav">
-                    <ul> 
-                        <li><a class="active" href="../../../index.html">Logout</a></li>
-                    </ul>
+            <div class="container relative bgrd-primary z-md">
+                <div class="container no-pad">
+                    <div class="row nav-cont dash-nav">
+                        <div class="col-2 pd-default">
+                            <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
+                        </div>
+                        <div class="col-9"></div>
+                        <div class="col-1 nav">
+                            <ul> 
+                                <li><a class="active" href="../../../index.html">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row nav-resp hidden">
+                        <div class="col-10">
+                            <label class="txt-md col-default logo" onclick="toggleMenu('navVert')"><i class="material-icons">menu</i>Banka</label>
+                        </div>
+                        <div class="col-2">
+                            <label class="txt-md col-default"><a href="../../../index.html">Logout</a></label>
+                        </div>
+                    </div>
+                    <div class="row nav-vert-cont absolute hidden">
+                        <div class="col-3 card nav-vert-resp">
+                            <ul> 
+                                <li class="shadow"><a href="./dashboard.html">Account Summary</a></li>
+                                <li class="shadow"><a href="./transferFunds.html">Transfer fund</a></li>
+                                <li class="shadow"><a href="./buyAirtime.html">Buy Airtime</a></li>
+                                <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-3 card nav-vert">
+                <div class="col-3 card nav-vert nav-dash-cont">
                     <ul> 
-                        <li class="shadow" onclick="showAcctSummary()"><a href="./dashboard.html">Account Summary</a></li>
+                        <li class="shadow"><a href="./dashboard.html">Account Summary</a></li>
                         <li class="shadow"><a href="./transferFunds.html">Transfer fund</a></li>
                         <li class="shadow"><a href="./buyAirtime.html">Buy Airtime</a></li>
                         <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
                     </ul>
                 </div>
                 <div class="col-2"></div>
-                <div class="col-5">
+                <div class="col-5 main-resp">
                     <div class="panel-lg">
                         <div class="container bgrd-gray">
                             <div class="row">
@@ -66,7 +87,7 @@
                                         <input type="text" class="form-item" id="acctName" name="reAcctNam" placeholder="Receiver Account Name">
                                     </div>
                                     <div class="form-items-group">
-                                        <input type="number" class="form-item" id="bal" name="amount" value="Amount">
+                                        <input type="number" class="form-item" id="bal" name="amount" value="Amount" placeholder="Amount">
                                     </div>
                                     <input type="button" class="btn-default" onclick="" value="Transfer">
                                 </form>
