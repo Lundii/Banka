@@ -1,5 +1,5 @@
 {
-  "name": "Banka",
+  "name": "banka",
   "version": "1.0.0",
   "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.",
   "main": "index.js",
