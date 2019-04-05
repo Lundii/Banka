@@ -1,3 +1,33 @@
+# language: node_js
+# node_js:
+#     - "stable"
+# addons:
+#     code_climate:
+#         repo_token: "secret"
+# script: istanbul cover node_modules/mocha/bin/_mocha -- -R spec
+# before_script:
+#     - npm install codeclimate-test-reporter istanbul -g
+# after_script:
+#     - codeclimate-test-reporter < ./coverage/lcov.info
+# after_success: 
+#     - npm run coveralls
+
+  # single test suite, non-parallel build.
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=b8ce4a27dc2254bf43d75930de50ee6ea2a2754758bfd8cfcb6d50f5ecc197b3
 language: node_js
 node_js:
-   - "stable"
+  - "stable"
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  # - bundle exec rspec
+  - istanbul cover node_modules/mocha/bin/_mocha -- -R spec
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+after_success:
+  - npm run coveralls

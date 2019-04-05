@@ -4,7 +4,9 @@
   "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "cover": "instanbul cover _mocha",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -36,8 +38,10 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "istanbul": "^0.4.5",
     "jsdoc": "^3.5.5",
     "mocha": "^6.0.2",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "travis": "^0.1.1"
   }
 }
