@@ -22,3 +22,5 @@ app.listen(port, (er) => {
   if (er) throw new Error('something is preventing the app from starting');
   serverlog(`app started on port ${port}`);
 });
+
+export default app;

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec ./node_modules/.bin/babel-node ./server.js --inspect",
-    "test": "mocha",
+    "test": "mocha --recursive --require @babel/polyfill --require @babel/register",
     "cover": "instanbul cover _mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -37,6 +37,8 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.3",
     "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "debug": "^4.1.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
