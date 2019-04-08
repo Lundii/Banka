@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 import path from 'path';
 
 export default class HomeRouter {
@@ -9,6 +10,7 @@ export default class HomeRouter {
     this.router.get('/', (req, res) => {
       res.sendFile(path.join(__dirname, '../../', 'index.html'));
     });
+    
     this.router.post('/create', (req, res) => {
       let result;
       const {

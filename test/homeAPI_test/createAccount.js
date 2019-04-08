@@ -21,7 +21,7 @@ describe('Create Bank Account', () => {
         type: 'saving',
       };
       chai.request(server)
-        .post('/create')
+        .post('/api/v1/create')
         .send(body)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -48,7 +48,7 @@ describe('Create Bank Account', () => {
         dateOfBirth: new Date().getDate,
       };
       chai.request(server)
-        .post('/create')
+        .post('/api/v1/create')
         .send(body)
         .end((err, res) => {
           expect(res).to.have.status(400);
