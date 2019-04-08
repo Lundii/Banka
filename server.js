@@ -15,7 +15,7 @@ app.use(express.static('public'));
 const serverlog = debug('server:');
 const homeRoute = new routes.HomeRoute(homeRouter);
 
-app.use('/', homeRoute.route());
+app.use('/api/v1/', homeRoute.route());
 
 const { port } = config.development;
 app.listen(port, (er) => {
