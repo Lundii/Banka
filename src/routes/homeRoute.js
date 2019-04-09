@@ -26,6 +26,10 @@ export default class HomeRouter {
         res.sendFile(path.join(__dirname, '../../', 'index.html'));
       });
     
+    this.router.get('/signup', (req, res) => {
+      res.send('my name is monday');
+    });
+
     this.router.post('/create', (req, res) => {
       let result;
       // const {
