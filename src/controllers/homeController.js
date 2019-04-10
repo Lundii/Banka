@@ -1,6 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator/check';
-import { checkReqFields, passwordMatch, hashPassword } from '../util';
+import {
+  checkReqFields,
+  passwordMatch,
+  hashPassword,
+  comparePassword,
+} from '../util';
 
 /**
  * Home route controller class
@@ -15,6 +20,7 @@ class HomeController {
   constructor(store) {
     this.store = store;
     this.signup = this.signup.bind(this);
+    this.signin = this.signin.bind(this);
   }
 
   /**
@@ -83,9 +89,53 @@ class HomeController {
           status: 200,
           data: dataR[0],
         };
-        console.log(response);
         return res.status(200).json(response);
       });
+    });
+  }
+
+  signin(req, res) {
+    const reqFields = ['email', 'password'];
+    const required = checkReqFields(Object.keys(req.body), reqFields);
+    if (required >= 0) {
+      return res.status(400).json({
+        status: 400,
+        error: `${reqFields[required]} is required`,
+      });
+    }
+    const emailField = { email: req.body.email };
+    this.store.userStore.read(emailField, (err, result) => {
+      if (err) throw new Error('Error reading data');
+      if (result && !result.length) {
+        return res.status(403).json({
+          status: 403,
+          error: 'username or password is incorrect',
+        });
+      }
+      const verifypassword = comparePassword(req.body.password, result[0].password);
+      if (!verifypassword) {
+        return res.status(403).json({
+          status: 403,
+          error: 'username or password is incorrect',
+        });
+      }
+      const payload = {
+        firstName: result[0].firstName,
+        email: result[0].email,
+      };
+      const options = {
+        expiresIn: '2h',
+        issuer: 'monday.lundii',
+      };
+      const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
+      const token = jwt.sign(payload, secret, options);
+      result[0].token = token;
+      const response = {
+        status: 200,
+        data: result[0],
+      };
+      console.log(response);
+      return res.status(200).json(response);
     });
   }
 }
