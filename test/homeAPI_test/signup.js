@@ -25,7 +25,7 @@ describe('Test for signup API', () => {
           expect(res).to.have.status(200);
           expect(res).to.be.a('object');
           expect(res.body).to.have.all.keys('status', 'data');
-          expect(res.body.data).to.have.all.keys('id', 'token', 'firstName', 'lastName', 'email');
+          expect(res.body.data).to.include.all.keys('id', 'token', 'firstName', 'lastName', 'email');
           expect(res.body.data.id).to.be.a('Number');
           expect(res.body.data.firstName).to.be.a('String');
           expect(res.body.data.lastName).to.be.a('String');
@@ -180,9 +180,9 @@ describe('Test for signup API', () => {
   describe('/GET Signup new user', () => {
     it('should return a status 400 if email is not unique', (done) => {
       const body = {
-        firstName: 'Monday',
-        lastName: 'Onu',
-        email: 'goodEmail@something.com',
+        firstName: 'Peter',
+        lastName: 'Tunde',
+        email: 'petertunde@gmail.com',
         password: 'password',
         confirmPassword: 'password',
       };

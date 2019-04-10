@@ -21,9 +21,14 @@ class Store {
    */
   create(data, callback) {
     if (arguments.length < 2) return callback(new Error('Two(2) method arguments expected'));
-    if (typeof data !== 'object') return callback(new Error('Data must be an object'));
+    if (typeof data !== 'object') return callback(new Error('Data must be an object or an array of object'));
     if (typeof callback !== 'function') return callback(new Error('Callback must be a function'));
-    if (typeof data === 'object') {
+    if (Array.isArray(data)) {
+      this._table.addColumnAll(data, (err, result) => {
+        if (err) return callback(err);
+        return callback(null, result);
+      });
+    } else if (typeof data === 'object') {
       this._table.addColumn(data, (err, result) => {
         if (err) return callback(err);
         return callback(null, result);
@@ -41,7 +46,7 @@ class Store {
    */
   read(query, callback) {
     if (arguments.length < 2) return callback(new Error('Two(2) method arguments expected'));
-    if (typeof data !== 'object') return callback(new Error('Query must be an object'));
+    if (typeof query !== 'object') return callback(new Error('Query must be an object'));
     if (typeof callback !== 'function') return callback(new Error('Callback must be a function'));
     this._table.findColumn(query, (err, result) => {
       if (err) return callback(err);
