@@ -76,7 +76,7 @@ class HomeController {
           expiresIn: '2h',
           issuer: 'monday.lundii',
         };
-        const secret = process.env.JWT_SECRET;
+        const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
         const token = jwt.sign(payload, secret, options);
         dataR[0].token = token;
         const response = {
