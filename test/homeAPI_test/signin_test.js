@@ -16,7 +16,7 @@ describe('Test for Signin API', () => {
         password: 'password',
       };
       chai.request(server)
-        .post('/api/v1/signin')
+        .post('/api/v1/auth/signin')
         .send(body)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -38,7 +38,7 @@ describe('Test for Signin API', () => {
         password: 'password',
       };
       chai.request(server)
-        .post('/api/v1/signin')
+        .post('/api/v1/auth/signin')
         .send(body)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -55,7 +55,7 @@ describe('Test for Signin API', () => {
         email: 'testAdmin@gmail.com',
       };
       chai.request(server)
-        .post('/api/v1/signin')
+        .post('/api/v1/auth/signin')
         .send(body)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -73,7 +73,7 @@ describe('Test for Signin API', () => {
         password: 'password',
       };
       chai.request(server)
-        .post('/api/v1/signin')
+        .post('/api/v1/auth/signin')
         .send(body)
         .end((err, res) => {
           expect(res).to.have.status(403);
@@ -91,7 +91,7 @@ describe('Test for Signin API', () => {
         password: 'password1',
       };
       chai.request(server)
-        .post('/api/v1/signin')
+        .post('/api/v1/auth/signin')
         .send(body)
         .end((err, res) => {
           expect(res).to.have.status(403);
