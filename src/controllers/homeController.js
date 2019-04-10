@@ -20,6 +20,7 @@ class HomeController {
   constructor(store) {
     this.store = store;
     this.signup = this.signup.bind(this);
+    this.signin = this.signin.bind(this);
   }
 
   /**
@@ -93,7 +94,7 @@ class HomeController {
     });
   }
 
-  login(req, res) {
+  signin(req, res) {
     const reqFields = ['email', 'password'];
     const required = checkReqFields(Object.keys(req.body), reqFields);
     if (required >= 0) {
@@ -105,7 +106,7 @@ class HomeController {
     const emailField = { email: req.body.email };
     this.store.userStore.read(emailField, (err, result) => {
       if (err) throw new Error('Error reading data');
-      if (!result) {
+      if (result && !result.length) {
         return res.status(403).json({
           status: 403,
           error: 'username or password is incorrect',

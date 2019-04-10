@@ -8,7 +8,7 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-describe('Test for Login API', () => {
+describe('Test for Signin API', () => {
   describe('/POST Signin user', () => {
     it('should return a status 200 if all username and password is correct', (done) => {
       const body = {
