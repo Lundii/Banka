@@ -32,7 +32,7 @@ export default class HomeRouter {
     this.router.route('/signup')
       .post([check('email', 'Please enter a valid email').isEmail()], this.homeController.signup);
     
-    this.router.route('/signin')
+    this.router.route('/auth/signin')
       .post(this.homeController.signin);
       
     this.router.post('/create', (req, res) => {
