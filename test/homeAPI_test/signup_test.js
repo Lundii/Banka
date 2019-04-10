@@ -9,12 +9,12 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('Test for signup API', () => {
-  describe('/GET SignUp new user', () => {
+  describe('/POST SignUp new user', () => {
     it('should return a status 200 if all important fields are entered', (done) => {
       const body = {
         firstName: 'Onu',
         lastName: 'Monday',
-        email: 'mondayemmauel67@gmail.com',
+        email: 'testAdmin@gmail.com',
         password: 'password',
         confirmPassword: 'password',
       };
@@ -35,11 +35,11 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if firstName field is absent', (done) => {
       const body = {
         lastName: 'Monday',
-        email: 'mondayemmauel67@gmail.com',
+        email: 'testAdmin@gmail.com',
         password: 'password',
         confirmPassword: 'password',
       };
@@ -55,11 +55,11 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if lastName field is absent', (done) => {
       const body = {
         firstName: 'Monday',
-        email: 'mondayemmauel67@gmail.com',
+        email: 'testAdmin@gmail.com',
         password: 'password',
         confirmPassword: 'password',
       };
@@ -75,7 +75,7 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if email field is absent', (done) => {
       const body = {
         firstName: 'Monday',
@@ -95,12 +95,12 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if password field is absent', (done) => {
       const body = {
         firstName: 'Monday',
         lastName: 'Onu',
-        email: 'mondayemmauel67@gmail.com',
+        email: 'testAdmin@gmail.com',
         confirmPassword: 'password',
       };
       chai.request(server)
@@ -115,12 +115,12 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if confirmPassword field is absent', (done) => {
       const body = {
         firstName: 'Monday',
         lastName: 'Onu',
-        email: 'mondayemmauel67@gmail.com',
+        email: 'testAdmin@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -135,7 +135,7 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if email is invalid', (done) => {
       const body = {
         firstName: 'Monday',
@@ -156,7 +156,7 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if password and confirmPassword does not match', (done) => {
       const body = {
         firstName: 'Monday',
@@ -177,7 +177,7 @@ describe('Test for signup API', () => {
         });
     });
   });
-  describe('/GET Signup new user', () => {
+  describe('/POST Signup new user', () => {
     it('should return a status 400 if email is not unique', (done) => {
       const body = {
         firstName: 'Peter',
