@@ -23,3 +23,9 @@ export function hashPassword(password) {
   const hash = bcrypt.hashSync(password, salt);
   return hash;
 }
+
+export function comparePassword(password, hash) {
+  return (
+    bcrypt.compareSync(password, hash)
+  );
+}

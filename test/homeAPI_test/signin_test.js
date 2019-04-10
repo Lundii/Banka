@@ -67,7 +67,7 @@ describe('Test for Login API', () => {
     });
   });
   describe('/POST Signin user', () => {
-    it('should return a status 400 if email is invalid', (done) => {
+    it('should return a status 403 if user is not in the database', (done) => {
       const body = {
         email: 'testAdmin@com',
         password: 'password',
@@ -76,7 +76,7 @@ describe('Test for Login API', () => {
         .post('/api/v1/signin')
         .send(body)
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(403);
           expect(res).to.be.a('object');
           expect(res.body).to.have.all.keys('status', 'error');
           expect(res.body.error).to.be.a('String');
@@ -84,12 +84,11 @@ describe('Test for Login API', () => {
         });
     });
   });
-
   describe('/POST Signin user', () => {
-    it('should return a status 403 if user is not in the database', (done) => {
+    it('should return a status 403 if user inputs wrong password', (done) => {
       const body = {
-        email: 'testAdmin@com',
-        password: 'password',
+        email: 'petertunde@gmail.com',
+        password: 'password1',
       };
       chai.request(server)
         .post('/api/v1/signin')
