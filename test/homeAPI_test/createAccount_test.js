@@ -39,12 +39,13 @@ describe('Create Bank Account', () => {
               expect(resp).to.have.status(200);
               expect(resp).to.be.a('object');
               expect(resp.body).to.have.all.keys('status', 'data');
-              expect(resp.body.data).to.include.all.keys('accountNumber', 'firstName', 'lastName', 'email', 'type');
+              expect(resp.body.data).to.include.all.keys('accountNumber', 'firstName', 'lastName', 'email', 'type', 'openingBalance');
               expect(resp.body.data.accountNumber).to.be.a('Number');
               expect(resp.body.data.firstName).to.be.a('String');
               expect(resp.body.data.lastName).to.be.a('String');
               expect(resp.body.data.email).to.be.a('String');
               expect(resp.body.data.type).to.be.a('String');
+              expect(resp.body.data.openingBalance).to.be.a('Number');
               done();
             });
         });
