@@ -11,6 +11,8 @@ const app = express();
 dotenv.config();
 const homeRouter = express.Router();
 const userRouter = express.Router();
+const staffRouter = express.Router();
+const adminRouter = express.Router();
 
 const database = new DB('bankaApp');
 export const store = {
@@ -31,9 +33,13 @@ app.use(express.static('public'));
 const serverlog = debug('server:');
 const homeRoute = new routes.HomeRoute(homeRouter, store);
 const userRoute = new routes.UserRoute(userRouter, store);
+const staffRoute = new routes.StaffRoute(staffRouter, store);
+const adminRoute = new routes.AdminRoute(adminRouter, store);
 
 app.use('/api/v1/', homeRoute.route());
 app.use('/api/v1/user', userRoute.route());
+app.use('/api/v1/staff', staffRoute.route());
+app.use('/api/v1/admin', adminRoute.route());
 
 const { port } = config.development;
 app.listen(port, (er) => {

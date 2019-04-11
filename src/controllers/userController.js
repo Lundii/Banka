@@ -31,7 +31,7 @@ class UserController {
           id: result[0].id,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
-          accountNumber: result[0].id,
+          accountNumber: result[0].accountNumber,
           email: req.body.email,
           type: result[0].type,
           openingBalance: result[0].balance,

@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable no-restricted-properties */
 /**
  *Creates a new Table
  @class
@@ -11,6 +13,8 @@ class Table {
   constructor(name) {
     this._name = name;
     this._columns = [];
+    this._indexId = 100;
+    this._getRandomNumber = this._getRandomNumber.bind();
     this._generateId = this._generateId.bind(this);
     this._search = this._search.bind(this);
   }
@@ -69,6 +73,25 @@ class Table {
   }
 
   /**
+   * To update a column stored in the table
+   * @param {object} query - the query object
+   * @param {object} newObject - the new data object
+   * @param {function} callback - a callback function after the process runs
+   * @return {funtion} The callback function
+   */
+  updateColumn(query, newObject, callback) {
+    if (arguments.length < 3) return callback(new Error('Expects three(3) function arguments'));
+    if (typeof query !== 'object') return callback(new Error('query must be an object'));
+    if (typeof newObject !== 'object') return callback(new Error('query must be an object'));
+    if (typeof callback !== 'function') return callback(new Error('Callbak must be a function'));
+    const result = this._search(query);
+    const newObjectKey = Object.keys(newObject)[0];
+    const newObjectValue = query[newObjectKey];
+    result[0].newObjectKey = newObjectValue;
+    return callback(null, result);
+  }
+
+  /**
    * Private method to search the table for columns
    * @private
    * @param {object} query - query object to use as search key
@@ -88,9 +111,26 @@ class Table {
    * @return {objct} The column with its unique id
    */
   _generateId(object) {
-    const _id = 23421343343;
-    object._id = _id;
+    const rand1 = this._getRandomNumber(5000, 6000);
+    const rand2 = this._padNumberLength(this._getRandomNumber(0, 1000000), 8);
+    const unique = this._indexId.toString();
+    this._indexId += 1;
+    const id = parseInt(rand1 + unique + rand2);
+    object._id = id;
     return object;
+  }
+
+  _getRandomNumber(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  _padNumberLength(number, length) {
+    if (number <= Math.pow(10, length)) {
+      number = (`000000${number}`).slice(-length);
+    }
+    return number;
   }
 }
 
