@@ -10,9 +10,10 @@ import storeLib from './src/models';
 const app = express();
 dotenv.config();
 const homeRouter = express.Router();
+const userRouter = express.Router();
 
 const database = new DB('bankaApp');
-const store = {
+export const store = {
   bankAcctStore: new storeLib.BankAcctStore('Bank Accounts', database),
   userStore: new storeLib.UserStore('Users', database),
 };
@@ -29,8 +30,10 @@ app.use(express.static('public'));
 
 const serverlog = debug('server:');
 const homeRoute = new routes.HomeRoute(homeRouter, store);
+const userRoute = new routes.UserRoute(userRouter, store);
 
 app.use('/api/v1/', homeRoute.route());
+app.use('/api/v1/user', userRoute.route());
 
 const { port } = config.development;
 app.listen(port, (er) => {

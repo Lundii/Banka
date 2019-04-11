@@ -134,7 +134,6 @@ class HomeController {
         status: 200,
         data: result[0],
       };
-      console.log(response);
       return res.status(200).json(response);
     });
   }
