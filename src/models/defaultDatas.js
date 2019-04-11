@@ -45,7 +45,7 @@ export const Users = [
     isAdmin: false,
   },
   {
-    id: 1,
+    id: 6,
     firstName: 'Jeffery',
     lastName: 'Sunday',
     email: 'jefferysunday12@gmail.com',
@@ -65,3 +65,51 @@ export const Users = [
 ];
 
 export const Transaction = [];
+
+export const Accounts = [
+  {
+    _id: 1,
+    accountNumber: 1004837498,
+    createdOn: new Date().getTime,
+    owner: 1,
+    type: 'savings',
+    status: 'active',
+    balance: 0.00,
+  },
+  {
+    _id: 2,
+    accountNumber: 1004837498,
+    createdOn: new Date().getTime,
+    owner: 1,
+    type: 'current',
+    status: 'active',
+    balance: 0.00,
+  },
+  {
+    _id: 1,
+    accountNumber: 1004839098,
+    createdOn: new Date().getTime,
+    owner: 2,
+    type: 'savings',
+    status: 'active',
+    balance: 0.00,
+  },
+  {
+    _id: 1,
+    accountNumber: 1003437498,
+    createdOn: new Date().getTime,
+    owner: 3,
+    type: 'savings',
+    status: 'dormant',
+    balance: 0.00,
+  },
+  {
+    _id: 1,
+    accountNumber: 1004837498,
+    createdOn: new Date().getTime,
+    owner: 4,
+    type: 'savings',
+    status: 'active',
+    balance: 0.00,
+  },
+];

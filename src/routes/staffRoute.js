@@ -3,10 +3,10 @@ import Controllers from '../controllers';
 import { validateToken } from '../util';
 
 /**
- * Creates a router class for using page APIs
+ * Creates a router class for staff page APIs
  * @class
  */
-export default class UserRouter {
+export default class StaffRouter {
   /**
    * Constructor for creating the UserRouter class
    * @constructor
@@ -15,7 +15,7 @@ export default class UserRouter {
    */
   constructor(router, store) {
     this.router = router;
-    this.userController = new Controllers.UserController(store);
+    this.staffController = new Controllers.StaffController(store);
   }
   
   /**
@@ -23,7 +23,7 @@ export default class UserRouter {
    */
   route() {
     this.router.route('/accounts')
-      .post(validateToken, this.userController.createAccount);
+      .post(this.userController.createAccount);
       
     return this.router;
   }

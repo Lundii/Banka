@@ -17,7 +17,7 @@ class UserController {
   createAccount(req, res) {
     const accountNumber = generateAccountNumber(req.body.type);
     const data = {
-      id: 3456433455,
+      _id: 3456433455,
       accountNumber,
       createdOn: new Date().getTime,
       balance: 0.00,
