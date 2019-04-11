@@ -9,6 +9,12 @@
     "coverage": "nyc --reporter=lcov --reporter=text mocha --recursive --require @babel/register --exit",
     "coveralls": "nyc --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha --recursive --require @babel/register --exit --report  lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
+  "nyc": {
+    "exclude": [
+      "**/database/**"
+    ]
+  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lundii/Banka.git"
