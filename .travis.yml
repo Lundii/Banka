@@ -26,7 +26,6 @@ before_script:
   - ./cc-test-reporter before-build
   - npm install codeclimate-test-reporter -g
 script:
-  - bundle exec rspec
   - npm run coverage
 after_script:
   - codeclimate-test-reporter < ./coverage/lcov.info
