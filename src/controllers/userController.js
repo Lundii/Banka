@@ -34,6 +34,7 @@ class UserController {
           accountNumber: result[0].id,
           email: req.body.email,
           type: result[0].type,
+          openingBalance: result[0].balance,
         },
       };
       res.status(200).json(response);

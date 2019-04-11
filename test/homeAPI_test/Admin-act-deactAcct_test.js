@@ -8,11 +8,11 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-describe('Staff can Activate or deactivate an account Number', () => {
+describe('Admin can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 200 if the account is successfully de-activated if activated initially', (done) => {
       const body = {
-        email: 'amaka.padi@gmail.com',
+        email: 'onumonday@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -26,7 +26,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
             status: 'dormant',
           };
           chai.request(server)
-            .post('/api/v1/staff/accounts/100495432')
+            .post('/api/v1/admin/accounts/100495432')
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -45,7 +45,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 400 if the account is already active', (done) => {
       const body = {
-        email: 'amaka.padi@gmail.com',
+        email: 'onumonday@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -59,7 +59,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/staff/accounts/100495432')
+            .post('/api/v1/admin/accounts/100495432')
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -75,7 +75,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 200 if the account is successfully activated if de-activated initially', (done) => {
       const body = {
-        email: 'amaka.padi@gmail.com',
+        email: 'onumonday@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -89,7 +89,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/staff/accounts/100495432')
+            .post('/api/v1/admin/accounts/100495432')
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -108,7 +108,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 400 if the account is already dormant', (done) => {
       const body = {
-        email: 'amaka.padi@gmail.com',
+        email: 'onumonday@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -122,7 +122,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
             status: 'dormant',
           };
           chai.request(server)
-            .post('/api/v1/staff/accounts/100495432')
+            .post('/api/v1/admin/accounts/100495432')
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -152,7 +152,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/staff/accounts/100495432')
+            .post('/api/v1/admin/accounts/100495432')
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -168,7 +168,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 400 if account does not exit', (done) => {
       const body = {
-        email: 'amaka.padi@gmail.com',
+        email: 'onumonday@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -182,7 +182,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/staff/accounts/107495432')
+            .post('/api/v1/admin/accounts/107495432')
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -201,7 +201,7 @@ describe('Staff can Activate or deactivate an account Number', () => {
         status: 'active',
       };
       chai.request(server)
-        .post('/api/v1/staff/accounts/100495432')
+        .post('/api/v1/admin/accounts/100495432')
         .send(body)
         .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
         .end((err, res) => {
