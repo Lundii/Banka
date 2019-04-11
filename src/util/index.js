@@ -38,7 +38,6 @@ export function validateToken(req, res, next) {
   const authorizationHeader = req.headers.authorization;
   if (authorizationHeader) {
     const token = authorizationHeader.split(' ')[1] || authorizationHeader;
-    console.log(token);
     const options = {
       expiresIn: '2h',
       issuer: 'monday.lundii',
@@ -46,14 +45,12 @@ export function validateToken(req, res, next) {
     const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
     jwt.verify(token, secret, options, (er, payload) => {
       if (er) {
-        console.log(er);
         return res.status(401).json({
           status: 401,
           error: 'Unauthorized access',
         });
       }
       if (payload) {
-        console.log(payload);
         req.payload = payload;
         next();
       }

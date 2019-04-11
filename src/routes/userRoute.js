@@ -3,7 +3,7 @@ import Controllers from '../controllers';
 import { validateToken } from '../util';
 
 /**
- * Creates a router class for handling landing page APIs
+ * Creates a router class for using page APIs
  * @class
  */
 export default class UserRouter {
@@ -15,7 +15,6 @@ export default class UserRouter {
    */
   constructor(router, store) {
     this.router = router;
-    this.bankAcctStore = store.bankAcctStore;
     this.userController = new Controllers.UserController(store);
   }
   

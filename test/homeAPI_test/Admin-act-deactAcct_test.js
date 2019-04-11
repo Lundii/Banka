@@ -21,12 +21,12 @@ describe('Admin can Activate or deactivate an account Number', () => {
         .end((err, res) => {
           expect(res.body.data).to.include.all.keys('token');
           expect(res.body.data.token).to.be.a('String');
-          const { token } = res.body.data;
+          const { token, _id } = res.body.data;
           const body2 = {
             status: 'dormant',
           };
           chai.request(server)
-            .post('/api/v1/admin/accounts/100495432')
+            .patch(`/api/v1/admin/${_id}/account/1004837498`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -45,7 +45,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 400 if the account is already active', (done) => {
       const body = {
-        email: 'onumonday@gmail.com',
+        email: 'amaka.padi@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -54,19 +54,19 @@ describe('Admin can Activate or deactivate an account Number', () => {
         .end((err, res) => {
           expect(res.body.data).to.include.all.keys('token');
           expect(res.body.data.token).to.be.a('String');
-          const { token } = res.body.data;
+          const { token, _id } = res.body.data;
           const body2 = {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/admin/accounts/100495432')
+            .patch(`/api/v1/admin/${_id}/account/1004837498`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
               expect(resp).to.have.status(400);
               expect(resp).to.be.a('object');
               expect(resp.body).to.have.all.keys('status', 'error');
-              expect(res.body.error).to.be.a('String');
+              expect(resp.body.error).to.be.a('String');
               done();
             });
         });
@@ -75,7 +75,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 200 if the account is successfully activated if de-activated initially', (done) => {
       const body = {
-        email: 'onumonday@gmail.com',
+        email: 'amaka.padi@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -84,12 +84,12 @@ describe('Admin can Activate or deactivate an account Number', () => {
         .end((err, res) => {
           expect(res.body.data).to.include.all.keys('token');
           expect(res.body.data.token).to.be.a('String');
-          const { token } = res.body.data;
+          const { token, _id } = res.body.data;
           const body2 = {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/admin/accounts/100495432')
+            .patch(`/api/v1/admin/${_id}/account/1003437498`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -108,7 +108,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 400 if the account is already dormant', (done) => {
       const body = {
-        email: 'onumonday@gmail.com',
+        email: 'amaka.padi@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -117,19 +117,19 @@ describe('Admin can Activate or deactivate an account Number', () => {
         .end((err, res) => {
           expect(res.body.data).to.include.all.keys('token');
           expect(res.body.data.token).to.be.a('String');
-          const { token } = res.body.data;
+          const { token, _id } = res.body.data;
           const body2 = {
             status: 'dormant',
           };
           chai.request(server)
-            .post('/api/v1/admin/accounts/100495432')
+            .patch(`/api/v1/admin/${_id}/account/1003437498`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
               expect(resp).to.have.status(400);
               expect(resp).to.be.a('object');
               expect(resp.body).to.have.all.keys('status', 'error');
-              expect(res.body.error).to.be.a('String');
+              expect(resp.body.error).to.be.a('String');
               done();
             });
         });
@@ -147,19 +147,19 @@ describe('Admin can Activate or deactivate an account Number', () => {
         .end((err, res) => {
           expect(res.body.data).to.include.all.keys('token');
           expect(res.body.data.token).to.be.a('String');
-          const { token } = res.body.data;
+          const { token, _id } = res.body.data;
           const body2 = {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/admin/accounts/100495432')
+            .patch(`/api/v1/admin/${_id}/account/100495432`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
               expect(resp).to.have.status(401);
               expect(resp).to.be.a('object');
               expect(resp.body).to.have.all.keys('status', 'error');
-              expect(res.body.error).to.be.a('String');
+              expect(resp.body.error).to.be.a('String');
               done();
             });
         });
@@ -168,7 +168,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 400 if account does not exit', (done) => {
       const body = {
-        email: 'onumonday@gmail.com',
+        email: 'amaka.padi@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -177,19 +177,19 @@ describe('Admin can Activate or deactivate an account Number', () => {
         .end((err, res) => {
           expect(res.body.data).to.include.all.keys('token');
           expect(res.body.data.token).to.be.a('String');
-          const { token } = res.body.data;
+          const { token, _id } = res.body.data;
           const body2 = {
             status: 'active',
           };
           chai.request(server)
-            .post('/api/v1/admin/accounts/107495432')
+            .patch(`/api/v1/admin/${_id}/account/107495432`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
               expect(resp).to.have.status(400);
               expect(resp).to.be.a('object');
               expect(resp.body).to.have.all.keys('status', 'error');
-              expect(res.body.error).to.be.a('String');
+              expect(resp.body.error).to.be.a('String');
               done();
             });
         });
@@ -200,8 +200,9 @@ describe('Admin can Activate or deactivate an account Number', () => {
       const body = {
         status: 'active',
       };
+      const _id = 50048987839302;
       chai.request(server)
-        .post('/api/v1/admin/accounts/100495432')
+        .patch(`/api/v1/admin/${_id}/account/100495432`)
         .send(body)
         .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
         .end((err, res) => {

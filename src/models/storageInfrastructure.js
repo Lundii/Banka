@@ -1,4 +1,4 @@
-import { Users } from './defaultDatas';
+import { Users, Accounts } from './defaultDatas';
 import { hashPassword } from '../util/index';
 
 /**
@@ -10,8 +10,10 @@ class StorageInfrastructure {
     if (!store.userStore) throw new Error('UserStore cannot be null');
     if (!store.bankAcctStore) throw new Error('BankAcctStore cannot be null');
     this.init = this.init.bind(this);
-    this._createDefaultUsers = this._createDefaultUsers.bind(this);
     this.userStore = store.userStore;
+    this.bankAcctStore = store.bankAcctStore;
+    this._createDefaultUsers = this._createDefaultUsers.bind(this);
+    this._createDafaultAccounts = this._createDafaultAccounts.bind(this);
   }
 
   /**
@@ -19,6 +21,7 @@ class StorageInfrastructure {
    */
   init() {
     this._createDefaultUsers();
+    this._createDafaultAccounts();
   }
 
   /**
@@ -32,6 +35,12 @@ class StorageInfrastructure {
     });
     this.userStore.create(Users, (err, result) => {
       if (err) throw new Error('Error creating default users');
+    });
+  }
+
+  _createDafaultAccounts() {
+    this.bankAcctStore.create(Accounts, (err, result) => {
+      if (err) throw new Error('Error creating default accounts');
     });
   }
 }
