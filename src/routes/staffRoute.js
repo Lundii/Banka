@@ -19,6 +19,7 @@ export default class StaffRouter {
     this.store = store;
     this.staffController = new Controllers.StaffController(store);
     this._verifyIfStaff = this._verifyIfStaff.bind(this);
+    this._verifyIsNotAdmin = this._verifyIsNotAdmin.bind(this);
   }
   
   /**
@@ -30,6 +31,9 @@ export default class StaffRouter {
 
     this.router.route('/:_id/account/:accountNumber')
       .delete(validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
+
+    this.router.route('/:_id/transactions/:accountNumber/credit')
+      .post(validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, this.staffController.creditAccount);
     
     return this.router;
   }
@@ -38,6 +42,19 @@ export default class StaffRouter {
     req.params._id = parseInt(req.params._id);
     this.store.userStore.read({ _id: req.params._id }, (err, result) => {
       if (result.length && result[0].type !== 'staff') {
+        return res.status(401).json({
+          status: 401,
+          error: 'Unauthorized access',
+        });
+      }
+      next();
+    });
+  }
+
+  _verifyIsNotAdmin(req, res, next) {
+    req.params._id = parseInt(req.params._id);
+    this.store.userStore.read({ _id: req.params._id }, (err, result) => {
+      if (result.length && result[0].isAdmin === true) {
         return res.status(401).json({
           status: 401,
           error: 'Unauthorized access',

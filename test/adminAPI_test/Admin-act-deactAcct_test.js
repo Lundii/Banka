@@ -26,7 +26,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
             status: 'dormant',
           };
           chai.request(server)
-            .patch(`/api/v1/admin/${_id}/account/1004837498`)
+            .patch(`/api/v1/admin/${_id}/account/1004870909`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -59,7 +59,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
             status: 'active',
           };
           chai.request(server)
-            .patch(`/api/v1/admin/${_id}/account/1004837498`)
+            .patch(`/api/v1/admin/${_id}/account/1003847890`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -122,7 +122,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
             status: 'dormant',
           };
           chai.request(server)
-            .patch(`/api/v1/admin/${_id}/account/1003437498`)
+            .patch(`/api/v1/admin/${_id}/account/1004809890`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {

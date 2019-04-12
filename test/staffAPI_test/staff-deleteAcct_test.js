@@ -23,7 +23,7 @@ describe('Staff can delete an account number', () => {
           expect(res.body.data.token).to.be.a('String');
           const { token, _id } = res.body.data;
           chai.request(server)
-            .delete(`/api/v1/staff/${_id}/account/1004837498`)
+            .delete(`/api/v1/staff/${_id}/account/1007877890`)
             .set('Authorization', token)
             .end((er, resp) => {
               expect(resp).to.have.status(200);
