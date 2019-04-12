@@ -21,12 +21,13 @@ language: node_js
 node_js:
   - "stable"
 before_script:
+  - npm install nyc -g
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
   # - bundle exec rspec
-  - npm run coverage
+  - nyc --reporter=lcov npm run coverage
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 after_success:
