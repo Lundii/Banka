@@ -26,7 +26,7 @@ describe('Staff can credit an account Number', () => {
             creditAmount: 20000,
           };
           chai.request(server)
-            .post(`/api/v1/staff/${_id}/transactions/1004837498/credit`)
+            .post(`/api/v1/staff/${_id}/transactions/1004870909/credit`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -37,8 +37,7 @@ describe('Staff can credit an account Number', () => {
               expect(resp.body.data.transactionId).to.be.a('Number');
               expect(resp.body.data.accountNumber).to.be.a('String');
               expect(resp.body.data.amount).to.be.a('Number');
-              expect(resp.body.data.cahier).to.be.a('Number');
-              expect(resp.body.data.transactionId).to.be.a('String');
+              expect(resp.body.data.cashier).to.be.a('Number');
               expect(resp.body.data.accountBalance).to.be.a('String');
               done();
             });
@@ -92,7 +91,7 @@ describe('Staff can credit an account Number', () => {
             creditAmount: 20000,
           };
           chai.request(server)
-            .post(`/api/v1/staff/${_id}/transactions/1004837498/credit`)
+            .post(`/api/v1/staff/${_id}/transactions/1004937498/credit`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -112,7 +111,7 @@ describe('Staff can credit an account Number', () => {
       };
       const _id = 50048987839302;
       chai.request(server)
-        .post(`/api/v1/staff/${_id}/account/100495432`)
+        .post(`/api/v1/staff/${_id}/transactions/100495432/credit`)
         .send(body)
         .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
         .end((err, res) => {

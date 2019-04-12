@@ -19,6 +19,7 @@ export default class StaffRouter {
     this.store = store;
     this.staffController = new Controllers.StaffController(store);
     this._verifyIfStaff = this._verifyIfStaff.bind(this);
+    this._verifyIsNotAdmin = this._verifyIsNotAdmin.bind(this);
   }
   
   /**
@@ -31,7 +32,7 @@ export default class StaffRouter {
     this.router.route('/:_id/account/:accountNumber')
       .delete(validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
 
-    this.router.route('/_id/transactions/:accountNumber/credit')
+    this.router.route('/:_id/transactions/:accountNumber/credit')
       .post(validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, this.staffController.creditAccount);
     
     return this.router;

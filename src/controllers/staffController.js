@@ -12,6 +12,7 @@ class StaffController {
     this.store = store;
     this.actDeactAccount = this.actDeactAccount.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
+    this.creditAccount = this.creditAccount.bind(this);
   }
 
   actDeactAccount(req, res) {
@@ -62,6 +63,48 @@ class StaffController {
           message: 'Account successfully deleted',
         };
         res.status(200).json(response);
+      });
+    });
+  }
+
+  creditAccount(req, res) {
+    req.params.accountNumber = parseInt(req.params.accountNumber, 10);
+    this.store.bankAcctStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
+      if (err) throw new Error('Cannot find account');
+      if (!result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Account number does not exit in the database',
+        });
+      }
+      const data = {
+        id: 1,
+        createdOn: new Date().getDate,
+        type: 'credit',
+        accountNumber: req.params.accountNumber,
+        cashier: parseFloat(req.params._id),
+        amount: parseFloat(req.body.creditAmount),
+        oldBalance: result[0].balance,
+        newBalance: result[0].balance + parseFloat(req.body.creditAmount),
+      };
+      this.store.transactionStore.create(data, (err1, result1) => {
+        if (err1) throw new Error('Error saving transaction');
+        this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
+          { balance: result1[0].newBalance }, (err2, result2) => {
+            if (err2) throw new Error('Error updating transaction');
+            const resp = {
+              status: 200,
+              data: {
+                transactionId: result1[0]._id,
+                accountNumber: req.params.accountNumber.toString(),
+                amount: parseFloat(result1[0].amount),
+                cashier: req.params._id,
+                transactionType: result1[0].type,
+                accountBalance: result1[0].newBalance.toString(),
+              },
+            };
+            res.status(200).json(resp);
+          });
       });
     });
   }

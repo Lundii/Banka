@@ -1,5 +1,6 @@
-import { Users, Accounts } from './defaultDatas';
+import { Users, Accounts, Transactions } from './defaultDatas';
 import { hashPassword } from '../util/index';
+import { throws } from 'assert';
 
 /**
  * Infrastructure class for setting up initial storage values
@@ -12,8 +13,10 @@ class StorageInfrastructure {
     this.init = this.init.bind(this);
     this.userStore = store.userStore;
     this.bankAcctStore = store.bankAcctStore;
+    this.transactionStore = store.transactionStore;
     this._createDefaultUsers = this._createDefaultUsers.bind(this);
     this._createDafaultAccounts = this._createDafaultAccounts.bind(this);
+    this._createDefaultTransactions = this._createDefaultTransactions.bind(this);
   }
 
   /**
@@ -22,6 +25,7 @@ class StorageInfrastructure {
   init() {
     this._createDefaultUsers();
     this._createDafaultAccounts();
+    this._createDefaultTransactions();
   }
 
   /**
@@ -41,6 +45,12 @@ class StorageInfrastructure {
   _createDafaultAccounts() {
     this.bankAcctStore.create(Accounts, (err, result) => {
       if (err) throw new Error('Error creating default accounts');
+    });
+  }
+
+  _createDefaultTransactions() {
+    this.transactionStore.create(Accounts, (err, result) => {
+      if (err) throw new Error('Error creating default transactions');
     });
   }
 }

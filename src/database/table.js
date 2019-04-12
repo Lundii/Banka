@@ -86,8 +86,8 @@ class Table {
     if (typeof callback !== 'function') return callback(new Error('Callbak must be a function'));
     const result = this._search(query);
     const newObjectKey = Object.keys(newObject)[0];
-    const newObjectValue = query[newObjectKey];
-    result[0].newObjectKey = newObjectValue;
+    const newObjectValue = newObject[newObjectKey];
+    result[0][newObjectKey] = newObjectValue;
     return callback(null, result);
   }
 
