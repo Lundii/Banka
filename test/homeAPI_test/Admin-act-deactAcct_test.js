@@ -168,7 +168,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 400 if account does not exit', (done) => {
       const body = {
-        email: 'amaka.padi@gmail.com',
+        email: 'onumonday@gmail.com',
         password: 'password',
       };
       chai.request(server)
@@ -195,7 +195,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
         });
     });
   });
-  describe('/POST create account number', () => {
+  describe('/PATCH activate or deactivate an account Number', () => {
     it('should return a status 401 is user does not have a valid or expired token', (done) => {
       const body = {
         status: 'active',
