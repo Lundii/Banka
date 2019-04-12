@@ -91,6 +91,12 @@ class Table {
     return callback(null, result);
   }
 
+  /**
+   * To remove a column stored in the table
+   * @param {object} query - the query object
+   * @param {function} callback - a callback function after the process runs
+   * @return {function} The callback function
+   */
   removeColumn(query, callback) {
     if (arguments.length < 2) return callback(new Error('Expects two(2) function arguments'));
     if (typeof query !== 'object') return callback(new Error('query must be an object'));
@@ -130,12 +136,24 @@ class Table {
     return object;
   }
 
+  /**
+   * Private method to generate random number between two values
+   * @private
+   * @param {number} min - minimum number included in the  generation (inclusive)
+   * @param {number} max - maximnum number to be generated (exclusive)
+   */
   _getRandomNumber(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+  /**
+   * Private method to pad numbers
+   * @private
+   * @param {number} number - the number to pad with leading zeros
+   * @param {numer} length  - the length of padded number
+   */
   _padNumberLength(number, length) {
     if (number <= Math.pow(10, length)) {
       number = (`000000${number}`).slice(-length);

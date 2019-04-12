@@ -42,12 +42,20 @@ class StorageInfrastructure {
     });
   }
 
+  /**
+   * Private method for creating default accounts
+   * @private
+   */
   _createDafaultAccounts() {
     this.bankAcctStore.create(Accounts, (err, result) => {
       if (err) throw new Error('Error creating default accounts');
     });
   }
 
+  /**
+   * Private method for creating default transactions
+   * @private
+   */
   _createDefaultTransactions() {
     this.transactionStore.create(Accounts, (err, result) => {
       if (err) throw new Error('Error creating default transactions');

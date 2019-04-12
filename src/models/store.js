@@ -37,7 +37,7 @@ class Store {
 
   /**
    * Reads a column from the table
-   * @param {string} query - query object
+   * @param {object} query - query object
    * @param {function} callback - callback function when the process is done
    * @return {function} The callback function
    */
@@ -48,6 +48,13 @@ class Store {
     });
   }
 
+  /**
+   * Updates a column from the table
+   * @param {object} query - query object
+   * @param {object} query - the new data object
+   * @param {function} callback - callback function when the process is done
+   * @return {function} The callback function
+   */
   update(query, newObject, callback) {
     this._table.updateColumn(query, newObject, (err, result) => {
       if (err) return callback(err);
@@ -57,7 +64,7 @@ class Store {
 
   /**
    * Reads a column from the table
-   * @param {string} query - query object
+   * @param {object} query - query object
    * @param {function} callback - callback function when the process is done
    * @return {function} The callback function
    */

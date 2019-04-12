@@ -72,7 +72,7 @@ export const Accounts = [
     owner: 1,
     type: 'savings',
     status: 'active',
-    balance: 0.00,
+    balance: 340000.00,
   },
   {
     _id: 1,
@@ -81,7 +81,7 @@ export const Accounts = [
     owner: 1,
     type: 'savings',
     status: 'active',
-    balance: 340000.00,
+    balance: 3000.00,
   },
   {
     _id: 1,
