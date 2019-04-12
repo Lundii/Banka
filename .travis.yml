@@ -30,5 +30,5 @@ script:
   - "nyc --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha --recursive --require @babel/register --exit"
 after_script:
   - ./cc-test-reporter after-build --debug --exit-code $TRAVIS_TEST_RESULT
-after_success:
-  - npm run coveralls
+# after_success:
+#   - npm run coveralls
