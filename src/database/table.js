@@ -91,6 +91,16 @@ class Table {
     return callback(null, result);
   }
 
+  removeColumn(query, callback) {
+    if (arguments.length < 2) return callback(new Error('Expects two(2) function arguments'));
+    if (typeof query !== 'object') return callback(new Error('query must be an object'));
+    if (typeof callback !== 'function') return callback(new Error('Callbak must be a function'));
+    const result = this._search(query);
+    const index = this._columns.indexOf(result[0]);
+    this._columns.splice(index, 1);
+    return callback(result);
+  }
+
   /**
    * Private method to search the table for columns
    * @private

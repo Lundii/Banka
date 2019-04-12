@@ -11,6 +11,7 @@ class StaffController {
   constructor(store) {
     this.store = store;
     this.actDeactAccount = this.actDeactAccount.bind(this);
+    this.deleteAccount = this.deleteAccount.bind(this);
   }
 
   actDeactAccount(req, res) {
@@ -39,6 +40,26 @@ class StaffController {
             status: result2[0].status,
             message,
           },
+        };
+        res.status(200).json(response);
+      });
+    });
+  }
+
+  deleteAccount(req, res) {
+    req.params.accountNumber = parseInt(req.params.accountNumber, 10);
+    this.store.bankAcctStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
+      if (err) throw new Error('Cannot find account');
+      if (!result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Account number does not exit in the database',
+        });
+      }
+      this.store.bankAcctStore.remove({ accountNumber: req.params.accountNumber }, (er, result2) => {
+        const response = {
+          status: 200,
+          message: 'Account successfully deleted',
         };
         res.status(200).json(response);
       });

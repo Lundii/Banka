@@ -29,7 +29,6 @@ describe('Staff can delete an account number', () => {
               expect(resp).to.have.status(200);
               expect(resp).to.be.a('object');
               expect(resp.body).to.have.all.keys('status', 'message');
-              expect(resp.body.status).to.be.a('String');
               expect(resp.body.message).to.be.a('String');
               done();
             });
