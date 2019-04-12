@@ -54,6 +54,19 @@ class Store {
       return callback(null, result);
     });
   }
+
+  /**
+   * Reads a column from the table
+   * @param {string} query - query object
+   * @param {function} callback - callback function when the process is done
+   * @return {function} The callback function
+   */
+  remove(query, callback) {
+    this._table.removeColumn(query, (err, result) => {
+      if (err) return callback(err);
+      return callback(null, result);
+    });
+  }
 }
 
 export default Store;

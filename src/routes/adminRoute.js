@@ -29,6 +29,10 @@ export default class StaffRouter {
   route() {
     this.router.route('/:_id/account/:accountNumber')
       .patch(validateToken, this._verifyIfStaff, this.staffController.actDeactAccount);
+
+    this.router.route('/:_id/account/:accountNumber')
+      .delete(validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
+      
       
     return this.router;
   }
