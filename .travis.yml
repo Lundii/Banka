@@ -26,7 +26,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - nyc --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha --recursive --require @babel/register --exit
+  - nyc --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha --recursive --require @babel/register --exit 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   
