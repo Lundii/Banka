@@ -7,7 +7,7 @@
     "start": "nodemon --exec ./node_modules/.bin/babel-node ./server.js --inspect",
     "test": "nyc --reporter=text --reporter=lcov mocha --recursive --require @babel/polyfill --require @babel/register --exit",
     "coverage": "nyc --reporter=lcov --reporter=text mocha --recursive --require @babel/register --exit",
-    "coveralls": "nyc --reporter=lcov --reporter=text mocha --recursive --require @babel/register --exit && nyc report --reporter=text-lcov > ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "nyc --reporter=lcov --reporter=text mocha --recursive --require @babel/register --exit --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "nyc": {
     "exclude": [
