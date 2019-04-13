@@ -22,8 +22,8 @@ describe('Test for Signin API', () => {
           expect(res).to.have.status(200);
           expect(res).to.be.a('object');
           expect(res.body).to.have.all.keys('status', 'data');
-          expect(res.body.data).to.include.all.keys('id', 'token', 'firstName', 'lastName', 'email');
-          expect(res.body.data.id).to.be.a('Number');
+          expect(res.body.data).to.include.all.keys('_id', 'token', 'firstName', 'lastName', 'email');
+          expect(res.body.data._id).to.be.a('Number');
           expect(res.body.data.firstName).to.be.a('String');
           expect(res.body.data.lastName).to.be.a('String');
           expect(res.body.data.email).to.be.a('String');

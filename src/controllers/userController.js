@@ -22,18 +22,19 @@ class UserController {
   createAccount(req, res) {
     const accountNumber = generateAccountNumber(req.body.type);
     const data = {
-      _id: 3456433455,
       accountNumber,
       createdOn: new Date().getTime,
-      balance: 0.00,
+      owner: req.params._id,
       type: req.body.type,
+      status: 'active',
+      balance: 0.00,
     };
     this.store.bankAcctStore.create(data, (err, result) => {
       if (err) throw new Error('Error saving account Number');
       const response = {
         status: 200,
         data: {
-          id: result[0].id,
+          _id: result[0]._id,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           accountNumber: result[0].accountNumber,

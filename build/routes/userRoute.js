@@ -44,7 +44,7 @@ function () {
   _createClass(UserRouter, [{
     key: "route",
     value: function route() {
-      this.router.route('/accounts').post(_util.validateToken, this.userController.createAccount);
+      this.router.route('/:_id/accounts').post(_util.validateToken, this.userController.createAccount);
       return this.router;
     }
   }]);

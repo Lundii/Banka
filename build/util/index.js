@@ -40,12 +40,19 @@ function checkReqFields(body, fields) {
  */
 
 
-function passwordMatch(password, confirmPassword) {
-  if (password === confirmPassword) {
-    return true;
+function passwordMatch(req, res, next) {
+  var _req$body = req.body,
+      password = _req$body.password,
+      confirmPassword = _req$body.confirmPassword;
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Password and confirm password does not match'
+    });
   }
 
-  return false;
+  next();
 }
 /**
  * Helper function to hash a password

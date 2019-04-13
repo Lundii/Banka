@@ -22,11 +22,15 @@ export function checkReqFields(body, fields) {
  * @param {string} password - the first password
  * @param {string} confirmPassword - the other password
  */
-export function passwordMatch(password, confirmPassword) {
-  if (password === confirmPassword) {
-    return true;
+export function passwordMatch(req, res, next) {
+  const { password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Password and confirm password does not match',
+    });
   }
-  return false;
+  next();
 }
 
 /**

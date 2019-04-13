@@ -11,6 +11,8 @@ var _check = require("express-validator/check");
 
 var _util = require("../util");
 
+var _config = _interopRequireDefault(require("../config"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69,17 +71,6 @@ function () {
         });
       }
 
-      var _req$body = req.body,
-          password = _req$body.password,
-          confirmPassword = _req$body.confirmPassword;
-
-      if (!(0, _util.passwordMatch)(password, confirmPassword)) {
-        return res.status(400).json({
-          status: 400,
-          error: 'Password and confirm password does not match'
-        });
-      }
-
       var emailField = {
         email: req.body.email
       };
@@ -96,7 +87,6 @@ function () {
         var hashPass = (0, _util.hashPassword)(req.body.password);
         req.body.password = hashPass;
         var data = {
-          id: 1,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           email: req.body.email,
@@ -111,13 +101,9 @@ function () {
             firstName: req.body.firstName,
             email: req.body.email
           };
-          var options = {
-            expiresIn: '2h',
-            issuer: 'monday.lundii'
-          };
           var secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
 
-          var token = _jsonwebtoken["default"].sign(payload, secret, options);
+          var token = _jsonwebtoken["default"].sign(payload, secret, _config["default"].jwt_options);
 
           dataR[0].token = token;
           var response = {
@@ -173,13 +159,9 @@ function () {
           firstName: result[0].firstName,
           email: result[0].email
         };
-        var options = {
-          expiresIn: '2h',
-          issuer: 'monday.lundii'
-        };
         var secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
 
-        var token = _jsonwebtoken["default"].sign(payload, secret, options);
+        var token = _jsonwebtoken["default"].sign(payload, secret, _config["default"].jwt_options);
 
         result[0].token = token;
         var response = {
