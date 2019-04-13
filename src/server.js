@@ -3,9 +3,9 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { debug } from 'debug';
 import config from './config';
-import routes from './src/routes';
-import DB from './src/database/database';
-import storeLib from './src/models';
+import routes from './routes';
+import DB from './database/database';
+import storeLib from './models';
 
 const app = express();
 dotenv.config();
