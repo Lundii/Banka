@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator/check';
 import {
   checkReqFields,
-  passwordMatch,
   hashPassword,
   comparePassword,
 } from '../util';
+import config from '../config';
 
 /**
  * Home route controller class
@@ -44,14 +44,6 @@ class HomeController {
         error: `${reqFields[required]} is required`,
       });
     }
-    const { password, confirmPassword } = req.body;
-    if (!passwordMatch(password, confirmPassword)) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Password and confirm password does not match',
-      });
-    }
-
     const emailField = { email: req.body.email };
     this.store.userStore.read(emailField, (err, result) => {
       if (err) throw new Error('Error reading data');
@@ -64,7 +56,6 @@ class HomeController {
       const hashPass = hashPassword(req.body.password);
       req.body.password = hashPass;
       const data = {
-        id: 1,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -78,12 +69,8 @@ class HomeController {
           firstName: req.body.firstName,
           email: req.body.email,
         };
-        const options = {
-          expiresIn: '2h',
-          issuer: 'monday.lundii',
-        };
         const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
-        const token = jwt.sign(payload, secret, options);
+        const token = jwt.sign(payload, secret, config.jwt_options);
         dataR[0].token = token;
         const response = {
           status: 200,
@@ -128,12 +115,8 @@ class HomeController {
         firstName: result[0].firstName,
         email: result[0].email,
       };
-      const options = {
-        expiresIn: '2h',
-        issuer: 'monday.lundii',
-      };
       const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
-      const token = jwt.sign(payload, secret, options);
+      const token = jwt.sign(payload, secret, config.jwt_options);
       result[0].token = token;
       const response = {
         status: 200,

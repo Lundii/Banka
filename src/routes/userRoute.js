@@ -22,7 +22,7 @@ export default class UserRouter {
    * Method used for routing
    */
   route() {
-    this.router.route('/accounts')
+    this.router.route('/:_id/accounts')
       .post(validateToken, this.userController.createAccount);
       
     return this.router;

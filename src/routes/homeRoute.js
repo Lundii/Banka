@@ -1,7 +1,7 @@
 /* eslint-disable no-trailing-spaces */
-import path from 'path';
 import { check } from 'express-validator/check';
 import Controllers from '../controllers';
+import { passwordMatch } from '../util';
 
 /**
  * Creates a router class for handling landing page APIs
@@ -26,11 +26,14 @@ export default class HomeRouter {
   route() {
     this.router.route('/')
       .get((req, res) => {
-        res.sendFile(path.join(__dirname, '../../', 'index.html'));
+        res.status(200).json({
+          status: 200,
+          message: 'Welcome to Banka app',
+        });
       });
     
     this.router.route('/signup')
-      .post([check('email', 'Please enter a valid email').isEmail()], this.homeController.signup);
+      .post(passwordMatch, [check('email', 'Please enter a valid email').isEmail()], this.homeController.signup);
     
     this.router.route('/auth/signin')
       .post(this.homeController.signin);

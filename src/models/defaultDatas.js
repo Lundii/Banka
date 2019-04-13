@@ -1,6 +1,5 @@
 export const Users = [
   {
-    id: 1,
     firstName: 'Peter',
     lastName: 'Tunde',
     email: 'petertunde@gmail.com',
@@ -9,7 +8,6 @@ export const Users = [
     isAdmin: false,
   },
   {
-    id: 2,
     firstName: 'Aisha',
     lastName: 'Lawal',
     email: 'aishalawal23@gmail.com',
@@ -18,7 +16,6 @@ export const Users = [
     isAdmin: false,
   },
   {
-    id: 3,
     firstName: 'Chukwudi',
     lastName: 'James',
     email: 'chukwudi.james@gmail.com',
@@ -27,7 +24,6 @@ export const Users = [
     isAdmin: false,
   },
   {
-    id: 4,
     firstName: 'Bill',
     lastName: 'Mark',
     email: 'billmark56@gmail.com',
@@ -36,7 +32,6 @@ export const Users = [
     isAdmin: false,
   },
   {
-    id: 5,
     firstName: 'Amaka',
     lastName: 'Padi',
     email: 'amaka.padi@gmail.com',
@@ -45,7 +40,6 @@ export const Users = [
     isAdmin: false,
   },
   {
-    id: 6,
     firstName: 'Jeffery',
     lastName: 'Sunday',
     email: 'jefferysunday12@gmail.com',
@@ -54,7 +48,6 @@ export const Users = [
     isAdmin: false,
   },
   {
-    id: 1,
     firstName: 'Onu',
     lastName: 'Monday',
     email: 'onumonday@gmail.com',
@@ -66,7 +59,6 @@ export const Users = [
 
 export const Accounts = [
   {
-    _id: 1,
     accountNumber: 1004875498,
     createdOn: new Date().getTime,
     owner: 1,
@@ -75,7 +67,6 @@ export const Accounts = [
     balance: 340000.00,
   },
   {
-    _id: 1,
     accountNumber: 1004870909,
     createdOn: new Date().getTime,
     owner: 1,
@@ -84,7 +75,6 @@ export const Accounts = [
     balance: 3000.00,
   },
   {
-    _id: 1,
     accountNumber: 1004848398,
     createdOn: new Date().getTime,
     owner: 1,
@@ -93,7 +83,6 @@ export const Accounts = [
     balance: 0.00,
   },
   {
-    _id: 1,
     accountNumber: 1003847890,
     createdOn: new Date().getTime,
     owner: 1,
@@ -102,7 +91,6 @@ export const Accounts = [
     balance: 100.00,
   },
   {
-    _id: 1,
     accountNumber: 1000047890,
     createdOn: new Date().getTime,
     owner: 1,
@@ -111,7 +99,6 @@ export const Accounts = [
     balance: 400000.00,
   },
   {
-    _id: 1,
     accountNumber: 1004839098,
     createdOn: new Date().getTime,
     owner: 2,
@@ -120,7 +107,6 @@ export const Accounts = [
     balance: 0.00,
   },
   {
-    _id: 1,
     accountNumber: 1003437498,
     createdOn: new Date().getTime,
     owner: 3,
@@ -129,7 +115,6 @@ export const Accounts = [
     balance: 0.00,
   },
   {
-    _id: 1,
     accountNumber: 1004837498,
     createdOn: new Date().getTime,
     owner: 4,
@@ -138,7 +123,6 @@ export const Accounts = [
     balance: 0.00,
   },
   {
-    _id: 1,
     accountNumber: 1004809890,
     createdOn: new Date().getTime,
     owner: 4,
@@ -147,7 +131,6 @@ export const Accounts = [
     balance: 0.00,
   },
   {
-    _id: 1,
     accountNumber: 1007877890,
     createdOn: new Date().getTime,
     owner: 4,
@@ -159,7 +142,6 @@ export const Accounts = [
 
 export const Transactions = [
   {
-    id: 1,
     createdOn: new Date().getDate,
     type: 'credit',
     accountNumber: 1004837498,
@@ -169,7 +151,6 @@ export const Transactions = [
     newBalance: 150000.00,
   },
   {
-    id: 1,
     createdOn: new Date().getDate,
     type: 'credit',
     accountNumber: 1004837498,
@@ -179,7 +160,6 @@ export const Transactions = [
     newBalance: 150000.00,
   },
   {
-    id: 1,
     createdOn: new Date().getDate,
     type: 'credit',
     accountNumber: 1004837498,
@@ -189,7 +169,6 @@ export const Transactions = [
     newBalance: 160000.00,
   },
   {
-    id: 1,
     createdOn: new Date().getDate,
     type: 'credit',
     accountNumber: 1004837498,

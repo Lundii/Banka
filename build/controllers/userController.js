@@ -43,18 +43,19 @@ function () {
     value: function createAccount(req, res) {
       var accountNumber = (0, _util.generateAccountNumber)(req.body.type);
       var data = {
-        _id: 3456433455,
         accountNumber: accountNumber,
         createdOn: new Date().getTime,
-        balance: 0.00,
-        type: req.body.type
+        owner: req.params._id,
+        type: req.body.type,
+        status: 'active',
+        balance: 0.00
       };
       this.store.bankAcctStore.create(data, function (err, result) {
         if (err) throw new Error('Error saving account Number');
         var response = {
           status: 200,
           data: {
-            id: result[0].id,
+            _id: result[0]._id,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             accountNumber: result[0].accountNumber,

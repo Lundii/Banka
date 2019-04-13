@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _path = _interopRequireDefault(require("path"));
-
 var _check = require("express-validator/check");
 
 var _controllers = _interopRequireDefault(require("../controllers"));
+
+var _util = require("../util");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -48,9 +48,12 @@ function () {
     key: "route",
     value: function route() {
       this.router.route('/').get(function (req, res) {
-        res.sendFile(_path["default"].join(__dirname, '../../', 'index.html'));
+        res.status(200).json({
+          status: 200,
+          message: 'Welcome to Banka app'
+        });
       });
-      this.router.route('/signup').post([(0, _check.check)('email', 'Please enter a valid email').isEmail()], this.homeController.signup);
+      this.router.route('/signup').post(_util.passwordMatch, [(0, _check.check)('email', 'Please enter a valid email').isEmail()], this.homeController.signup);
       this.router.route('/auth/signin').post(this.homeController.signin);
       return this.router;
     }

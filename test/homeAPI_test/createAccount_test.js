@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 describe('Create Bank Account', () => {
   describe('/POST create account number', () => {
-    it('should return a status 200 if user is registered and have a vaid token', (done) => {
+    it('should return a status 200 if user is registered and have a valid token', (done) => {
       const body = {
         firstName: 'Onu',
         lastName: 'Monday',
@@ -24,7 +24,7 @@ describe('Create Bank Account', () => {
         .end((err, res) => {
           expect(res.body.data).to.include.all.keys('token');
           expect(res.body.data.token).to.be.a('String');
-          const { token } = res.body.data;
+          const { token, _id } = res.body.data;
           const body2 = {
             firstName: res.body.data.firstName,
             lastName: res.body.data.lastName,
@@ -32,7 +32,7 @@ describe('Create Bank Account', () => {
             type: 'savings',
           };
           chai.request(server)
-            .post('/api/v1/user/accounts')
+            .post(`/api/v1/user/${_id}/accounts`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
@@ -60,7 +60,7 @@ describe('Create Bank Account', () => {
         type: 'savings',
       };
       chai.request(server)
-        .post('/api/v1/user/accounts')
+        .post('/api/v1/user/50087744345864345/accounts')
         .send(body)
         .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
         .end((err, res) => {

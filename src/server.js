@@ -18,7 +18,7 @@ const database = new DB('bankaApp');
 export const store = {
   bankAcctStore: new storeLib.BankAcctStore('Bank Accounts', database),
   userStore: new storeLib.UserStore('Users', database),
-  transactionStore: new storeLib.TransactionStore('Transactions', database)
+  transactionStore: new storeLib.TransactionStore('Transactions', database),
 };
 
 const StorageInfrastructure = new storeLib.StorageInfrastructure(store);
