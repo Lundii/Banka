@@ -81,7 +81,7 @@ This application is hosted on heroku. Follow the [Heroku Link](https://mighty-re
 }    
 ```
 
-### Create a bank account  `POST /user/accounts`   
+### Create a bank account  `POST /user/<_id>/accounts`   
 #### Body   
 ```
 {
