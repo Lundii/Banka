@@ -14,6 +14,11 @@ class UserController {
     this.createAccount = this.createAccount.bind(this);
   }
 
+  /**
+   * Method for handling creating account route(POST api/v1/accounts)
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
   createAccount(req, res) {
     const accountNumber = generateAccountNumber(req.body.type);
     const data = {

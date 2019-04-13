@@ -37,6 +37,13 @@ export default class StaffRouter {
     return this.router;
   }
 
+  /**
+   * Private method used to check if user is a staff
+   * @private
+   * @param {object} req - the server request object
+   * @param {object} res - the server response object
+   * @param {function} next - express middleware next() function
+   */
   _verifyIfStaff(req, res, next) {
     req.params._id = parseInt(req.params._id);
     this.store.userStore.read({ _id: req.params._id }, (err, result) => {
@@ -50,6 +57,13 @@ export default class StaffRouter {
     });
   }
 
+  /**
+   * Private method used to check if user is an staff
+   * @private
+   * @param {object} req - the server request object
+   * @param {object} res - the server response object
+   * @param {function} next - express middleware next() function
+   */
   _verifyIfAdmin(req, res, next) {
     req.params._id = parseInt(req.params._id);
     this.store.userStore.read({ _id: req.params._id }, (err, result) => {

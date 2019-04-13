@@ -8,7 +8,7 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-describe('Staff can debite an account Number', () => {
+describe('Staff can debit an account Number', () => {
   describe('/POST delete an account Number', () => {
     it('should return a status 200 if the account is successfully debited', (done) => {
       const body = {
@@ -26,7 +26,7 @@ describe('Staff can debite an account Number', () => {
             debitAmount: 20000,
           };
           chai.request(server)
-            .post(`/api/v1/staff/${_id}/transactions/1004870909/debit`)
+            .post(`/api/v1/staff/${_id}/transactions/1000047890/debit`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {

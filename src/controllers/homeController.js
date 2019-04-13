@@ -24,7 +24,7 @@ class HomeController {
   }
 
   /**
-   * Method for handling signup route
+   * Method for handling signup route(POST api/v1/signup)
    * @param {object} req - the request object
    * @param {object} res  - the response object
    */
@@ -94,6 +94,11 @@ class HomeController {
     });
   }
 
+  /**
+   * Method for handling signin route(POST api/v1/auth/signin)
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
   signin(req, res) {
     const reqFields = ['email', 'password'];
     const required = checkReqFields(Object.keys(req.body), reqFields);

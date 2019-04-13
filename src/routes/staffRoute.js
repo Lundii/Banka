@@ -33,11 +33,23 @@ export default class StaffRouter {
       .delete(validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
 
     this.router.route('/:_id/transactions/:accountNumber/credit')
-      .post(validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, this.staffController.creditAccount);
+      .post(validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, 
+        this.staffController.creditAccount);
+
+    this.router.route('/:_id/transactions/:accountNumber/debit')
+      .post(validateToken, this._verifyIfStaff, this._verifyIsNotAdmin,
+        this.staffController.debitAccount);
     
     return this.router;
   }
-  
+
+  /**
+   * Private method used to check if user is a staff
+   * @private
+   * @param {object} req - the server request object
+   * @param {object} res - the server response object
+   * @param {function} next - express middleware next() function
+   */  
   _verifyIfStaff(req, res, next) {
     req.params._id = parseInt(req.params._id);
     this.store.userStore.read({ _id: req.params._id }, (err, result) => {
@@ -51,6 +63,13 @@ export default class StaffRouter {
     });
   }
 
+  /**
+   * Private method used to check if user is not an admin
+   * @private
+   * @param {object} req - the server request object
+   * @param {object} res - the server response object
+   * @param {function} next - express middleware next() function
+   */
   _verifyIsNotAdmin(req, res, next) {
     req.params._id = parseInt(req.params._id);
     this.store.userStore.read({ _id: req.params._id }, (err, result) => {

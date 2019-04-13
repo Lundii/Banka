@@ -46,7 +46,6 @@ const { port } = config.development;
 app.listen(port, (er) => {
   if (er) throw new Error('something is preventing the app from starting');
   serverlog(`app started on port ${port}`);
-  console.log('i was started');
   Init();
 });
 
