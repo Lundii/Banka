@@ -103,6 +103,15 @@ export const Accounts = [
   },
   {
     _id: 1,
+    accountNumber: 1000047890,
+    createdOn: new Date().getTime,
+    owner: 1,
+    type: 'savings',
+    status: 'active',
+    balance: 400000.00,
+  },
+  {
+    _id: 1,
     accountNumber: 1004839098,
     createdOn: new Date().getTime,
     owner: 2,

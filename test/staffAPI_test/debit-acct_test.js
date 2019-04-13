@@ -26,7 +26,7 @@ describe('Staff can debit an account Number', () => {
             debitAmount: 20000,
           };
           chai.request(server)
-            .post(`/api/v1/staff/${_id}/transactions/1004875498/debit`)
+            .post(`/api/v1/staff/${_id}/transactions/1000047890/debit`)
             .send(body2)
             .set('Authorization', token)
             .end((er, resp) => {
