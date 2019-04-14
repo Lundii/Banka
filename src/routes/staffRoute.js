@@ -31,7 +31,7 @@ export default class StaffRouter {
       .patch(validateToken, this._verifyIfStaff,
         [body('status', 'field is required').exists(),
           body('status', 'cannot be empty').isLength({ min: 1 }),
-          body('status', 'Status can either be active or dormant' ).custom((value) => {
+          body('status', 'Status can either be active or dormant').custom((value) => {
             if (value !== 'dormant' && value !== 'active') {
               return Promise.reject(new Error('Status can either be active or dormant'));
             }
