@@ -29,21 +29,6 @@ class HomeController {
    * @param {object} res  - the response object
    */
   signup(req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Please enter a valid email address',
-      });
-    }
-    const reqFields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];
-    const required = checkReqFields(Object.keys(req.body), reqFields);
-    if (required >= 0) {
-      return res.status(400).json({
-        status: 400,
-        error: `${reqFields[required]} is required`,
-      });
-    }
     const emailField = { email: req.body.email };
     this.store.userStore.read(emailField, (err, result) => {
       if (err) throw new Error('Error reading data');
@@ -87,14 +72,6 @@ class HomeController {
    * @param {object} res  - the response object
    */
   signin(req, res) {
-    const reqFields = ['email', 'password'];
-    const required = checkReqFields(Object.keys(req.body), reqFields);
-    if (required >= 0) {
-      return res.status(400).json({
-        status: 400,
-        error: `${reqFields[required]} is required`,
-      });
-    }
     const emailField = { email: req.body.email };
     this.store.userStore.read(emailField, (err, result) => {
       if (err) throw new Error('Error reading data');

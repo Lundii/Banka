@@ -1,7 +1,8 @@
 /* eslint-disable radix */
 /* eslint-disable no-trailing-spaces */
+import { body } from 'express-validator/check';
 import Controllers from '../controllers';
-import { validateToken } from '../util';
+import { validateToken, validate } from '../util';
 
 /**
  * Creates a router class for staff page APIs
@@ -28,7 +29,17 @@ export default class StaffRouter {
    */
   route() {
     this.router.route('/:_id/account/:accountNumber')
-      .patch(validateToken, this._verifyIfStaff, this.staffController.actDeactAccount);
+      .patch(validateToken, this._verifyIfStaff,
+        [body('status', 'field is required').exists(),
+          body('status', 'cannot be empty').isLength({ min: 1 }),
+          body('status', 'Status can either be active or dormant' ).custom((value) => {
+            if (value !== 'dormant' && value !== 'active') {
+              return Promise.reject(new Error('Status can either be active or dormant'));
+            }
+            return Promise.resolve(true);
+          })],
+        validate,
+        this.staffController.actDeactAccount);
 
     this.router.route('/:_id/account/:accountNumber')
       .delete(validateToken, this._verifyIfStaff, this.staffController.deleteAccount);

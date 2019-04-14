@@ -2,6 +2,7 @@
 /* eslint-disable radix */
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { validationResult } from 'express-validator/check';
 
 let unique = 10;
 
@@ -125,4 +126,16 @@ export function validateToken(req, res, next) {
   } else {
     next();
   }
+}
+
+export function validate(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errMessage = errors.array().reduce((err, current) => `${err} ${current.param} ${current.msg} | `, '');
+    return res.status(400).json({
+      status: 400,
+      error: errMessage,
+    });
+  }
+  next();
 }
