@@ -52,25 +52,6 @@ function () {
     value: function signup(req, res) {
       var _this = this;
 
-      var errors = (0, _check.validationResult)(req);
-
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          status: 400,
-          error: 'Please enter a valid email address'
-        });
-      }
-
-      var reqFields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];
-      var required = (0, _util.checkReqFields)(Object.keys(req.body), reqFields);
-
-      if (required >= 0) {
-        return res.status(400).json({
-          status: 400,
-          error: "".concat(reqFields[required], " is required")
-        });
-      }
-
       var emailField = {
         email: req.body.email
       };
@@ -123,16 +104,6 @@ function () {
   }, {
     key: "signin",
     value: function signin(req, res) {
-      var reqFields = ['email', 'password'];
-      var required = (0, _util.checkReqFields)(Object.keys(req.body), reqFields);
-
-      if (required >= 0) {
-        return res.status(400).json({
-          status: 400,
-          error: "".concat(reqFields[required], " is required")
-        });
-      }
-
       var emailField = {
         email: req.body.email
       };

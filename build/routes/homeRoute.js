@@ -53,8 +53,10 @@ function () {
           message: 'Welcome to Banka app'
         });
       });
-      this.router.route('/signup').post(_util.passwordMatch, [(0, _check.check)('email', 'Please enter a valid email').isEmail()], this.homeController.signup);
-      this.router.route('/auth/signin').post(this.homeController.signin);
+      this.router.route('/signup').post(_util.passwordMatch, [(0, _check.body)(['firstName', 'lastName', 'email', 'password', 'confirmPassword'], 'field is required').exists(), (0, _check.body)('email', 'is invalid').isEmail(), (0, _check.body)(['firstName', 'lastName', 'password', 'confirmPassword'], ' cannot be empty').isLength({
+        min: 1
+      })], _util.validate, this.homeController.signup);
+      this.router.route('/auth/signin').post([(0, _check.body)(['email', 'password'], 'field is required').exists(), (0, _check.body)('email', 'is invalid'), (0, _check.body)(['email, password'], 'cannot be empty').isEmpty()], _util.validate, this.homeController.signin);
       return this.router;
     }
   }]);

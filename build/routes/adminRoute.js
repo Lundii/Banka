@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _check = require("express-validator/check");
+
 var _controllers = _interopRequireDefault(require("../controllers"));
 
 var _util = require("../util");
@@ -48,7 +50,15 @@ function () {
   _createClass(StaffRouter, [{
     key: "route",
     value: function route() {
-      this.router.route('/:_id/account/:accountNumber').patch(_util.validateToken, this._verifyIfStaff, this.staffController.actDeactAccount);
+      this.router.route('/:_id/account/:accountNumber').patch(_util.validateToken, this._verifyIfStaff, [(0, _check.body)('status', 'field is required').exists(), (0, _check.body)('status', 'cannot be empty').isLength({
+        min: 1
+      }), (0, _check.body)('status', 'Status can either be active or dormant').custom(function (value) {
+        if (value !== 'dormant' && value !== 'active') {
+          return Promise.reject(new Error('Status can either be active or dormant'));
+        }
+
+        return Promise.resolve(true);
+      })], _util.validate, this.staffController.actDeactAccount);
       this.router.route('/:_id/account/:accountNumber')["delete"](_util.validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
       return this.router;
     }

@@ -9,10 +9,13 @@ exports.hashPassword = hashPassword;
 exports.comparePassword = comparePassword;
 exports.generateAccountNumber = generateAccountNumber;
 exports.validateToken = validateToken;
+exports.validate = validate;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
+
+var _check = require("express-validator/check");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -158,4 +161,20 @@ function validateToken(req, res, next) {
   } else {
     next();
   }
+}
+
+function validate(req, res, next) {
+  var errors = (0, _check.validationResult)(req);
+
+  if (!errors.isEmpty()) {
+    var errMessage = errors.array().reduce(function (err, current) {
+      return "".concat(err, " ").concat(current.param, " ").concat(current.msg, " | ");
+    }, '');
+    return res.status(400).json({
+      status: 400,
+      error: errMessage
+    });
+  }
+
+  next();
 }

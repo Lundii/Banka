@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _check = require("express-validator/check");
+
 var _controllers = _interopRequireDefault(require("../controllers"));
 
 var _util = require("../util");
@@ -44,7 +46,15 @@ function () {
   _createClass(UserRouter, [{
     key: "route",
     value: function route() {
-      this.router.route('/:_id/accounts').post(_util.validateToken, this.userController.createAccount);
+      this.router.route('/:_id/accounts').post(_util.validateToken, [(0, _check.body)(['firstName', 'lastName', 'email', 'type'], 'field is required').exists(), (0, _check.body)(['firstName', 'lastName', 'type'], ' cannot be empty').isLength({
+        min: 1
+      }), (0, _check.body)('type', 'Account type can either be savings or current').custom(function (value) {
+        if (value !== 'savings' && value !== 'current') {
+          return Promise.reject(new Error('Account type can either be savings or current'));
+        }
+
+        return Promise.resolve(true);
+      })], _util.validate, this.userController.createAccount);
       return this.router;
     }
   }]);
