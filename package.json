@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/server.js --inspect",
-    "start-dev": "nodemon --exec ./node_modules/.bin/babel-node ./src/server.js  --inspect",
+    "start-dev": "nodemon --exec ./node_modules/.bin/babel-node ./src/server.js --inspect",
     "build": "babel src --out-dir build",
     "heroku-postbuild": "npm run build",
     "test": "nyc --reporter=text --reporter=lcov mocha --recursive --require @babel/polyfill --require @babel/register --exit",
