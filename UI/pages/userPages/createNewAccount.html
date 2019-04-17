@@ -31,11 +31,7 @@
                     <div class="row nav-vert-cont absolute hidden">
                         <div class="col-3 card nav-vert-resp">
                             <ul> 
-                                <li class="shadow"><a href="./createAccount.html">Create New Account</a></li>
-                                <li class="shadow"><a href="./dashboard.html">Account Summary</a></li>
-                                <li class="shadow"><a href="./transferFunds.html">Transfer fund</a></li>
-                                <li class="shadow"><a href="./buyAirtime.html">Buy Airtime</a></li>
-                                <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
+                                <li class="shadow"><a href="./createNewAccount.html">Create Account</a></li>
                             </ul>
                         </div>
                     </div>
@@ -46,11 +42,7 @@
             <div class="row">
                 <div class="col-3 card nav-vert nav-dash-cont">
                     <ul> 
-                        <li class="shadow"><a href="./createAccount.html">Create New Account</a></li>
-                        <li class="shadow"><a href="./dashboard.html">Account Summary</a></li>
-                        <li class="shadow"><a href="./transferFunds.html">Transfer fund</a></li>
-                        <li class="shadow"><a href="./buyAirtime.html">Buy Airtime</a></li>
-                        <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
+                        <li class="shadow"><a href="./createNewAccount.html">Create Account</a></li>
                     </ul>
                 </div>
                 <div class="col-2"></div>
@@ -59,7 +51,7 @@
                         <div class="container bgrd-gray">
                             <div class="row">
                                 <div class="col-12 lf-align pd-default bgrd-primary col-default">
-                                    <label>Buy Airtime</label>
+                                    <label>Create new Account Number</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -77,19 +69,22 @@
                             <div id="login" class="card-primary">
                                 <form>
                                     <div class="form-items-group">
-                                        <input type="text" class="form-item" id="acctType" name="acctNum" placeholder="Account">
+                                        <input type="text" class="form-item" id="acctType" name="firstName" placeholder="FirstName">
                                     </div>
                                     <div class="form-items-group">
-                                        <input type="text" class="form-item" id="acctName" name="network" placeholder="Network">
+                                        <input type="text" class="form-item" id="acctName" name="lastName" placeholder="LastName">
                                     </div>
                                     <div class="form-items-group">
-                                        <input type="number" class="form-item" id="acctName" name="network" placeholder="Phone Number">
+                                        <input type="number" class="form-item" id="acctName" name="email" placeholder="Email address">
                                     </div>
                                     <div class="form-items-group">
-                                        <input type="number" class="form-item" id="bal" name="amount" value="Amount" placeholder="Amount">
+                                        <input type="number" class="form-item" id="bal" name="amount" value="type" placeholder="Savings or Current">
                                     </div>
-                                    <input type="button" class="btn-default" onclick="" value="Buy Airtime">
+                                    <input type="button" class="btn-default" onclick="window.location.href='./dashboard.html'" value="Create Account">
                                 </form>
+                                <div class="col-primary pd-default width-lg">
+                                    <p class="txt-ssm undline-pri-hov width-sm">Click on create account to visit user dashboard</p>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,19 +1,25 @@
-function loginSignup(login) {
-  document.querySelector('#registerCont').style.display = 'none';
-  document.querySelector('#loginSignupCont').style.display = 'block';
-
-  if (login) {
-    document.querySelector('#login').style.display = 'block';
-    document.querySelector('#loginCont').style.backgroundColor = 'white';
-    document.querySelector('#signup').style.display = 'none';
-    document.querySelector('#signupCont').style.backgroundColor = 'rgb(240, 240, 240)';
-  } else {
-    document.querySelector('#login').style.display = 'none';
-    document.querySelector('#loginCont').style.backgroundColor = 'rgb(240, 240, 240)';
-    document.querySelector('#signup').style.display = 'block';
-    document.querySelector('#signupCont').style.backgroundColor = 'white';
-  }
+function loginSignup(login){
+    if (login){
+        document.querySelector("#login").style.display = "block";
+        document.querySelector("#loginCont").style.backgroundColor = "white";
+        document.querySelector("#loginCont").style.color = "black";
+        document.querySelector("#signup").style.display = "none";
+        document.querySelector("#signupCont").style.backgroundColor = "rgb(18, 18, 107)";
+        document.querySelector("#signupCont").style.color = "white";
+    }
+    else {
+        document.querySelector("#login").style.display = "none";
+        document.querySelector("#loginCont").style.backgroundColor = "rgb(18, 18, 107)";
+        document.querySelector("#loginCont").style.color = "white";
+        document.querySelector("#signup").style.display = "block";
+        document.querySelector("#signupCont").style.backgroundColor = "white";
+        document.querySelector("#signupCont").style.color = "black";
+    }
 }
+
+function showAcctHistory(){
+    document.querySelector("#accountHistory").style.display = "block";
+    document.querySelector("#accountSummary").style.display = "none";
 
 function registerUi() {
   document.querySelector('#registerCont').style.display = 'block';
@@ -46,22 +52,22 @@ function createNewAdmin() {
   document.querySelector('#createNewAdmin').style.display = 'block';
 }
 
-function displayView() {
-  const view = document.querySelector('#acctNumEmail').value.toLowerCase() || 'default';
-  switch (view) {
-    case 'user':
-      window.location.href = '../pages/userPages/dashboard.html';
-      break;
-    case 'admin':
-      window.location.href = '../pages/adminPages/manageUsers.html';
-      break;
-    case 'staff':
-      window.location.href = '../pages/Staff(Cashier) pages/manageUsers.html';
-      break;
-    case 'default':
-      window.location.href = '../pages/userPages/dashboard.html';
-      break;
-  }
+function displayView(){
+    let view = document.querySelector("#acctNumEmail").value.toLowerCase();
+    switch (view){
+        case "user":
+            window.location.href = "../pages/userPages/createNewAccount.html";
+            break;
+        case "admin":
+            window.location.href = "../pages/adminPages/manageUsers.html";
+            break;
+        case "staff":
+            window.location.href = "../pages/Staff(Cashier) pages/manageUsers.html";
+            break;
+        default:
+            window.location.href = "../pages/userPages/createNewAccount.html";
+            break;
+    }
 }
 
 window.addEventListener('resize', getWidth);

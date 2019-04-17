@@ -7,11 +7,11 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body class="image2">
-        <div class="container relative bgrd-primary">
-            <div class="container">
+        <div class="container-nav relative bgrd-primary">
+            <div class="container-nav">
                 <div class="row nav-cont">
                     <div class="col-5 pd-default">
-                        <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka
+                        <label class="txt-md col-default logo"><a href="../../index.html"><i class="material-icons">credit_card</i>Banka</a></label>
                     </div>
                     <div class="col-6 nav">
                         <ul> 
@@ -29,7 +29,7 @@
                 </div>
                 <div class="row nav-resp hidden">
                         <div class="col-10">
-                        <label class="txt-md col-default logo" onclick="toggleMenu()"><i class="material-icons">menu</i>Banka</label>
+                        <label class="txt-md col-default logo" onclick="toggleMenu()"><i class="material-icons pad">menu</i>Banka</label>
                         </div>
                         <div class="col-2">
                         <label class="txt-md col-default"><a href="./signup.html">LogIn</a></label>
@@ -52,12 +52,12 @@
                 <div class="col-4 login-pad"></div>
                 <div id="loginSignupCont" class="col-4">
                     <div class="container">
-                        <div class="panel-sm"></div>
+                        <div class="panel-md"></div>
                         <div class="row login-resp">
                             <div id="loginCont" class="col-6 pd-default bgrd-default shadow pointer" onclick="loginSignup('login')">
                                 <label class="txt-md"> Login</label>
                             </div>
-                            <div id="signupCont" class="col-6 pd-default bgrd-default shadow bgrd-gray pointer"  onclick="loginSignup()">
+                            <div id="signupCont" class="col-6 pd-default bgrd-default shadow bgrd-primary col-default pointer"  onclick="loginSignup()">
                                 <label class="txt-md"> SignUp</label>
                             </div>
                         </div>
@@ -74,9 +74,8 @@
                                         <input type="button" class="btn-default" onclick="displayView()" value="LogIn">
                                     </form>
                                     <div class="col-primary pd-default width-lg">
-                                        <p class="txt-ssm undline-pri-hov width-sm">Forgot password?</pre>
+                                        <p class="txt-ssm undline-pri-hov width-sm">Forgot password?</p>
                                         <div class="panel-sm"></div>
-                                        <p class="txt-ssm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? Create Account</p>
                                         <p class="col-danger txt-ssm">Enter USER, ADMIN OR STAFF as the AcctNum/Email
                                             on the login page to see their respective view, defaults to user view.
                                         </p>
@@ -85,62 +84,27 @@
                                 <div id="signup" class="card-primary hidden">
                                     <form>
                                         <div class="form-items-group">
-                                            <input type="text" class="form-item" id="acctNum" placeholder="Enter Acct Number">
+                                            <input type="text" class="form-item" id="firstName" placeholder="First Name">
+                                        </div>
+                                        <div class="form-items-group">
+                                            <input type="text" class="form-item" id="lastName" placeholder="Last Name">
                                         </div>
                                         <div class="form-items-group">
                                             <input type="email" class="form-item" id="email" placeholder="Enter Email">
                                         </div>
                                         <div class="form-items-group">
-                                            <input type="password" class="form-item" id="pwrd" placeholder="Password">
+                                            <input type="password" class="form-item" id="password" placeholder="Password">
                                         </div>
                                         <div class="form-items-group">
-                                            <input type="password" class="form-item" id="pwrd2" placeholder="Re-enter Password">
+                                            <input type="password" class="form-item" id="confirmPassword" placeholder="Re-enter Password">
                                         </div>
                                         <input type="button" class="btn-default" onclick="" value="Sign Up">
                                     </form>
                                     <div class="col-primary pd-default width-lg">
-                                        <p class="txt-ssm undline-pri-hov width-md" onclick="registerUi()">Don't have an account Number? Create Account</p>
                                         <p class="col-danger txt-ssm">Enter USER, ADMIN OR STAFF as the AcctNum/Email
                                             on the login page to see their respective view, defaults to user view.
                                         </p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="registerCont" class="col-4 hidden">
-                    <div class="container">
-                        <div class="panel-sm"></div>
-                        <div id="registerCont" class="row">
-                            <div class="col-12 pd-default bgrd-default shadow">
-                                <label class="txt-md"> Create Account</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 register">
-                                <div id="register" class="card-primary ">
-                                    <form>
-                                        <div class="form-items-group">
-                                            <input type="text" class="form-item" id="firstName" Placeholder="Full Name">
-                                        </div>
-                                        <div class="form-items-group">
-                                            <input type="text" class="form-item" id="sex" placeholder="Sex">
-                                        </div>
-                                        <div class="form-items-group">
-                                            <input type="number" class="form-item" id="phoneNo" placeholder="Phone Number">
-                                        </div>
-                                        <div class="form-items-group">
-                                            <input type="date" class="form-item" id="dob" placeholder="Date of Birth">
-                                        </div>
-                                        <div class="form-items-group">
-                                            <input type="email" class="form-item" id="email" placeholder="Enter Email">
-                                        </div>
-                                        <button class="btn-default">Register</button>
-                                        <p class="col-danger txt-ssm">Enter USER, ADMIN OR STAFF as the AcctNum/Email
-                                            on the login page to see their respective view, defaults to user view.
-                                        </p>
-                                    </form>
                                 </div>
                             </div>
                         </div>
