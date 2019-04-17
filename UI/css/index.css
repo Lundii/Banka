@@ -52,6 +52,11 @@ a:active {
     padding-left: 15px;
     width: 100%;
 }
+.container-nav {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
 
 .bgrd-default {
     background-color: white
@@ -71,7 +76,7 @@ a:active {
 }
 
 .col-primary{
-    color: rgb(18, 18, 107);;
+    color: rgb(18, 18, 107);
 }
 .col-danger {
     color: rgb(202, 29, 29)
@@ -456,12 +461,18 @@ form {
   .material-icons.md {
       font-size: 16px;
   }
+  .material-icons.pad {
+      padding-right: 10px;
+  }
   .material-icons.md:hover {
       cursor: pointer;
       font-size: 17px;
 }
 .logo {
     font-size: 25px;
+}
+.logo > a {
+    color: white;
 }
 
 .no-pad {

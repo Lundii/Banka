@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>Banka app beta</title>
+        <link rel="stylesheet" type="text/css" href="../../css/index.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body class="image1">
+            <div class="container-nav relative bgrd-primary z-md">
+                <div class="container-nav no-pad">
+                    <div class="row nav-cont dash-nav">
+                        <div class="col-2 pd-default">
+                            <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
+                        </div>
+                        <div class="col-9"></div>
+                        <div class="col-1 nav">
+                            <ul> 
+                                <li><a class="active" href="../../../index.html">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row nav-resp hidden">
+                        <div class="col-10">
+                            <label class="txt-md col-default logo" onclick="toggleMenu('navVert')"><i class="material-icons pad">menu</i>Banka</label>
+                        </div>
+                        <div class="col-2">
+                            <label class="txt-md col-default"><a href="../../../index.html">Logout</a></label>
+                        </div>
+                    </div>
+                    <div class="row nav-vert-cont absolute hidden">
+                        <div class="col-3 card nav-vert-resp">
+                            <ul> 
+                                <li class="shadow"><a href="./createNewAccount.html">Create Account</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 card nav-vert nav-dash-cont">
+                    <ul> 
+                        <li class="shadow"><a href="./createNewAccount.html">Create Account</a></li>
+                    </ul>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5 main-resp">
+                    <div class="panel-lg">
+                        <div class="container bgrd-gray">
+                            <div class="row">
+                                <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                    <label>Create new Account Number</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 lf-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                                <div class="col-6 rt-align pd-default col-primary">
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="login" class="card-primary">
+                                <form>
+                                    <div class="form-items-group">
+                                        <input type="text" class="form-item" id="acctType" name="firstName" placeholder="FirstName">
+                                    </div>
+                                    <div class="form-items-group">
+                                        <input type="text" class="form-item" id="acctName" name="lastName" placeholder="LastName">
+                                    </div>
+                                    <div class="form-items-group">
+                                        <input type="number" class="form-item" id="acctName" name="email" placeholder="Email address">
+                                    </div>
+                                    <div class="form-items-group">
+                                        <input type="number" class="form-item" id="bal" name="amount" value="type" placeholder="Savings or Current">
+                                    </div>
+                                    <input type="button" class="btn-default" onclick="window.location.href='./dashboard.html'" value="Create Account">
+                                </form>
+                                <div class="col-primary pd-default width-lg">
+                                    <p class="txt-ssm undline-pri-hov width-sm">Click on create account to visit user dashboard</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+       </div>
+        <script src="../../js/index.js"></script>
+    </body>
+</html>
