@@ -31,7 +31,7 @@ Pivotal tracker was used as a project managment tool through out the development
 This application is hosted on heroku. Follow the [Heroku Link](https://mighty-retreat-71326.herokuapp.com/api/v1)
 
 ### Default Admin Account
-User
+Admin
 ```
 {
     email: 'onumonday@gmail.com',
@@ -40,7 +40,7 @@ User
 ```
 
 ### Default Staff Account
-User
+Staff(Cashier)
 ```
 {
     email: 'amaka.padi@gmail.com',
