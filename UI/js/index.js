@@ -2,17 +2,13 @@ function loginSignup(login) {
   if (login) {
     document.querySelector('#login').style.display = 'block';
     document.querySelector('#loginCont').style.backgroundColor = 'white';
-    document.querySelector('#loginCont').style.color = 'black';
     document.querySelector('#signup').style.display = 'none';
-    document.querySelector('#signupCont').style.backgroundColor = 'rgb(18, 18, 107)';
-    document.querySelector('#signupCont').style.color = 'white';
+    document.querySelector('#signupCont').style.backgroundColor = 'rgb(240, 240, 240)';
   } else {
     document.querySelector('#login').style.display = 'none';
-    document.querySelector('#loginCont').style.backgroundColor = 'rgb(18, 18, 107)';
-    document.querySelector('#loginCont').style.color = 'white';
+    document.querySelector('#loginCont').style.backgroundColor = 'rgb(240, 240, 240)';
     document.querySelector('#signup').style.display = 'block';
     document.querySelector('#signupCont').style.backgroundColor = 'white';
-    document.querySelector('#signupCont').style.color = 'black';
   }
 }
 
