@@ -11,12 +11,12 @@ class Table {
    * @param {string} name - the name of table
    */
   constructor(name) {
-    this._name = name;
-    this._columns = [];
-    this._indexId = 100;
-    this._getRandomNumber = this._getRandomNumber.bind();
-    this._generateId = this._generateId.bind(this);
-    this._search = this._search.bind(this);
+    this.name = name;
+    this.columns = [];
+    this.indexId = 100;
+    this.getRandomNumber = this.getRandomNumber.bind();
+    this.generateId = this.generateId.bind(this);
+    this.search = this.search.bind(this);
   }
 
   /**
@@ -30,8 +30,8 @@ class Table {
     if (typeof object !== 'object') return callback(new Error('Column data must be an object'));
     if (typeof callback !== 'function') return callback(new Error('Callback must be a function'));
     const resultArray = [];
-    this._generateId(object);
-    this._columns.push(object);
+    this.generateId(object);
+    this.columns.push(object);
     resultArray.push(object);
     return callback(null, resultArray);
   }
@@ -48,8 +48,8 @@ class Table {
     if (typeof callback !== 'function') return callback(new Error('Callback must be a function'));
     const added = [];
     array.forEach((object) => {
-      this._generateId(object);
-      this._columns.push(object);
+      this.generateId(object);
+      this.columns.push(object);
       added.push(object);
     });
     return callback(null, added);
@@ -66,9 +66,9 @@ class Table {
     if (typeof query !== 'object') return callback(new Error('query must be an object'));
     if (typeof callback !== 'function') return callback(new Error('Callbak must be a function'));
     if (Object.keys(query) === 0) {
-      return callback(null, this._columns);
+      return callback(null, this.columns);
     }
-    const result = this._search(query);
+    const result = this.search(query);
     return callback(null, result);
   }
 
@@ -84,7 +84,7 @@ class Table {
     if (typeof query !== 'object') return callback(new Error('query must be an object'));
     if (typeof newObject !== 'object') return callback(new Error('query must be an object'));
     if (typeof callback !== 'function') return callback(new Error('Callbak must be a function'));
-    const result = this._search(query);
+    const result = this.search(query);
     const newObjectKey = Object.keys(newObject)[0];
     const newObjectValue = newObject[newObjectKey];
     result[0][newObjectKey] = newObjectValue;
@@ -101,9 +101,9 @@ class Table {
     if (arguments.length < 2) return callback(new Error('Expects two(2) function arguments'));
     if (typeof query !== 'object') return callback(new Error('query must be an object'));
     if (typeof callback !== 'function') return callback(new Error('Callbak must be a function'));
-    const result = this._search(query);
-    const index = this._columns.indexOf(result[0]);
-    this._columns.splice(index, 1);
+    const result = this.search(query);
+    const index = this.columns.indexOf(result[0]);
+    this.columns.splice(index, 1);
     return callback(result);
   }
 
@@ -113,10 +113,10 @@ class Table {
    * @param {object} query - query object to use as search key
    * @return {array} An array containing the query result
    */
-  _search(query) {
+ search(query) {
     const searchKey = Object.keys(query)[0];
     const searchValue = query[searchKey];
-    const result = this._columns.filter(row => row[searchKey] === searchValue);
+    const result = this.columns.filter(row => row[searchKey] === searchValue);
     return result;
   }
 
@@ -126,13 +126,13 @@ class Table {
    * @param {object} object - the column to generate the id for
    * @return {objct} The column with its unique id
    */
-  _generateId(object) {
-    const rand1 = this._getRandomNumber(5000, 6000);
-    const rand2 = this._padNumberLength(this._getRandomNumber(0, 1000000), 8);
-    const unique = this._indexId.toString();
-    this._indexId += 1;
+ generateId(object) {
+    const rand1 = this.getRandomNumber(5000, 6000);
+    const rand2 = this.padNumberLength(this.getRandomNumber(0, 1000000), 8);
+    const unique = this.indexId.toString();
+    this.indexId += 1;
     const id = parseInt(rand1 + unique + rand2);
-    object._id = id;
+    object.id = id;
     return object;
   }
 
@@ -142,7 +142,7 @@ class Table {
    * @param {number} min - minimum number included in the  generation (inclusive)
    * @param {number} max - maximnum number to be generated (exclusive)
    */
-  _getRandomNumber(min, max) {
+  getRandomNumber(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
@@ -154,7 +154,7 @@ class Table {
    * @param {number} number - the number to pad with leading zeros
    * @param {numer} length  - the length of padded number
    */
-  _padNumberLength(number, length) {
+  padNumberLength(number, length) {
     if (number <= Math.pow(10, length)) {
       number = (`000000${number}`).slice(-length);
     }

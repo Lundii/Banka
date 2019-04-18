@@ -99,7 +99,7 @@ Staff(Cashier)
 }    
 ```
 
-### Create a bank account  `POST /user/<_id>/accounts`   
+### Create a bank account  `POST /user/<id>/accounts`   
 #### Body   
 ```
 {
@@ -123,7 +123,7 @@ Staff(Cashier)
 }
 ```   
 
-### Activate or deactivate an account  `PATCH /staff(admin)/<_id>/account/<account-number>`    
+### Activate or deactivate an account  `PATCH /staff(admin)/<id>/account/<account-number>`    
 #### Body   
 ```
 {
@@ -151,7 +151,7 @@ Staff(Cashier)
 }
 ```
   
-### Debit a bank account  `POST staff/<_id>/transactions/<account-number>/debit` 
+### Debit a bank account  `POST staff/<id>/transactions/<account-number>/debit` 
 #### Body
 ```
 {
@@ -173,7 +173,7 @@ Staff(Cashier)
 }
 ```   
 
-### Credit a bank account  `POST staff/<_id>/transactions/<account-number>/credit`  
+### Credit a bank account  `POST staff/<id>/transactions/<account-number>/credit`  
 ##### Body
 ```
 {

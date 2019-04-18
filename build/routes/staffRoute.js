@@ -49,7 +49,7 @@ function () {
   _createClass(StaffRouter, [{
     key: "route",
     value: function route() {
-      this.router.route('/:_id/account/:accountNumber').patch(_util.validateToken, this._verifyIfStaff, [(0, _check.body)('status', 'field is required').exists(), (0, _check.body)('status', 'cannot be empty').isLength({
+      this.router.route('/:id/account/:accountNumber').patch(_util.validateToken, this._verifyIfStaff, [(0, _check.body)('status', 'field is required').exists(), (0, _check.body)('status', 'cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('status', 'Status can either be active or dormant').custom(function (value) {
         if (value !== 'dormant' && value !== 'active') {
@@ -58,11 +58,11 @@ function () {
 
         return Promise.resolve(true);
       })], _util.validate, this.staffController.actDeactAccount);
-      this.router.route('/:_id/account/:accountNumber')["delete"](_util.validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
-      this.router.route('/:_id/transactions/:accountNumber/credit').post(_util.validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, [(0, _check.body)('creditAmount', 'field is required').exists(), (0, _check.body)('creditAmount', 'cannot be empty').isLength({
+      this.router.route('/:id/account/:accountNumber')["delete"](_util.validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
+      this.router.route('/:id/transactions/:accountNumber/credit').post(_util.validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, [(0, _check.body)('creditAmount', 'field is required').exists(), (0, _check.body)('creditAmount', 'cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('creditAmount', 'must be a number').isInt()], _util.validate, this.staffController.creditAccount);
-      this.router.route('/:_id/transactions/:accountNumber/debit').post(_util.validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, [(0, _check.body)('debitAmount', 'field is required').exists(), (0, _check.body)('debitAmount', 'cannot be empty').isLength({
+      this.router.route('/:id/transactions/:accountNumber/debit').post(_util.validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, [(0, _check.body)('debitAmount', 'field is required').exists(), (0, _check.body)('debitAmount', 'cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('debitAmount', 'must be a number').isInt()], _util.validate, this.staffController.debitAccount);
       return this.router;
@@ -78,9 +78,9 @@ function () {
   }, {
     key: "_verifyIfStaff",
     value: function _verifyIfStaff(req, res, next) {
-      req.params._id = parseInt(req.params._id);
+      req.params.id = parseInt(req.params.id);
       this.store.userStore.read({
-        _id: req.params._id
+        id: req.params.id
       }, function (err, result) {
         if (result.length && result[0].type !== 'staff') {
           return res.status(401).json({
@@ -103,9 +103,9 @@ function () {
   }, {
     key: "_verifyIsNotAdmin",
     value: function _verifyIsNotAdmin(req, res, next) {
-      req.params._id = parseInt(req.params._id);
+      req.params.id = parseInt(req.params.id);
       this.store.userStore.read({
-        _id: req.params._id
+        id: req.params.id
       }, function (err, result) {
         if (result.length && result[0].isAdmin === true) {
           return res.status(401).json({

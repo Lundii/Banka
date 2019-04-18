@@ -12,10 +12,10 @@ class Database {
    * @param {string} name - The name of the database
    */
   constructor(name) {
-    this._name = name;
-    this._tables = [];
-    this._createTable = this.createTable.bind(this);
-    this._searchTable = this._searchTable.bind(this);
+    this.name = name;
+    this.tables = [];
+    this.createTable = this.createTable.bind(this);
+    this.searchTable = this.searchTable.bind(this);
   }
 
   /**
@@ -24,11 +24,11 @@ class Database {
    * @return {Table} The newly created table class
    */
   createTable(name) {
-    if (this._searchTable(name)) {
+    if (this.searchTable(name)) {
       return new Error('Table name already exists');
     }
     const table = new Table(name);
-    this._tables.push(table);
+    this.tables.push(table);
     return table;
   }
 
@@ -38,11 +38,11 @@ class Database {
    * @return {Table} The table class removed
    */
   deleteTable(name) {
-    const index = this._searchTable(name);
+    const index = this.searchTable(name);
     if (index === 0) {
       return new Error('Table does not exist');
     }
-    return this._tables.splice(index, 1);
+    return this.tables.splice(index, 1);
   }
 
   /**
@@ -51,9 +51,9 @@ class Database {
    * @param {string} name - The name of the table to search for
    * @return {number} index of the table or 0 if table does not exit
    */
-  _searchTable(name) {
-    for (let i = 0; i < this._tables.length; i += 1) {
-      if (this._tables[i].name === name) {
+  searchTable(name) {
+    for (let i = 0; i < this.tables.length; i += 1) {
+      if (this.tables[i].name === name) {
         return i;
       }
     }

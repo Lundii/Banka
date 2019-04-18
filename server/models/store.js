@@ -9,8 +9,8 @@ class Store {
    * @param {Table} table - the name of the Table class used by this store class
    */
   constructor(name, table) {
-    this._name = name;
-    this._table = table;
+    this.name = name;
+    this.table = table;
   }
 
   /**
@@ -21,12 +21,12 @@ class Store {
    */
   create(data, callback) {
     if (Array.isArray(data)) {
-      this._table.addColumnAll(data, (err, result) => {
+      this.table.addColumnAll(data, (err, result) => {
         if (err) return callback(err);
         return callback(null, result);
       });
     } else if (typeof data === 'object') {
-      this._table.addColumn(data, (err, result) => {
+      this.table.addColumn(data, (err, result) => {
         if (err) return callback(err);
         return callback(null, result);
       });
@@ -42,7 +42,7 @@ class Store {
    * @return {function} The callback function
    */
   read(query, callback) {
-    this._table.findColumn(query, (err, result) => {
+    this.table.findColumn(query, (err, result) => {
       if (err) return callback(err);
       return callback(null, result);
     });
@@ -56,7 +56,7 @@ class Store {
    * @return {function} The callback function
    */
   update(query, newObject, callback) {
-    this._table.updateColumn(query, newObject, (err, result) => {
+    this.table.updateColumn(query, newObject, (err, result) => {
       if (err) return callback(err);
       return callback(null, result);
     });
@@ -69,7 +69,7 @@ class Store {
    * @return {function} The callback function
    */
   remove(query, callback) {
-    this._table.removeColumn(query, (err, result) => {
+    this.table.removeColumn(query, (err, result) => {
       if (err) return callback(err);
       return callback(null, result);
     });

@@ -45,7 +45,7 @@ function () {
       var data = {
         accountNumber: accountNumber,
         createdOn: new Date().getTime,
-        owner: req.params._id,
+        owner: req.params.id,
         type: req.body.type,
         status: 'active',
         balance: 0.00
@@ -55,7 +55,7 @@ function () {
         var response = {
           status: 200,
           data: {
-            _id: result[0]._id,
+            id: result[0].id,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             accountNumber: result[0].accountNumber,

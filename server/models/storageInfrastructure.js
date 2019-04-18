@@ -14,25 +14,25 @@ class StorageInfrastructure {
     this.userStore = store.userStore;
     this.bankAcctStore = store.bankAcctStore;
     this.transactionStore = store.transactionStore;
-    this._createDefaultUsers = this._createDefaultUsers.bind(this);
-    this._createDafaultAccounts = this._createDafaultAccounts.bind(this);
-    this._createDefaultTransactions = this._createDefaultTransactions.bind(this);
+    this.createDefaultUsers = this.createDefaultUsers.bind(this);
+    this.createDafaultAccounts = this.createDafaultAccounts.bind(this);
+    this.createDefaultTransactions = this.createDefaultTransactions.bind(this);
   }
 
   /**
    * The initialization method
    */
   init() {
-    this._createDefaultUsers();
-    this._createDafaultAccounts();
-    this._createDefaultTransactions();
+    this.createDefaultUsers();
+    this.createDafaultAccounts();
+    this.createDefaultTransactions();
   }
 
   /**
    * Private method for creating default users
    * @private
    */
-  _createDefaultUsers() {
+  createDefaultUsers() {
     Users.forEach((object) => {
       const hashPass = hashPassword(object.password);
       object.password = hashPass;
@@ -46,7 +46,7 @@ class StorageInfrastructure {
    * Private method for creating default accounts
    * @private
    */
-  _createDafaultAccounts() {
+  createDafaultAccounts() {
     this.bankAcctStore.create(Accounts, (err, result) => {
       if (err) throw new Error('Error creating default accounts');
     });
@@ -56,7 +56,7 @@ class StorageInfrastructure {
    * Private method for creating default transactions
    * @private
    */
-  _createDefaultTransactions() {
+  createDefaultTransactions() {
     this.transactionStore.create(Accounts, (err, result) => {
       if (err) throw new Error('Error creating default transactions');
     });

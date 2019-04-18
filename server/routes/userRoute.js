@@ -23,7 +23,7 @@ export default class UserRouter {
    * Method used for routing
    */
   route() {
-    this.router.route('/:_id/accounts')
+    this.router.route('/:id/accounts')
       .post(validateToken, 
         [body(['firstName', 'lastName', 'email', 'type'], 'field is required').exists(),
           body(['firstName', 'lastName', 'type'], ' cannot be empty').isLength({ min: 1 }),

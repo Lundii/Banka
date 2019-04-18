@@ -33,7 +33,7 @@ function () {
     this.debitAccount = this.debitAccount.bind(this);
   }
   /**
-   * Method for handling activating or deactivating account route(PATCH api/v1/staff/<_id>/account/<accountNumber>)
+   * Method for handling activating or deactivating account route(PATCH api/v1/staff/<id>/account/<accountNumber>)
    * @param {object} req - the request object
    * @param {object} res  - the response object
    */
@@ -82,7 +82,7 @@ function () {
       });
     }
     /**
-     * Method for deleting an account route(DELETE api/v1/staff/<_id>/account/<accountNumber>)
+     * Method for deleting an account route(DELETE api/v1/staff/<id>/account/<accountNumber>)
      * @param {object} req - the request object
      * @param {object} res  - the response object
      */
@@ -117,7 +117,7 @@ function () {
       });
     }
     /**
-     * Method for handling crediting account route(POST api/v1/staff/<_id>/transactions/<accountNumber>/credit)
+     * Method for handling crediting account route(POST api/v1/staff/<id>/transactions/<accountNumber>/credit)
      * @param {object} req - the request object
      * @param {object} res  - the response object
      */
@@ -145,7 +145,7 @@ function () {
           createdOn: new Date().getDate,
           type: 'credit',
           accountNumber: req.params.accountNumber,
-          cashier: parseFloat(req.params._id),
+          cashier: parseFloat(req.params.id),
           amount: parseFloat(req.body.creditAmount),
           oldBalance: result[0].balance,
           newBalance: result[0].balance + parseFloat(req.body.creditAmount)
@@ -163,10 +163,10 @@ function () {
             var resp = {
               status: 200,
               data: {
-                transactionId: result1[0]._id,
+                transactionId: result1[0].id,
                 accountNumber: req.params.accountNumber.toString(),
                 amount: parseFloat(result1[0].amount),
-                cashier: req.params._id,
+                cashier: req.params.id,
                 transactionType: result1[0].type,
                 accountBalance: result1[0].newBalance.toString()
               }
@@ -177,7 +177,7 @@ function () {
       });
     }
     /**
-     * Method for handling deleting an account route(POST api/v1/staff/<_id>/transactions/<accountNumber>/debit)
+     * Method for handling deleting an account route(POST api/v1/staff/<id>/transactions/<accountNumber>/debit)
      * @param {object} req - the request object
      * @param {object} res  - the response object
      */
@@ -219,7 +219,7 @@ function () {
           createdOn: new Date().getDate,
           type: 'debit',
           accountNumber: req.params.accountNumber,
-          cashier: parseFloat(req.params._id),
+          cashier: parseFloat(req.params.id),
           amount: parseFloat(req.body.debitAmount),
           oldBalance: result[0].balance,
           newBalance: result[0].balance - parseFloat(req.body.debitAmount)
@@ -237,10 +237,10 @@ function () {
             var resp = {
               status: 200,
               data: {
-                transactionId: result1[0]._id,
+                transactionId: result1[0].id,
                 accountNumber: req.params.accountNumber.toString(),
                 amount: parseFloat(result1[0].amount),
-                cashier: req.params._id,
+                cashier: req.params.id,
                 transactionType: result1[0].type,
                 accountBalance: result1[0].newBalance.toString()
               }
