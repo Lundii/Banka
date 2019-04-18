@@ -85,7 +85,7 @@
                                             <div class="dropdown">
                                                     <i class="material-icons lg">more_vert</i>
                                                 <div id="myDropdown" class="dropdown-content">
-                                                    <label>Delete</label>
+                                                    <label onclick="showModal()">Delete</label>
                                                     <label>Deactivate</label>
                                                 </div>
                                             </div>
@@ -146,6 +146,29 @@
                 </div>
                 <div class="col-1"></div>
             </div>
+            <div id="modal" class="container hidden" style="position: absolute; top: 50%;">
+                <div class="col-5 pd-default"></div>
+                <div class="col-4">
+                        <div class="container bgrd-gray shadow">
+                            <div class="row">
+                                <div class="col-12 lf-align pd-default bgrd-primary col-default">
+                                    <label>Are you sure you want to delete the account</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div onclick="hideModal()" class="col-6 lf-align pd-default col-primary shadow">
+                                    <label class="col-primary">YES</label>
+                                </div>
+                                <div onclick="hideModal()" class="col-6 rt-align pd-default col-danger shadow">
+                                    <label>NO</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 nav"></div>
+            </div>
+        </div>
        </div>
         <script src="../../js/index.js"></script>
     </body>

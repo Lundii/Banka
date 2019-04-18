@@ -94,3 +94,10 @@ function showDrowndown(event) {
   document.getElementById("myDropdown").classList.toggle("show");
   event.stopPropagation();
 }
+
+function showModal(){
+  document.querySelector("#modal").style.display =  "block";
+}
+function hideModal(){
+  document.querySelector("#modal").style.display =  "none";
+}
