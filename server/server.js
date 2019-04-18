@@ -41,6 +41,12 @@ app.use('/api/v1/', homeRoute.route());
 app.use('/api/v1/user', userRoute.route());
 app.use('/api/v1/staff', staffRoute.route());
 app.use('/api/v1/admin', adminRoute.route());
+app.use((req, res) => {
+    res.status(404).json({
+      status: 404,
+      error: "The page you are looking for does not exit please check our your URL and try again"
+    });
+});
 
 const { port } = config.development;
 app.listen(port, (er) => {
