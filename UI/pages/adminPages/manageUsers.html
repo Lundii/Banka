@@ -31,7 +31,7 @@
                         <div class="row nav-vert-cont absolute hidden">
                             <div class="col-3 card nav-vert-resp">
                                 <ul> 
-                                    <li class="shadow"><a href="./manageUsers.html">Manage Users</a></li>
+                                    <li class="shadow"><a href="./manageUsers.html">Manage Accounts</a></li>
                                     <li class="shadow"><a href="./manageStaffs.html">Manage Staffs</a></li>
                                     <li class="shadow"><a href="./manageAdmins.html">Manage Admins</a></li>
                                     <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
@@ -45,7 +45,7 @@
                 <div class="row">
                     <div class="col-3 card nav-vert nav-dash-cont">
                     <ul> 
-                        <li class="shadow"><a href="./manageUsers.html">Manage Users</a></li>
+                        <li class="shadow"><a href="./manageUsers.html">Manage Accounts</a></li>
                         <li class="shadow"><a href="./manageStaffs.html">Manage Staffs</a></li>
                         <li class="shadow"><a href="./manageAdmins.html">Manage Admins</a></li>
                         <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
@@ -57,7 +57,7 @@
                         <div class="container bgrd-gray">
                             <div class="row">
                                 <div class="col-12 lf-align pd-default bgrd-primary col-default">
-                                    <label>Manage Users</label>
+                                    <label>Manage Accounts</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -78,8 +78,14 @@
                                         <div class="col-10 lf-align pd-default bgrd-primary col-default">
                                             <label>Adamu Rufayat Atinuke</label>
                                         </div>
-                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
-                                            <label><i class="material-icons md">delete</i></label>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default" onclick="showDrowndown(event)">
+                                            <div class="dropdown">
+                                                    <i class="material-icons lg">more_vert</i>
+                                                <div id="myDropdown" class="dropdown-content">
+                                                    <label>Delete</label>
+                                                    <label>Deactivate</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -98,8 +104,14 @@
                                         <div class="col-10 lf-align pd-default bgrd-primary col-default">
                                             <label>Audu John Eche</label>
                                         </div>
-                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
-                                            <label><i class="material-icons md">delete</i></label>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default" onclick="showDrowndown(event)">
+                                            <div class="dropdown">
+                                                    <i class="material-icons lg">more_vert</i>
+                                                <div id="myDropdown" class="dropdown-content">
+                                                    <label>Delete</label>
+                                                    <label>Deactivate</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -118,8 +130,14 @@
                                         <div class="col-10 lf-align pd-default bgrd-primary col-default">
                                             <label>Peter Tunde Abiodun</label>
                                         </div>
-                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
-                                            <label><i class="material-icons md">delete</i></label>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default" onclick="showDrowndown(event)">
+                                            <div class="dropdown">
+                                                    <i class="material-icons lg">more_vert</i>
+                                                <div id="myDropdown" class="dropdown-content">
+                                                    <label>Delete</label>
+                                                    <label>Deactivate</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -138,8 +156,14 @@
                                         <div class="col-10 lf-align pd-default bgrd-primary col-default">
                                             <label>Nwachukwu Vincent </label>
                                         </div>
-                                        <div class="col-2 rt-align pd-default bgrd-primary col-default">
-                                            <label><i class="material-icons md">delete</i></label>
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default" onclick="showDrowndown(event)">
+                                            <div class="dropdown">
+                                                    <i class="material-icons lg">more_vert</i>
+                                                <div id="myDropdown" class="dropdown-content">
+                                                    <label>Delete</label>
+                                                    <label>Deactivate</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -167,12 +191,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-4 lf-align pd-default col-primary shadow pointer tranHis">
+                                <div class="col-12 lf-align pd-default col-primary shadow pointer tranHis">
                                     <label class="pointer"><a href="./transactionHistory.html">TRANSACTION HISTORY</a></label>
-                                </div>
-                                <div class="col-4"></div>
-                                <div class="col-4 rt-align pd-default col-danger shadow pointer">
-                                    <label class="pointer">DEACTIVATE ACCOUNT</label>
                                 </div>
                             </div>
                         </div>

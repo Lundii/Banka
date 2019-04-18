@@ -73,7 +73,6 @@ function toggleMenu(src) {
     }
     return;
   }
-  console.log('i was clicked');
   if (src) {
     const toggle = document.querySelector('.nav-vert-cont');
     if (toggle.style.display.length == 0 || toggle.style.display == 'none') {
@@ -82,7 +81,6 @@ function toggleMenu(src) {
       toggle.style.display = 'none';
     }
   } else {
-    console.log('i got here');
     const toggle = document.querySelector('.nav-resp-vert');
     if (toggle.style.display.length == 0 || toggle.style.display == 'none') {
       toggle.style.display = 'block';
@@ -90,4 +88,9 @@ function toggleMenu(src) {
       toggle.style.display = 'none';
     }
   }
+}
+
+function showDrowndown(event) {
+  document.getElementById("myDropdown").classList.toggle("show");
+  event.stopPropagation();
 }
