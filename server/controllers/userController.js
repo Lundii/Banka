@@ -40,6 +40,7 @@ class UserController {
           accountNumber: result[0].accountNumber,
           email: req.body.email,
           type: result[0].type,
+          status: result[0].status,
           openingBalance: result[0].balance,
         },
       };
