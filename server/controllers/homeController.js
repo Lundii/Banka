@@ -58,7 +58,7 @@ class HomeController {
         const token = jwt.sign(payload, secret, config.jwt_options);
         dataR[0].token = token;
         const data = {
-          _id: dataR[0]._id,
+          id: dataR[0].id,
           firstName: dataR[0].firstName,
           lastName: dataR[0].lastName,
           email: dataR[0].email,
@@ -105,7 +105,7 @@ class HomeController {
       const token = jwt.sign(payload, secret, config.jwt_options);
       result[0].token = token;
       const resData = {
-        _id: result[0]._id,
+        id: result[0].id,
         firstName: result[0].firstName,
         lastName: result[0].lastName,
         email: result[0].email,

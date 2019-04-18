@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../../server/server';
+import server from '../../server';
 
 const { expect } = chai;
 
@@ -23,7 +23,7 @@ describe('Create Bank Account', () => {
       .end((err, res) => {
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
-        const { token, _id } = res.body.data;
+        const { token, id } = res.body.data;
         const body2 = {
           firstName: res.body.data.firstName,
           lastName: res.body.data.lastName,
@@ -31,7 +31,7 @@ describe('Create Bank Account', () => {
           type: 'savings',
         };
         chai.request(server)
-          .post(`/api/v1/user/${_id}/accounts`)
+          .post(`/api/v1/user/${id}/accounts`)
           .send(body2)
           .set('Authorization', token)
           .end((er, resp) => {

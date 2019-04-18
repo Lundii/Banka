@@ -46,7 +46,7 @@ function () {
   _createClass(UserRouter, [{
     key: "route",
     value: function route() {
-      this.router.route('/:_id/accounts').post(_util.validateToken, [(0, _check.body)(['firstName', 'lastName', 'email', 'type'], 'field is required').exists(), (0, _check.body)(['firstName', 'lastName', 'type'], ' cannot be empty').isLength({
+      this.router.route('/:id/accounts').post(_util.validateToken, [(0, _check.body)(['firstName', 'lastName', 'email', 'type'], 'field is required').exists(), (0, _check.body)(['firstName', 'lastName', 'type'], ' cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('type', 'Account type can either be savings or current').custom(function (value) {
         if (value !== 'savings' && value !== 'current') {

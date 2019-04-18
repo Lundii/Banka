@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../../server/server';
+import server from '../../server';
 
 const { expect } = chai;
 
@@ -20,9 +20,9 @@ describe('Staff can delete an account number', () => {
       .end((err, res) => {
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
-        const { token, _id } = res.body.data;
+        const { token, id } = res.body.data;
         chai.request(server)
-          .delete(`/api/v1/staff/${_id}/account/1007877890`)
+          .delete(`/api/v1/staff/${id}/account/1007877890`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(200);
@@ -44,9 +44,9 @@ describe('Staff can delete an account number', () => {
       .end((err, res) => {
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
-        const { token, _id } = res.body.data;
+        const { token, id } = res.body.data;
         chai.request(server)
-          .delete(`/api/v1/staff/${_id}/account/100495432`)
+          .delete(`/api/v1/staff/${id}/account/100495432`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(401);
@@ -68,9 +68,9 @@ describe('Staff can delete an account number', () => {
       .end((err, res) => {
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
-        const { token, _id } = res.body.data;
+        const { token, id } = res.body.data;
         chai.request(server)
-          .delete(`/api/v1/staff/${_id}/account/107495432`)
+          .delete(`/api/v1/staff/${id}/account/107495432`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(400);
@@ -82,9 +82,9 @@ describe('Staff can delete an account number', () => {
       });
   });
   it('should return a status 401 is user does not have a valid or expired token', (done) => {
-    const _id = 50048987839302;
+    const id = 50048987839302;
     chai.request(server)
-      .delete(`/api/v1/staff/${_id}/account/100495432`)
+      .delete(`/api/v1/staff/${id}/account/100495432`)
       .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
       .end((err, res) => {
         expect(res).to.have.status(401);

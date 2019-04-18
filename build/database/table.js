@@ -191,7 +191,7 @@ function () {
 
       this._indexId += 1;
       var id = parseInt(rand1 + unique + rand2);
-      object._id = id;
+      object.id = id;
       return object;
     }
     /**
