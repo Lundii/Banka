@@ -430,6 +430,9 @@ form {
   .rt-align {
       text-align: right;
   }
+  .ct-align {
+      text-align: center;
+  }
   .nav-vert > ul, .nav-vert-resp > ul  {
       list-style-type: none;
       margin: 0;
@@ -473,6 +476,11 @@ form {
   .material-icons.md:hover {
       cursor: pointer;
       font-size: 17px;
+}
+.container.modal {
+    position: absolute;
+    top: 30%; 
+    left: 0%;
 }
 .logo {
     font-size: 25px;
@@ -581,6 +589,9 @@ form {
         width: 50%;
         font-size: 20px;
         padding: 10px;
+    }
+    .modalRow > .col-6 {
+        width: 50%
     }
 }
 @media only screen and (max-width: 768px) {

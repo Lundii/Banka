@@ -90,14 +90,32 @@ function toggleMenu(src) {
   }
 }
 
-function showDrowndown(event) {
-  document.getElementById("myDropdown").classList.toggle("show");
+function showDrowndown(event, id) {
+  document.getElementById(`${id}`).classList.toggle("show");
   event.stopPropagation();
 }
 
-function showModal(){
+function showModal(container, message){
   document.querySelector("#modal").style.display =  "block";
+  document.querySelector('#modalMessage').innerHTML =  `Are you sure you want to ${message} this account`;
+  document.querySelector(`#${container}`).style.pointerEvents =  "none";
+  document.querySelector(`#${container}`).style.filter = "blur(1px)"; 
 }
-function hideModal(){
+function hideModal(container){
   document.querySelector("#modal").style.display =  "none";
+  document.querySelector(`#${container}`).style.filter = "blur(0px)"; 
+  document.querySelector(`#${container}`).style.pointerEvents =  "all";
+  document.querySelector(`#${container}`).style.opacity =  "1";
+}
+
+function showModal2(container){
+  document.querySelector("#modal2").style.display =  "block";
+  document.querySelector(`#${container}`).style.pointerEvents =  "none";
+  document.querySelector(`#${container}`).style.filter = "blur(1px)"; 
+}
+function hideModal2(container){
+  document.querySelector("#modal2").style.display =  "none";
+  document.querySelector(`#${container}`).style.pointerEvents =  "all";
+  document.querySelector(`#${container}`).style.filter = "blur(0px)"; 
+  document.querySelector(`#${container}`).style.opacity =  "1";
 }

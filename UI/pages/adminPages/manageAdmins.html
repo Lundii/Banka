@@ -11,7 +11,7 @@
                     <div class="container-nav no-pad">
                         <div class="row nav-cont dash-nav">
                             <div class="col-2 pd-default">
-                                <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
+                                <label class="txt-md col-default logo"><a href="./manageUsers.html"><i class="material-icons">credit_card</i>Banka</a></label>
                             </div>
                             <div class="col-9"></div>
                             <div class="col-1 nav">
@@ -81,12 +81,12 @@
                                         <div class="col-10 lf-align pd-default bgrd-primary col-default">
                                             <label>Onu Monday Emmanuel</label>
                                         </div>
-                                        <div class="col-2 rt-align pd-default bgrd-primary col-default" onclick="showDrowndown(event)">
+                                        <div class="col-2 rt-align pd-default bgrd-primary col-default" onclick="showDrowndown(event, 'dropdown')">
                                             <div class="dropdown">
                                                     <i class="material-icons lg">more_vert</i>
-                                                <div id="myDropdown" class="dropdown-content">
-                                                    <label onclick="showModal()">Delete</label>
-                                                    <label>Deactivate</label>
+                                                <div id="dropdown" class="dropdown-content">
+                                                    <label onclick="showModal('manageAdmins', 'delete')">Delete</label>
+                                                    <label onclick="showModal('manageAdmins', 'deactivate')">Deactivate</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,40 +126,40 @@
                         <form> 
                             <div class="form-items-group txt-sm">
                                 <label for="firstName">Full Name</label>
-                                <input type="text" class="form-item" name="firstName" id="firstName" placeholder="Full Name">
+                                <input type="text" class="form-item" name="firstName" id="firstName" placeholder="Email Name">
                             </div>
-                            <div class="form-items-group">
-                                <label for="sex">Sex</label>
-                                <input type="text" class="form-item" name="sex" id="sex" placeholder="Sex">
+                            <div class="form-items-group txt-sm">
+                                <label for="lastName">Full Name</label>
+                                <input type="text" class="form-item" name="lastName" id="lastName" placeholder="Last Name">
                             </div>
-                            
-                            <div class="form-items-group">
-                                <label for="staffID">Staff ID</label>
-                                <input type="text" class="form-item" name="staffID" id="staffID" placeholder="Staff ID">
+                            <div class="form-items-group txt-sm">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-item" name="email" id="email" placeholder="Email">
                             </div>
                             <div class="form-items-group">
                                 <label for="jobRole">Job Role</label>
-                                <input type="text" class="form-item" name="jobRole" id="jobRole" placeholder="Job Title">
+                                <input type="text" class="form-item" name="jobrole" id="jobrole" placeholder="Job Role" value="Admin" disabled>
                             </div>
-                            <input type="button" class="btn-default" onclick="location.href='./userPages/dashboard.html';" value="Update">
+                            <input type="button" class="btn-default" value="Update">
                         </form>
+                    </div>
                 </div>
                 <div class="col-1"></div>
             </div>
-            <div id="modal" class="container hidden" style="position: absolute; top: 50%;">
+            <div id="modal" class="container modal hidden">
                 <div class="col-5 pd-default"></div>
                 <div class="col-4">
                         <div class="container bgrd-gray shadow">
                             <div class="row">
                                 <div class="col-12 lf-align pd-default bgrd-primary col-default">
-                                    <label>Are you sure you want to delete the account</label>
+                                    <label id='modalMessage'>Are you sure you want to delete this account</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div onclick="hideModal()" class="col-6 lf-align pd-default col-primary shadow">
+                                <div onclick="hideModal('manageAdmins')" class="col-6 lf-align pd-default col-primary shadow">
                                     <label class="col-primary">YES</label>
                                 </div>
-                                <div onclick="hideModal()" class="col-6 rt-align pd-default col-danger shadow">
+                                <div onclick="hideModal('manageAdmins')" class="col-6 rt-align pd-default col-danger shadow">
                                     <label>NO</label>
                                 </div>
                             </div>

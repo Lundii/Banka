@@ -11,7 +11,7 @@
                     <div class="container-nav no-pad">
                         <div class="row nav-cont dash-nav">
                             <div class="col-2 pd-default">
-                                <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
+                                <label class="txt-md col-default logo"><a href="./manageUsers.html"><i class="material-icons">credit_card</i>Banka</a></label>
                             </div>
                             <div class="col-9"></div>
                             <div class="col-1 nav">
@@ -71,17 +71,25 @@
                         <form> 
                             <div class="form-items-group txt-sm">
                                 <label for="firstName">Full Name</label>
-                                <input type="text" class="form-item" name="firstName" id="firstName" placeholder="Full Name">
+                                <input type="text" class="form-item" name="firstName" id="firstName" placeholder="Email Name">
                             </div>
-                            <div class="form-items-group">
-                                <label for="sex">Sex</label>
-                                <input type="text" class="form-item" name="sex" id="sex" placeholder="Sex">
+                            <div class="form-items-group txt-sm">
+                                <label for="lastName">Full Name</label>
+                                <input type="text" class="form-item" name="lastName" id="lastName" placeholder="Last Name">
+                            </div>
+                            <div class="form-items-group txt-sm">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-item" name="email" id="email" placeholder="Email">
                             </div>
                             <div class="form-items-group">
                                 <label for="jobRole">Job Role</label>
-                                <input type="text" class="form-item" name="jobRole" id="jobRole" placeholder="Job Title">
+                                <select class="form-item" name="jobRole" id="jobRole">
+                                    <option disabled selected>Job Role</option>
+                                    <option value="savings">Admin</option>
+                                    <option value="current">Staff(cahier)</option>
+                                </select>
                             </div>
-                            <input type="button" class="btn-default" onclick="location.href='./userPages/dashboard.html';" value="Create">
+                            <input type="button" class="btn-default" value="Create">
                         </form>
                     </div>
                 </div>
