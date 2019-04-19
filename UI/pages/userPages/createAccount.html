@@ -11,7 +11,7 @@
                 <div class="container-nav no-pad">
                     <div class="row nav-cont dash-nav">
                         <div class="col-2 pd-default">
-                            <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
+                            <label class="txt-md col-default logo"><a href="./dashboard.html"><i class="material-icons">credit_card</i>Banka</a></label>
                         </div>
                         <div class="col-9"></div>
                         <div class="col-1 nav">
@@ -83,10 +83,17 @@
                                         <input type="text" class="form-item" id="acctName" name="lastName" placeholder="LastName">
                                     </div>
                                     <div class="form-items-group">
-                                        <input type="number" class="form-item" id="acctName" name="email" placeholder="Email address">
+                                        <input type="email" class="form-item" id="acctName" name="email" placeholder="Email address">
                                     </div>
                                     <div class="form-items-group">
-                                        <input type="number" class="form-item" id="bal" name="amount" value="type" placeholder="Savings or Current">
+                                        <input type="number" class="form-item" id="pnoneNumber" name="phoneNumber" placeholder="Phone Number">
+                                    </div>
+                                    <div class="form-items-group">
+                                        <select class="form-item" name="type">
+                                            <option disabled selected>Account Type</option>
+                                            <option value="savings">Savings</option>
+                                            <option value="current">Current</option>
+                                        </select>
                                     </div>
                                     <input type="button" class="btn-default" onclick="" value="Create Account">
                                 </form>

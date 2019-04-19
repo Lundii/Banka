@@ -11,7 +11,7 @@
                     <div class="container-nav no-pad">
                         <div class="row nav-cont dash-nav">
                             <div class="col-2 pd-default">
-                                <label class="txt-md col-default logo"><i class="material-icons">credit_card</i>Banka</label>
+                                <label class="txt-md col-default logo"><a href="./manageUsers.html"><i class="material-icons">credit_card</i>Banka</a></label>
                             </div>
                             <div class="col-9"></div>
                             <div class="col-1 nav">
@@ -31,7 +31,7 @@
                         <div class="row nav-vert-cont absolute hidden">
                             <div class="col-3 card nav-vert-resp">
                                 <ul> 
-                                    <li class="shadow"><a href="./manageUsers.html">Manage Users</a></li>
+                                    <li class="shadow"><a href="./manageUsers.html">Manage Accounts</a></li>
                                     <li class="shadow"><a href="./manageStaffs.html">Manage Staffs</a></li>
                                     <li class="shadow"><a href="./manageAdmins.html">Manage Admins</a></li>
                                     <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
@@ -45,14 +45,14 @@
                 <div class="row">
                     <div class="col-3 card nav-vert nav-dash-cont">
                     <ul> 
-                        <li class="shadow"><a href="./manageUsers.html">Manage Users</a></li>
+                        <li class="shadow"><a href="./manageUsers.html">Manage Accounts</a></li>
                         <li class="shadow"><a href="./manageStaffs.html">Manage Staffs</a></li>
                         <li class="shadow"><a href="./manageAdmins.html">Manage Admins</a></li>
                         <li class="shadow"><a href="./changePassword.html">Change Password</a></li>
                     </ul>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-7 main-resp">
+                <div id="transactionHistory" class="col-7 main-resp">
                     <div class="panel-lg">
                         <div class="container bgrd-gray">
                             <div class="row">
@@ -75,7 +75,7 @@
                     </div>
                     <div id="acctHistory" class="card-primary">
                         <ul class="ul-no"> 
-                            <li class="shadow bgrd-gray txt-sm">
+                            <li onclick="showModal2('transactionHistory')" class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                             </li> 
-                            <li class="shadow bgrd-gray txt-sm">
+                            <li onclick="showModal2('transactionHistory')" class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                             </li> 
-                            <li class="shadow bgrd-gray txt-sm">
+                            <li onclick="showModal2('transactionHistory')" class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -126,7 +126,7 @@
                                     </div>
                                 </div>
                             </li> 
-                            <li class="shadow bgrd-gray txt-sm">
+                            <li onclick="showModal2('transactionHistory')" class="shadow bgrd-gray txt-sm">
                                 <div class="container mg-default">
                                     <div class="row">
                                         <div class="col-12 lf-align pd-default bgrd-primary col-default">
@@ -147,6 +147,59 @@
                     </div>
                 </div>
                 <div class="col-1"></div>
+            </div>
+            <div id="modal2" class="container modal hidden">
+                <div class="col-5 pd-default"></div>
+                <div class="col-4">
+                        <div class="container bgrd-gray shadow">
+                            <div class="row">
+                                <div class="col-12 ct-align pd-default bgrd-primary col-default">
+                                    <label id='modalMessage'>Transaction details</label>
+                                </div>
+                            </div>
+                            <div class="row shadow modalRow">
+                                <div onclick="" class="col-6 lf-align pd-default col-primary">
+                                    <label class="col-primary">Amount</label>
+                                </div>
+                                <div onclick="" class="col-6 rt-align pd-default col-primary">
+                                    <label>&#x20A6 15,000.00</label>
+                                </div>
+                            </div>
+                            <div class="row shadow modalRow">
+                                <div onclick="" class="col-6 lf-align pd-default col-primary">
+                                    <label class="col-primary">Trans Date</label>
+                                </div>
+                                <div onclick="" class="col-6 rt-align pd-default col-primary">
+                                    <label>12/04/2019</label>
+                                </div>
+                            </div>
+                            <div class="row shadow modalRow">
+                                <div onclick="" class="col-6 lf-align pd-default col-primary">
+                                    <label class="col-primary">Acct Num</label>
+                                </div>
+                                <div onclick="" class="col-6 rt-align pd-default col-primary">
+                                    <label>100345687903</label>
+                                </div>
+                            </div>
+                            <div class="row shadow modalRow">
+                                <div onclick="" class="col-6 lf-align pd-default col-primary">
+                                    <label class="col-primary">Trans type</label>
+                                </div>
+                                <div onclick="" class="col-6 rt-align pd-default col-primary">
+                                    <label>Credit</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div onclick="hideModal2('transactionHistory')" class="col-4 ct-align pd-default col-danger shadow">
+                                    <label>OK</label>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 nav"></div>
             </div>
        </div>
         <script src="../../js/index.js"></script>

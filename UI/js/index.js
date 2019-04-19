@@ -73,7 +73,6 @@ function toggleMenu(src) {
     }
     return;
   }
-  console.log('i was clicked');
   if (src) {
     const toggle = document.querySelector('.nav-vert-cont');
     if (toggle.style.display.length == 0 || toggle.style.display == 'none') {
@@ -82,7 +81,6 @@ function toggleMenu(src) {
       toggle.style.display = 'none';
     }
   } else {
-    console.log('i got here');
     const toggle = document.querySelector('.nav-resp-vert');
     if (toggle.style.display.length == 0 || toggle.style.display == 'none') {
       toggle.style.display = 'block';
@@ -90,4 +88,34 @@ function toggleMenu(src) {
       toggle.style.display = 'none';
     }
   }
+}
+
+function showDrowndown(event, id) {
+  document.getElementById(`${id}`).classList.toggle("show");
+  event.stopPropagation();
+}
+
+function showModal(container, message){
+  document.querySelector("#modal").style.display =  "block";
+  document.querySelector('#modalMessage').innerHTML =  `Are you sure you want to ${message} this account`;
+  document.querySelector(`#${container}`).style.pointerEvents =  "none";
+  document.querySelector(`#${container}`).style.filter = "blur(1px)"; 
+}
+function hideModal(container){
+  document.querySelector("#modal").style.display =  "none";
+  document.querySelector(`#${container}`).style.filter = "blur(0px)"; 
+  document.querySelector(`#${container}`).style.pointerEvents =  "all";
+  document.querySelector(`#${container}`).style.opacity =  "1";
+}
+
+function showModal2(container){
+  document.querySelector("#modal2").style.display =  "block";
+  document.querySelector(`#${container}`).style.pointerEvents =  "none";
+  document.querySelector(`#${container}`).style.filter = "blur(1px)"; 
+}
+function hideModal2(container){
+  document.querySelector("#modal2").style.display =  "none";
+  document.querySelector(`#${container}`).style.pointerEvents =  "all";
+  document.querySelector(`#${container}`).style.filter = "blur(0px)"; 
+  document.querySelector(`#${container}`).style.opacity =  "1";
 }
