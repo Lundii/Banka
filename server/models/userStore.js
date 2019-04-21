@@ -1,4 +1,3 @@
-import Table from '../database/table';
 import Store from './store';
 
 /**
@@ -12,10 +11,17 @@ class UserStore extends Store {
    * @param {sting} name - the name of store
    * @param {Database} database - the database to use for storage
    */
-  constructor(name, database) {
-    const table = new Table(name);
-    database.createTable(table);
-    super(name, table);
+  constructor(name, pool) {
+    const createUserTable = `CREATE TABLE IF NOT EXISTS ${name}(
+      id serial PRIMARY KEY,
+      firstName VARCHAR (50) NOT NULL,
+      lastName VARCHAR (50) NOT NULL,
+      email VARCHAR (300) UNIQUE NOT NULL,
+      password VARCHAR (500) NOT NULL,
+      type VARCHAR (20) NOT NULL,
+      isAdmin BOOLEAN
+    );`;
+    super(name, pool, createUserTable);
   }
 }
 

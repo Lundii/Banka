@@ -23,7 +23,7 @@ class UserController {
     const accountNumber = generateAccountNumber(req.body.type);
     const data = {
       accountNumber,
-      createdOn: new Date().getTime,
+      createdOn: new Date(),
       owner: req.params.id,
       type: req.body.type,
       status: 'active',
@@ -37,7 +37,7 @@ class UserController {
           id: result[0].id,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
-          accountNumber: result[0].accountNumber,
+          accountNumber: result[0].accountnumber,
           email: req.body.email,
           type: result[0].type,
           status: result[0].status,

@@ -2,13 +2,18 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../../server';
+import server, { store } from '../../server';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe('Staff can debit an account Number', () => {
+  after((done) => {
+    store.transactionStore.remove({ accountNumber: 1000047890 }, (err, result) => {
+      done();
+    });
+  });
   it('should return a status 200 if the account is successfully debited', (done) => {
     const body = {
       email: 'amaka.padi@gmail.com',

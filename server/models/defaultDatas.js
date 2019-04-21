@@ -1,3 +1,8 @@
+/* eslint-disable import/no-cycle */
+
+import { hashPassword } from '../util/index';
+import { store } from '../server';
+
 export const Users = [
   {
     firstName: 'Peter',
@@ -60,7 +65,7 @@ export const Users = [
 export const Accounts = [
   {
     accountNumber: 1004875498,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 1,
     type: 'savings',
     status: 'active',
@@ -68,7 +73,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1004870909,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 1,
     type: 'savings',
     status: 'active',
@@ -76,7 +81,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1004848398,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 1,
     type: 'savings',
     status: 'active',
@@ -84,7 +89,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1003847890,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 1,
     type: 'savings',
     status: 'active',
@@ -92,7 +97,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1000047890,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 1,
     type: 'savings',
     status: 'active',
@@ -100,7 +105,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1004839098,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 2,
     type: 'savings',
     status: 'dormant',
@@ -108,7 +113,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1003437498,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 3,
     type: 'savings',
     status: 'dormant',
@@ -116,7 +121,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1004837498,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 4,
     type: 'savings',
     status: 'dormant',
@@ -124,7 +129,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1004809890,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 4,
     type: 'savings',
     status: 'dormant',
@@ -132,7 +137,7 @@ export const Accounts = [
   },
   {
     accountNumber: 1007877890,
-    createdOn: new Date().getTime,
+    createdOn: new Date(),
     owner: 4,
     type: 'savings',
     status: 'active',
@@ -142,7 +147,7 @@ export const Accounts = [
 
 export const Transactions = [
   {
-    createdOn: new Date().getDate,
+    createdOn: new Date(),
     type: 'credit',
     accountNumber: 1004837498,
     cashier: 5,
@@ -151,7 +156,7 @@ export const Transactions = [
     newBalance: 150000.00,
   },
   {
-    createdOn: new Date().getDate,
+    createdOn: new Date(),
     type: 'credit',
     accountNumber: 1004837498,
     cashier: 5,
@@ -160,7 +165,7 @@ export const Transactions = [
     newBalance: 150000.00,
   },
   {
-    createdOn: new Date().getDate,
+    createdOn: new Date(),
     type: 'credit',
     accountNumber: 1004837498,
     cashier: 5,
@@ -169,7 +174,7 @@ export const Transactions = [
     newBalance: 160000.00,
   },
   {
-    createdOn: new Date().getDate,
+    createdOn: new Date(),
     type: 'credit',
     accountNumber: 1004837498,
     cashier: 5,
@@ -178,3 +183,92 @@ export const Transactions = [
     newBalance: 125000.00,
   },
 ];
+
+export function addData() {
+  Users.forEach((object) => {
+    const hashPass = hashPassword(object.password);
+    object.password = hashPass;
+    store.userStore.create(object, (err, result1) => {
+      // console.log(err);
+      if (err) throw new Error('Error creating default users', err);
+    });
+  });
+
+  Accounts.forEach((object) => {
+    store.bankAcctStore.create(object, (err, result1) => {
+      // console.log(err);
+      if (err) throw new Error('Error creating default bank accounts', err);
+    });
+  });
+
+  Transactions.forEach((object) => {
+    store.transactionStore.create(object, (err, result1) => {
+      // console.log(err);
+      if (err) throw new Error('Error creating default transactions', err);
+    });
+  });
+}
+
+export function removeData() {
+  Users.forEach((object) => {
+    store.userStore.remove({ email: `${object.email}` }, (err, result) => {
+      // console.log(err);
+      if (err) throw new Error('Error removing default users', err);
+    });
+  });
+
+  Accounts.forEach((object) => {
+    store.bankAcctStore.remove({ accountnumber: `${object.accountNumber}` }, (err, result) => {
+      // console.log(err);
+      if (err) throw new Error('Error removing default users', err);
+    });
+  });
+
+  Transactions.forEach((object) => {
+    store.transactionStore.remove({ accountnumber: `${object.accountNumber}` }, (err, result) => {
+      // console.log(err);
+      if (err) throw new Error('Error removing default users', err);
+    });
+  });
+}
+
+export function addUsers(callback) {
+  Users.forEach((object) => {
+    const hashPass = hashPassword(object.password);
+    object.password = hashPass;
+    store.userStore.create(object, (err, result) => {
+      // console.log(err);
+      if (err) return callback(err);
+      return callback(null, result);
+    });
+  });
+}
+export function addAccounts(callback) {
+  Accounts.forEach((object) => {
+    store.bankAcctStore.create(object, (err, result) => {
+      // console.log(err);
+      if (err) return callback(err);
+      return callback(null, err);
+    });
+  });
+}
+
+export function removeUsers(callback) {
+  Users.forEach((object) => {
+    store.userStore.remove({ email: `${object.email}` }, (err, result) => {
+      // console.log(err);
+      if (err) throw new Error('Error removing default users', err);
+      return callback(null, result);
+    });
+  });
+}
+
+export function removeAccounts(callback) {
+  Accounts.forEach((object) => {
+    store.bankAcctStore.remove({ accountnumber: `${object.accountNumber}` }, (err, result) => {
+      // console.log(err);
+      if (err) throw new Error('Error removing default users', err);
+    });
+  });
+
+}

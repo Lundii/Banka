@@ -2,17 +2,22 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../../server';
+import server, { store } from '../../server';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe('Test for signup API', () => {
+  after((done) => {
+    store.userStore.remove({ email: 'testAdmin@gmail.com' }, (err, result) => {
+      done();
+    });
+  });
   it('should return a status 200 if all important fields are entered', (done) => {
     const body = {
       firstName: 'Onu',
-      lastName: 'Monday',
+      lastName: 'Wednesday',
       email: 'testAdmin@gmail.com',
       password: 'password',
       confirmPassword: 'password',

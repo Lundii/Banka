@@ -1,3 +1,5 @@
+services:
+ - postgresql
 env:
   global:
     - CC_TEST_REPORTER_ID=b8ce4a27dc2254bf43d75930de50ee6ea2a2754758bfd8cfcb6d50f5ecc197b3
@@ -5,6 +7,7 @@ language: node_js
 node_js:
   - "stable"
 before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   - npm run coveralls
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

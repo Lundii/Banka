@@ -57,18 +57,18 @@ class HomeController {
         const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
         const token = jwt.sign(payload, secret, config.jwt_options);
         dataR[0].token = token;
-        const data = {
+        const data1 = {
           id: dataR[0].id,
-          firstName: dataR[0].firstName,
-          lastName: dataR[0].lastName,
+          firstName: dataR[0].firstname,
+          lastName: dataR[0].lastname,
           email: dataR[0].email,
           type: dataR[0].type,
-          isAdmin: dataR[0].isAdmin,
+          isAdmin: dataR[0].isadmin,
           token: dataR[0].token,
         };
         const response = {
           status: 200,
-          data: data,
+          data: data1,
         };
         return res.status(200).json(response);
       });
@@ -104,16 +104,18 @@ class HomeController {
       const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
       const token = jwt.sign(payload, secret, config.jwt_options);
       result[0].token = token;
+
       const resData = {
         id: result[0].id,
-        firstName: result[0].firstName,
-        lastName: result[0].lastName,
+        firstName: result[0].firstname,
+        lastName: result[0].lastname,
         email: result[0].email,
         token: result[0].token,
-      }
+      };
+
       const response = {
         status: 200,
-        data: result[0],
+        data: resData,
       };
       return res.status(200).json(response);
     });
