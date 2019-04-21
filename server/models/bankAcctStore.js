@@ -1,4 +1,3 @@
-import Table from '../database/table';
 import Store from './store';
 
 /**
@@ -12,10 +11,17 @@ class BankAcctStore extends Store {
    * @param {sting} name - the name of store
    * @param {Database} database - the database to use for storage
    */
-  constructor(name, database) {
-    const table = new Table(name);
-    database.createTable(table);
-    super(name, table);
+  constructor(name, pool) {
+    const createAccountTable = `CREATE TABLE IF NOT EXISTS ${name}(
+      id SERIAL PRIMARY KEY,
+      accountNumber INTEGER NOT NULL,
+      owner INTEGER NOT NULL,
+      type VARCHAR (50) NOT NULL,
+      status VARCHAR (20) NOT NULL,
+      balance REAL NOT NULL,
+      createdOn TIMESTAMP
+    );`;
+    super(name, pool, createAccountTable);
   }
 }
 

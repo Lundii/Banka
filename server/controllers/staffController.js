@@ -43,7 +43,7 @@ class StaffController {
         const response = {
           status: 200,
           data: {
-            accountNumber: result2[0].accountNumber,
+            accountNumber: result2[0].accountnumber,
             status: result2[0].status,
             message,
           },
@@ -94,8 +94,7 @@ class StaffController {
         });
       }
       const data = {
-        id: 1,
-        createdOn: new Date().getDate,
+        createdOn: new Date(),
         type: 'credit',
         accountNumber: req.params.accountNumber,
         cashier: parseFloat(req.params.id),
@@ -106,7 +105,8 @@ class StaffController {
       this.store.transactionStore.create(data, (err1, result1) => {
         if (err1) throw new Error('Error saving transaction');
         this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
-          { balance: result1[0].newBalance }, (err2, result2) => {
+          { balance: result1[0].newbalance }, (err2, result2) => {
+            console.log(err2);
             if (err2) throw new Error('Error updating transaction');
             const resp = {
               status: 200,
@@ -116,7 +116,7 @@ class StaffController {
                 amount: parseFloat(result1[0].amount),
                 cashier: req.params.id,
                 transactionType: result1[0].type,
-                accountBalance: result1[0].newBalance.toString(),
+                accountBalance: result1[0].newbalance.toString(),
               },
             };
             res.status(200).json(resp);
@@ -126,7 +126,7 @@ class StaffController {
   }
 
   /**
-   * Method for handling deleting an account route(POST api/v1/staff/<id>/transactions/<accountNumber>/debit)
+  * Method for handling deleting an account route(POST api/v1/staff/<id>/transactions/<accountNumber>/debit)
    * @param {object} req - the request object
    * @param {object} res  - the response object
    */
@@ -153,8 +153,7 @@ class StaffController {
         });
       }
       const data = {
-        id: 1,
-        createdOn: new Date().getDate,
+        createdOn: new Date(),
         type: 'debit',
         accountNumber: req.params.accountNumber,
         cashier: parseFloat(req.params.id),
@@ -165,7 +164,8 @@ class StaffController {
       this.store.transactionStore.create(data, (err1, result1) => {
         if (err1) throw new Error('Error saving transaction');
         this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
-          { balance: result1[0].newBalance }, (err2, result2) => {
+          { balance: result1[0].newbalance }, (err2, result2) => {
+            console.log(err2);
             if (err2) throw new Error('Error updating transaction');
             const resp = {
               status: 200,
@@ -175,7 +175,7 @@ class StaffController {
                 amount: parseFloat(result1[0].amount),
                 cashier: req.params.id,
                 transactionType: result1[0].type,
-                accountBalance: result1[0].newBalance.toString(),
+                accountBalance: result1[0].newbalance.toString(),
               },
             };
             res.status(200).json(resp);

@@ -29,10 +29,10 @@ export default class StaffRouter {
    */
   route() {
     this.router.route('/:id/account/:accountNumber')
-      .patch(validateToken, this.verifyIfStaff,
+      .patch(validateToken, this.verifyIfStaff, this.verifyIfAdmin,
         [body('status', 'field is required').exists(),
           body('status', 'cannot be empty').isLength({ min: 1 }),
-          body('status', 'Status can either be active or dormant' ).custom((value) => {
+          body('status', 'Status can either be active or dormant').custom((value) => {
             if (value !== 'dormant' && value !== 'active') {
               return Promise.reject(new Error('Status can either be active or dormant'));
             }
@@ -42,8 +42,7 @@ export default class StaffRouter {
         this.staffController.actDeactAccount);
 
     this.router.route('/:id/account/:accountNumber')
-      .delete(validateToken, this.verifyIfStaff, this.staffController.deleteAccount);
-      
+      .delete(validateToken, this.verifyIfStaff, this.verifyIfAdmin, this.staffController.deleteAccount);
       
     return this.router;
   }
@@ -58,7 +57,7 @@ export default class StaffRouter {
   verifyIfStaff(req, res, next) {
     req.params.id = parseInt(req.params.id);
     this.store.userStore.read({ id: req.params.id }, (err, result) => {
-      if (result.length && result[0].type !== 'staff') {
+      if ((result && !result.length) || result[0].type !== 'staff') {
         return res.status(401).json({
           status: 401,
           error: 'Unauthorized access',
@@ -78,7 +77,7 @@ export default class StaffRouter {
   verifyIfAdmin(req, res, next) {
     req.params.id = parseInt(req.params.id);
     this.store.userStore.read({ id: req.params.id }, (err, result) => {
-      if (result.length && result[0].isAdmin === false) {
+      if ((result && !result.length) || result[0].isadmin === false) {
         return res.status(401).json({
           status: 401,
           error: 'Unauthorized access',

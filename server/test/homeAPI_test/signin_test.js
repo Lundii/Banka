@@ -3,10 +3,23 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server';
+import { addData, removeData } from '../../models/defaultDatas';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
+
+before(function (done) {
+  this.timeout(3000);
+  addData();
+  setTimeout(done, 2000);
+});
+
+after(function (done) {
+  this.timeout(3000);
+  removeData();
+  setTimeout(done, 2000);
+});
 
 describe('Test for Signin API', () => {
   it('should return a status 200 if all username and password is correct', (done) => {

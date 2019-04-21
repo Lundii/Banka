@@ -2,16 +2,22 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../../server';
+import server, { store } from '../../server';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe('Create Bank Account', () => {
+  after((done) => {
+    store.userStore.remove({ email: 'differentmail@gmail.com' }, (err, result) => {
+      done();
+    });
+  });
+
   it('should return a status 200 if user is registered and have a valid token', (done) => {
     const body = {
-      firstName: 'Onu',
+      firstName: 'Sunday',
       lastName: 'Monday',
       email: 'differentmail@gmail.com',
       password: 'password',
@@ -45,13 +51,15 @@ describe('Create Bank Account', () => {
             expect(resp.body.data.email).to.be.a('String');
             expect(resp.body.data.type).to.be.a('String');
             expect(resp.body.data.openingBalance).to.be.a('Number');
-            done();
+            store.bankAcctStore.remove({ accountNumber: resp.body.data.accountNumber }, (error, re) => {
+              done();
+            });
           });
       });
   });
   it('should return a status 401 is user does not have a valid or expired token', (done) => {
     const body = {
-      firstName: 'Onu',
+      firstName: 'Sunday',
       lastName: 'Monday',
       email: 'differentmail@gmail.com',
       type: 'savings',

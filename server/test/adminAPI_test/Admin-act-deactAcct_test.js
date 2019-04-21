@@ -42,7 +42,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 400 if the account is already active', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'onumonday@gmail.com',
       password: 'password',
     };
     chai.request(server)
@@ -70,7 +70,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 200 if the account is successfully activated if de-activated initially', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'onumonday@gmail.com',
       password: 'password',
     };
     chai.request(server)
@@ -101,7 +101,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 400 if the account is already dormant', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'onumonday@gmail.com',
       password: 'password',
     };
     chai.request(server)

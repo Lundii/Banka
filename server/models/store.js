@@ -8,9 +8,10 @@ class Store {
    * @param {string} name - the name of the store
    * @param {Table} table - the name of the Table class used by this store class
    */
-  constructor(name, table) {
+  constructor(name, pool, tableSchema) {
     this.name = name;
-    this.table = table;
+    this.pool = pool;
+    pool.query(tableSchema);
   }
 
   /**
@@ -20,19 +21,18 @@ class Store {
    * @return {function} The callback funtion
    */
   create(data, callback) {
-    if (Array.isArray(data)) {
-      this.table.addColumnAll(data, (err, result) => {
-        if (err) return callback(err);
-        return callback(null, result);
-      });
-    } else if (typeof data === 'object') {
-      this.table.addColumn(data, (err, result) => {
-        if (err) return callback(err);
-        return callback(null, result);
-      });
-    } else {
-      return callback(new Error('Invalid data'));
+    const columns = Object.keys(data);
+    const arr = [];
+    const values = [];
+    for (let i = 0; i < columns.length; i += 1) {
+      arr.push(data[columns[i]]);
+      values.push(`$${i + 1}`);
     }
+    const text = `INSERT INTO ${this.name} (${columns.join(', ')}) VALUES(${values.join(', ')}) RETURNING *`;
+    this.pool.query(text, arr, (err, result) => {
+      if (err) return callback(err);
+      return callback(null, result.rows);
+    });
   }
 
   /**
@@ -42,9 +42,11 @@ class Store {
    * @return {function} The callback function
    */
   read(query, callback) {
-    this.table.findColumn(query, (err, result) => {
+    const key = Object.keys(query);
+    const text = `SELECT * FROM ${this.name} WHERE ${key[0]} = '${query[key[0]]}';`;
+    this.pool.query(text, (err, result) => {
       if (err) return callback(err);
-      return callback(null, result);
+      return callback(null, result.rows);
     });
   }
 
@@ -56,9 +58,12 @@ class Store {
    * @return {function} The callback function
    */
   update(query, newObject, callback) {
-    this.table.updateColumn(query, newObject, (err, result) => {
+    const key = Object.keys(query);
+    const key2 = Object.keys(newObject);
+    const text = `UPDATE ${this.name} SET ${key2[0]} = '${newObject[key2[0]]}' WHERE ${key[0]} = ${query[key[0]]} RETURNING *;`;
+    this.pool.query(text, (err, result) => {
       if (err) return callback(err);
-      return callback(null, result);
+      return callback(null, result.rows);
     });
   }
 
@@ -69,9 +74,11 @@ class Store {
    * @return {function} The callback function
    */
   remove(query, callback) {
-    this.table.removeColumn(query, (err, result) => {
+    const key = Object.keys(query);
+    const text = `DELETE FROM ${this.name} WHERE ${key[0]} = '${query[key[0]]}';`;
+    this.pool.query(text, (err, result) => {
       if (err) return callback(err);
-      return callback(null, result);
+      return callback(null, result.rows);
     });
   }
 }

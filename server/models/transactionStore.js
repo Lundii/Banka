@@ -1,4 +1,3 @@
-import Table from '../database/table';
 import Store from './store';
 
 /**
@@ -12,10 +11,18 @@ class TransactionStore extends Store {
    * @param {sting} name - the name of store
    * @param {Database} database - the database to use for storage
    */
-  constructor(name, database) {
-    const table = new Table(name);
-    database.createTable(table);
-    super(name, table);
+  constructor(name, pool) {
+    const createTransactionTable = `CREATE TABLE IF NOT EXISTS ${name}(
+      id SERIAL PRIMARY KEY,
+      accountNumber INTEGER NOT NULL,
+      type VARCHAR (50) NOT NULL,
+      cashier INTEGER NOT NULL,
+      amount REAL NOT NULL,
+      oldBalance REAL NOT NULL,
+      newBalance REAL NOT NULL,
+      createdOn TIMESTAMP
+    );`;
+    super(name, pool, createTransactionTable);
   }
 }
 
