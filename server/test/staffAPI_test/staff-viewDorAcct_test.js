@@ -8,7 +8,7 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-describe('Staff can view all dormant accounts', () => {
+describe('Staff can view all dormant/active accounts', () => {
   it('should return a status 200 if the request is successful', (done) => {
     const body = {
       email: 'amaka.padi@gmail.com',
@@ -65,9 +65,9 @@ describe('Staff can view all dormant accounts', () => {
           });
       });
   });
-  it('should return a status 401 if query parameter \'status\' is not equal dormant', (done) => {
+  it('should return a status 400 if query parameter \'status\' is not equal dormant', (done) => {
     const body = {
-      email: 'petertunde@gmail.com',
+      email: 'amaka.padi@gmail.com',
       password: 'password',
     };
     chai.request(server)
@@ -81,7 +81,31 @@ describe('Staff can view all dormant accounts', () => {
           .get(`/api/v1/staff/${id}/accounts?status=allaccounts`)
           .set('Authorization', token)
           .end((er, resp) => {
-            expect(resp).to.have.status(401);
+            expect(resp).to.have.status(400);
+            expect(resp).to.be.a('object');
+            expect(resp.body).to.have.all.keys('status', 'error');
+            expect(resp.body.error).to.be.a('String');
+            done();
+          });
+      });
+  });
+  it('should return a status 400 if query parameter is not status', (done) => {
+    const body = {
+      email: 'amaka.padi@gmail.com',
+      password: 'password',
+    };
+    chai.request(server)
+      .post('/api/v1/auth/signin')
+      .send(body)
+      .end((err, res) => {
+        expect(res.body.data).to.include.all.keys('token');
+        expect(res.body.data.token).to.be.a('String');
+        const { token, id } = res.body.data;
+        chai.request(server)
+          .get(`/api/v1/staff/${id}/accounts?type=dormant`)
+          .set('Authorization', token)
+          .end((er, resp) => {
+            expect(resp).to.have.status(400);
             expect(resp).to.be.a('object');
             expect(resp.body).to.have.all.keys('status', 'error');
             expect(resp.body.error).to.be.a('String');
