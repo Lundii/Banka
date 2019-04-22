@@ -22,7 +22,7 @@ describe('User can view account transaction history', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/user/${id}/1004837498/transactions`)
+          .get(`/api/v1/user/${id}/1004848398/transactions`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(200);

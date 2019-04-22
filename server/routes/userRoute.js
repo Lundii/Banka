@@ -16,7 +16,9 @@ export default class UserRouter {
    */
   constructor(router, store) {
     this.router = router;
+    this.store = store;
     this.userController = new Controllers.UserController(store);
+    this.verifyIsClient = this.verifyIsClient.bind(this);
   }
   
   /**
@@ -34,7 +36,31 @@ export default class UserRouter {
             return Promise.resolve(true);
           })],
         validate, this.userController.createAccount);
+
+    this.router.route('/:id/:accountnumber/transactions')
+      .get(validateToken, this.verifyIsClient, this.userController.accountHistory);
       
     return this.router;
+  }
+
+  
+  /**
+   * Private method used to check if user is a client
+   * @private
+   * @param {object} req - the server request object
+   * @param {object} res - the server response object
+   * @param {function} next - express middleware next() function
+   */  
+  verifyIsClient(req, res, next) {
+    req.params.id = parseInt(req.params.id, 10);
+    this.store.userStore.read({ id: req.params.id }, (err, result) => {
+      if ((result && !result.length) || (result[0].type !== 'client')) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Unauthorized access',
+        });
+      }
+      next();
+    });
   }
 }

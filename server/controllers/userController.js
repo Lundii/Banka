@@ -1,4 +1,4 @@
-import { generateAccountNumber } from '../util'
+import { generateAccountNumber } from '../util';
 /**
  * Home route controller class
  * @class
@@ -12,6 +12,7 @@ class UserController {
   constructor(store) {
     this.store = store;
     this.createAccount = this.createAccount.bind(this);
+    this.accountHistory = this.accountHistory.bind(this);
   }
 
   /**
@@ -45,6 +46,22 @@ class UserController {
         },
       };
       res.status(200).json(response);
+    });
+  }
+
+  accountHistory(req, res) {
+    this.store.transactionStore.read({}, (err, result) => {
+      if (result && !result.length) {
+        return res.status(200).json({
+          status: 200,
+          message: 'No transaction for this account',
+        });
+      }
+      const resp = {
+        status: 200,
+        data: result,
+      };
+      res.status(200).json(resp);
     });
   }
 }
