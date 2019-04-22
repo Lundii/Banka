@@ -56,6 +56,9 @@ export default class StaffRouter {
           body('debitAmount', 'must be a number').isInt()], validate,
         this.staffController.debitAccount);
     
+    this.router.route('/:id/accounts')
+      .get(validateToken, this.verifyIsStaff, this.staffController.viewAccountList);
+      
     return this.router;
   }
 

@@ -30,10 +30,9 @@ describe('Staff can view all bank accounts', () => {
             expect(resp.body).to.have.all.keys('status', 'data');
             expect(resp.body.data).to.be.a('Array');
             expect(resp.body.data[0]).to.be.a('object');
-            expect(resp.body.data[0]).to.include.all.keys('createdOn', 'accountNumber', 'ownerEmail', 'type', 'status', 'balance');
-            expect(resp.body.data[0].createdOn).to.be.a('Date');
-            expect(resp.body.data[0].accountNumber).to.be.a('Number');
-            expect(resp.body.data[0].ownerEmail).to.be.a('String');
+            expect(resp.body.data[0]).to.include.all.keys('createdon', 'accountnumber', 'owneremail', 'type', 'status', 'balance');
+            expect(resp.body.data[0].accountnumber).to.be.a('Number');
+            expect(resp.body.data[0].owneremail).to.be.a('String');
             expect(resp.body.data[0].type).to.be.a('String');
             expect(resp.body.data[0].status).to.be.a('String');
             expect(resp.body.data[0].balance).to.be.a('Number');
@@ -68,7 +67,7 @@ describe('Staff can view all bank accounts', () => {
   it('should return a status 401 is user does not have a valid or expired token', (done) => {
     const id = 50048987839302;
     chai.request(server)
-      .get(`/api/v1/staff/${id}/account/100495432`)
+      .get(`/api/v1/staff/${id}/accounts`)
       .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
       .end((err, res) => {
         expect(res).to.have.status(401);

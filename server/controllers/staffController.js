@@ -14,6 +14,7 @@ class StaffController {
     this.deleteAccount = this.deleteAccount.bind(this);
     this.creditAccount = this.creditAccount.bind(this);
     this.debitAccount = this.debitAccount.bind(this);
+    this.viewAccountList = this.viewAccountList.bind(this);
   }
 
   /**
@@ -181,6 +182,18 @@ class StaffController {
             res.status(200).json(resp);
           });
       });
+    });
+  }
+
+  viewAccountList(req, res) {
+    this.store.bankAcctStore.read({}, (err, result) => {
+      if (err) throw new Error('Error reading bank accounts');
+
+      const resp = {
+        status: 200,
+        data: result,
+      };
+      res.status(200).json(resp);
     });
   }
 }
