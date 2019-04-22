@@ -36,10 +36,10 @@ const accounts = [[accountNumbers[0], 'petertunde@gmail.com', 'savings', 'active
 
 const insertAccountsQuery = format('INSERT INTO bankaccounts(accountNumber, ownerEmail, type, status, balance, createdOn) VALUES %L RETURNING *', accounts);
 
-const transactions = [[1004837498, 'credit', 5, 150000.00, 0.00, 150000.00, new Date()],
-  [accountNumbers[7], 'credit', 5, 150000.00, 0.00, 150000.00, new Date()],
-  [accountNumbers[7], 'credit', 5, 150000.00, 10000.00, 160000.00, new Date()],
-  [accountNumbers[7], 'debit', 5, 160000.00, 35000.00, 125000.00, new Date()]];
+const transactions = [[accountNumbers[2], 'credit', 5, 150000.00, 0.00, 150000.00, new Date()],
+  [accountNumbers[2], 'credit', 5, 150000.00, 0.00, 150000.00, new Date()],
+  [accountNumbers[2], 'credit', 5, 150000.00, 10000.00, 160000.00, new Date()],
+  [accountNumbers[2], 'debit', 5, 160000.00, 35000.00, 125000.00, new Date()]];
 
 const insertTransactionsQuery = format('INSERT INTO transactions(accountNumber, type, cashier, amount, oldBalance, newBalance, createdOn) VALUES %L RETURNING *', transactions);
 

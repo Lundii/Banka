@@ -1,5 +1,4 @@
 import config from '../config';
-
 /**
  * Infrastructure class for setting up initial storage values
  * @class
