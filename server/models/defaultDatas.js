@@ -45,11 +45,8 @@ const insertTransactionsQuery = format('INSERT INTO transactions(accountNumber, 
 
 export function addData(callback) {
   store.userStore.compoundQuery(insertUsersQuery, (err, result) => {
-    console.log(err);
     store.bankAcctStore.compoundQuery(insertAccountsQuery, (err1, result1) => {
-      console.log(err1);
       store.transactionStore.compoundQuery(insertTransactionsQuery, (err2, result2) => {
-        console.log(err2);
         callback();
       });
     });
@@ -59,21 +56,18 @@ export function addData(callback) {
 export function removeData() {
   emails.forEach((email) => {
     store.userStore.remove({ email }, (err, result) => {
-      console.log(err);
       if (err) throw new Error('Error removing default users', err);
     });
   });
 
   accountNumbers.forEach((accountNumber) => {
     store.bankAcctStore.remove({ accountNumber }, (err, result) => {
-      console.log(err);
       if (err) throw new Error('Error removing default users', err);
     });
   });
 
   accountNumbers.forEach((accountNumber) => {
     store.transactionStore.remove({ accountNumber }, (err, result) => {
-      console.log(err);
       if (err) throw new Error('Error removing default users', err);
     });
   });

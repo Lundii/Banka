@@ -42,8 +42,13 @@ class Store {
    * @return {function} The callback function
    */
   read(query, callback) {
-    const key = Object.keys(query);
-    const text = `SELECT * FROM ${this.name} WHERE ${key[0]} = '${query[key[0]]}';`;
+    let text;
+    if (Object.keys(query).length === 0) {
+      text = `SELECT * FROM ${this.name}`;
+    } else {
+      const key = Object.keys(query);
+      text = `SELECT * FROM ${this.name} WHERE ${key[0]} = '${query[key[0]]}';`;
+    }
     this.pool.query(text, (err, result) => {
       if (err) return callback(err);
       return callback(null, result.rows);

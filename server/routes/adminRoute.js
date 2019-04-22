@@ -20,8 +20,7 @@ export default class StaffRouter {
     this.store = store;
     this.adminController = new Controllers.AdminController(store);
     this.staffController = new Controllers.StaffController(store);
-    this.verifyIfAdmin = this.verifyIfAdmin.bind(this);
-    this.verifyIfStaff = this.verifyIfStaff.bind(this);
+    this.verifyIsAdmin = this.verifyIsAdmin.bind(this);
   }
   
   /**
@@ -29,7 +28,7 @@ export default class StaffRouter {
    */
   route() {
     this.router.route('/:id/account/:accountNumber')
-      .patch(validateToken, this.verifyIfStaff, this.verifyIfAdmin,
+      .patch(validateToken, this.verifyIsAdmin,
         [body('status', 'field is required').exists(),
           body('status', 'cannot be empty').isLength({ min: 1 }),
           body('status', 'Status can either be active or dormant').custom((value) => {
@@ -42,29 +41,12 @@ export default class StaffRouter {
         this.staffController.actDeactAccount);
 
     this.router.route('/:id/account/:accountNumber')
-      .delete(validateToken, this.verifyIfStaff, this.verifyIfAdmin, this.staffController.deleteAccount);
+      .delete(validateToken, this.verifyIsAdmin, this.staffController.deleteAccount);
+
+    this.router.route('/:id/accounts')
+      .get(validateToken, this.verifyIsAdmin, this.staffController.viewAccountList);
       
     return this.router;
-  }
-
-  /**
-   * Private method used to check if user is a staff
-   * @private
-   * @param {object} req - the server request object
-   * @param {object} res - the server response object
-   * @param {function} next - express middleware next() function
-   */
-  verifyIfStaff(req, res, next) {
-    req.params.id = parseInt(req.params.id);
-    this.store.userStore.read({ id: req.params.id }, (err, result) => {
-      if ((result && !result.length) || result[0].type !== 'staff') {
-        return res.status(401).json({
-          status: 401,
-          error: 'Unauthorized access',
-        });
-      }
-      next();
-    });
   }
 
   /**
@@ -74,10 +56,10 @@ export default class StaffRouter {
    * @param {object} res - the server response object
    * @param {function} next - express middleware next() function
    */
-  verifyIfAdmin(req, res, next) {
+  verifyIsAdmin(req, res, next) {
     req.params.id = parseInt(req.params.id);
     this.store.userStore.read({ id: req.params.id }, (err, result) => {
-      if ((result && !result.length) || result[0].isadmin === false) {
+      if ((result && !result.length) || (result[0].type !== 'staff' || result[0].isadmin === false)) {
         return res.status(401).json({
           status: 401,
           error: 'Unauthorized access',
