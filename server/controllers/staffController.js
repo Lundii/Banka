@@ -184,15 +184,37 @@ class StaffController {
   }
 
   viewAccountList(req, res) {
-    this.store.bankAcctStore.read({}, (err, result) => {
-      if (err) throw new Error('Error reading bank accounts');
-
-      const resp = {
-        status: 200,
-        data: result,
-      };
-      res.status(200).json(resp);
-    });
+    if ((req.query && req.query.status) && (req.query.status !== 'dormant' && req.query.status !== 'active')) {
+      return res.status(400).json({
+        status: 400,
+        error: `${req.query.status} account does not exit`,
+      });
+    }
+    if (req.query && Object.keys(req.query).length && Object.keys(req.query)[0] !== 'status') {
+      return res.status(400).json({
+        status: 400,
+        error: 'invalid query parameters',
+      });
+    }
+    if (req.query && req.query.status) {
+      this.store.bankAcctStore.read({ status: req.query.status }, (err, result) => {
+        if (err) throw new Error('Error reading bank accounts');
+        const resp = {
+          status: 200,
+          data: result,
+        };
+        res.status(200).json(resp);
+      });
+    } else {
+      this.store.bankAcctStore.read({}, (err, result) => {
+        if (err) throw new Error('Error reading bank accounts');
+        const resp = {
+          status: 200,
+          data: result,
+        };
+        res.status(200).json(resp);
+      });
+    }
   }
 }
 
