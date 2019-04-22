@@ -19,8 +19,7 @@ export default class StaffRouter {
     this.router = router;
     this.store = store;
     this.staffController = new Controllers.StaffController(store);
-    this.verifyIfStaff = this.verifyIfStaff.bind(this);
-    this.verifyIsNotAdmin = this.verifyIsNotAdmin.bind(this);
+    this.verifyIsStaff = this.verifyIsStaff.bind(this);
   }
   
   /**
@@ -28,7 +27,7 @@ export default class StaffRouter {
    */
   route() {
     this.router.route('/:id/account/:accountNumber')
-      .patch(validateToken, this.verifyIfStaff, this.verifyIsNotAdmin,
+      .patch(validateToken, this.verifyIsStaff,
         [body('status', 'field is required').exists(),
           body('status', 'cannot be empty').isLength({ min: 1 }),
           body('status', 'Status can either be active or dormant').custom((value) => {
@@ -41,19 +40,17 @@ export default class StaffRouter {
         this.staffController.actDeactAccount);
 
     this.router.route('/:id/account/:accountNumber')
-      .delete(validateToken, this.verifyIfStaff, this.verifyIsNotAdmin, this.staffController.deleteAccount);
+      .delete(validateToken, this.verifyIsStaff, this.staffController.deleteAccount);
 
     this.router.route('/:id/transactions/:accountNumber/credit')
-      .post(validateToken, this.verifyIfStaff,
-        this.verifyIsNotAdmin, 
+      .post(validateToken, this.verifyIsStaff,
         [body('creditAmount', 'field is required').exists(),
           body('creditAmount', 'cannot be empty').isLength({ min: 1 }),
           body('creditAmount', 'must be a number').isInt()], validate,
         this.staffController.creditAccount);
 
     this.router.route('/:id/transactions/:accountNumber/debit')
-      .post(validateToken, this.verifyIfStaff,
-        this.verifyIsNotAdmin,
+      .post(validateToken, this.verifyIsStaff,
         [body('debitAmount', 'field is required').exists(),
           body('debitAmount', 'cannot be empty').isLength({ min: 1 }),
           body('debitAmount', 'must be a number').isInt()], validate,
@@ -69,30 +66,10 @@ export default class StaffRouter {
    * @param {object} res - the server response object
    * @param {function} next - express middleware next() function
    */  
-  verifyIfStaff(req, res, next) {
+  verifyIsStaff(req, res, next) {
     req.params.id = parseInt(req.params.id);
     this.store.userStore.read({ id: req.params.id }, (err, result) => {
-      if ((result && !result.length) || result[0].type !== 'staff') {
-        return res.status(401).json({
-          status: 401,
-          error: 'Unauthorized access',
-        });
-      }
-      next();
-    });
-  }
-
-  /**
-   * Private method used to check if user is not an admin
-   * @private
-   * @param {object} req - the server request object
-   * @param {object} res - the server response object
-   * @param {function} next - express middleware next() function
-   */
-  verifyIsNotAdmin(req, res, next) {
-    req.params.id = parseInt(req.params.id);
-    this.store.userStore.read({ id: req.params.id }, (err, result) => {
-      if ((result && !result.length) || result[0].isadmin === true) {
+      if ((result && !result.length) || (result[0].type !== 'staff' || result[0].isadmin === true)) {
         return res.status(401).json({
           status: 401,
           error: 'Unauthorized access',
