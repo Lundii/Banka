@@ -1,3 +1,5 @@
+import { hashPassword } from './util';
+
 const config = {
   development: {
     port: process.env.PORT || 3000,
@@ -5,7 +7,7 @@ const config = {
       firstName: 'Admin',
       lastName: 'SeniorMan',
       email: 'admin@vipmail.com',
-      password: 'vippassword',
+      password: hashPassword('vippassword'),
       type: 'staff',
       isAdmin: true,
     },

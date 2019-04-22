@@ -14,8 +14,8 @@ class BankAcctStore extends Store {
   constructor(name, pool) {
     const createAccountTable = `CREATE TABLE IF NOT EXISTS ${name}(
       id SERIAL PRIMARY KEY,
-      accountNumber INTEGER NOT NULL,
-      owner INTEGER NOT NULL,
+      accountNumber INTEGER UNIQUE NOT NULL,
+      ownerEmail VARCHAR(300) REFERENCES users(email) ON DELETE CASCADE NOT NULL,
       type VARCHAR (50) NOT NULL,
       status VARCHAR (20) NOT NULL,
       balance REAL NOT NULL,

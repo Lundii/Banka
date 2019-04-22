@@ -81,6 +81,19 @@ class Store {
       return callback(null, result.rows);
     });
   }
+
+  /**
+   * Handles a compound query string
+   * @param {string} query - query string
+   * @param {function} callback - callback function when the process is done
+   * @return {function} The callback function
+   */
+  compoundQuery(query, callback) {
+    this.pool.query(query, (err, result) => {
+      if (err) return callback(err);
+      return callback(null, result.rows);
+    });
+  }
 }
 
 export default Store;

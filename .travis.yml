@@ -8,11 +8,11 @@ node_js:
   - "stable"
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - npm run coveralls
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
   - nyc --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha server --recursive --require @babel/register --exit 
 after_script:
+  - npm run coveralls
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
