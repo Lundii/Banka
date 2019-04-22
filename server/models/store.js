@@ -11,7 +11,14 @@ class Store {
   constructor(name, pool, tableSchema) {
     this.name = name;
     this.pool = pool;
-    pool.query(tableSchema);
+    this.tableSchema = tableSchema;
+  }
+
+  createTable(callback) {
+    this.pool.query(this.tableSchema, (err, result) => {
+      if (err) throw new Error(`Error creating ${this.name} Table`);
+      return callback(null, result);
+    });
   }
 
   /**

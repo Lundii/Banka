@@ -107,7 +107,6 @@ class StaffController {
         if (err1) throw new Error('Error saving transaction');
         this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
           { balance: result1[0].newbalance }, (err2, result2) => {
-            console.log(err2);
             if (err2) throw new Error('Error updating transaction');
             const resp = {
               status: 200,
@@ -166,7 +165,6 @@ class StaffController {
         if (err1) throw new Error('Error saving transaction');
         this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
           { balance: result1[0].newbalance }, (err2, result2) => {
-            console.log(err2);
             if (err2) throw new Error('Error updating transaction');
             const resp = {
               status: 200,

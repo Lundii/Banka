@@ -29,14 +29,9 @@ export const store = {
   transactionStore: new storeLib.TransactionStore('transactions', pool),
 };
 
+const StorageInfrastructure = new storeLib.StorageInfrastructure(store);
 function Init() {
-  store.userStore.read({ email: config.development.adminAccount.email }, (err, result) => {
-    if (result && !result.length) {
-      store.userStore.create(config.development.adminAccount, (er, res) => {
-        serverlog('adminCreated');
-      });
-    }
-  });
+  StorageInfrastructure.init();
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
