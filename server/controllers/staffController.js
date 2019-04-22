@@ -15,6 +15,7 @@ class StaffController {
     this.creditAccount = this.creditAccount.bind(this);
     this.debitAccount = this.debitAccount.bind(this);
     this.viewAccountList = this.viewAccountList.bind(this);
+    this.viewSpecificAccount = this.viewSpecificAccount.bind(this);
   }
 
   /**
@@ -215,6 +216,30 @@ class StaffController {
         res.status(200).json(resp);
       });
     }
+  }
+
+  viewSpecificAccount(req, res) {
+    this.store.userStore.read({ email: req.params.email }, (err, result) => {
+      if (result && !result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'User does not exit in the database',
+        });
+      }
+      this.store.bankAcctStore.read({ owneremail: req.params.email }, (err1, result1) => {
+        if (result1 && !result1.length) {
+          return res.status(200).json({
+            status: 200,
+            message: 'No account found for this user',
+          });
+        }
+        const resp = {
+          status: 200,
+          data: result1,
+        };
+        res.status(200).json(resp);
+      });
+    });
   }
 }
 

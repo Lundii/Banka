@@ -58,6 +58,9 @@ export default class StaffRouter {
     
     this.router.route('/:id/accounts')
       .get(validateToken, this.verifyIsStaff, this.staffController.viewAccountList);
+
+    this.router.route('/:id/:email/accounts')
+      .get(validateToken, this.verifyIsStaff, this.staffController.viewSpecificAccount);
       
     return this.router;
   }
