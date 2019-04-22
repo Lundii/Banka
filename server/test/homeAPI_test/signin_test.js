@@ -9,10 +9,8 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-before(function (done) {
-  this.timeout(3000);
-  addData();
-  setTimeout(done, 2000);
+before((done) => {
+  addData(done);
 });
 
 after(function (done) {

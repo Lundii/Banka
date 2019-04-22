@@ -1,274 +1,80 @@
 /* eslint-disable import/no-cycle */
 
+import format from 'pg-format';
 import { hashPassword } from '../util/index';
 import { store } from '../server';
 
-export const Users = [
-  {
-    firstName: 'Peter',
-    lastName: 'Tunde',
-    email: 'petertunde@gmail.com',
-    password: 'password',
-    type: 'client',
-    isAdmin: false,
-  },
-  {
-    firstName: 'Aisha',
-    lastName: 'Lawal',
-    email: 'aishalawal23@gmail.com',
-    password: 'password',
-    type: 'client',
-    isAdmin: false,
-  },
-  {
-    firstName: 'Chukwudi',
-    lastName: 'James',
-    email: 'chukwudi.james@gmail.com',
-    password: 'password',
-    type: 'client',
-    isAdmin: false,
-  },
-  {
-    firstName: 'Bill',
-    lastName: 'Mark',
-    email: 'billmark56@gmail.com',
-    password: 'password',
-    type: 'client',
-    isAdmin: false,
-  },
-  {
-    firstName: 'Amaka',
-    lastName: 'Padi',
-    email: 'amaka.padi@gmail.com',
-    password: 'password',
-    type: 'staff',
-    isAdmin: false,
-  },
-  {
-    firstName: 'Jeffery',
-    lastName: 'Sunday',
-    email: 'jefferysunday12@gmail.com',
-    password: 'password',
-    type: 'staff',
-    isAdmin: false,
-  },
-  {
-    firstName: 'Onu',
-    lastName: 'Monday',
-    email: 'onumonday@gmail.com',
-    password: 'password',
-    type: 'staff',
-    isAdmin: true,
-  },
-];
+const emails = ['petertunde@gmail.com', 'aishalawal23@gmail.com', 'chukwudi.james@gmail.com', 'billmark56@gmail.com',
+  'amaka.padi@gmail.com', 'jefferysunday12@gmail.com', 'onumonday@gmail.com'];
 
-export const Accounts = [
-  {
-    accountNumber: 1004875498,
-    createdOn: new Date(),
-    owner: 1,
-    type: 'savings',
-    status: 'active',
-    balance: 340000.00,
-  },
-  {
-    accountNumber: 1004870909,
-    createdOn: new Date(),
-    owner: 1,
-    type: 'savings',
-    status: 'active',
-    balance: 3000.00,
-  },
-  {
-    accountNumber: 1004848398,
-    createdOn: new Date(),
-    owner: 1,
-    type: 'savings',
-    status: 'active',
-    balance: 0.00,
-  },
-  {
-    accountNumber: 1003847890,
-    createdOn: new Date(),
-    owner: 1,
-    type: 'savings',
-    status: 'active',
-    balance: 100.00,
-  },
-  {
-    accountNumber: 1000047890,
-    createdOn: new Date(),
-    owner: 1,
-    type: 'savings',
-    status: 'active',
-    balance: 400000.00,
-  },
-  {
-    accountNumber: 1004839098,
-    createdOn: new Date(),
-    owner: 2,
-    type: 'savings',
-    status: 'dormant',
-    balance: 0.00,
-  },
-  {
-    accountNumber: 1003437498,
-    createdOn: new Date(),
-    owner: 3,
-    type: 'savings',
-    status: 'dormant',
-    balance: 0.00,
-  },
-  {
-    accountNumber: 1004837498,
-    createdOn: new Date(),
-    owner: 4,
-    type: 'savings',
-    status: 'dormant',
-    balance: 0.00,
-  },
-  {
-    accountNumber: 1004809890,
-    createdOn: new Date(),
-    owner: 4,
-    type: 'savings',
-    status: 'dormant',
-    balance: 0.00,
-  },
-  {
-    accountNumber: 1007877890,
-    createdOn: new Date(),
-    owner: 4,
-    type: 'savings',
-    status: 'active',
-    balance: 0.00,
-  },
-];
+const accountNumbers = [1004875498, 1004870909, 1004848398, 1003847890, 1000047890, 1004839098, 1003437498,
+  1004837498, 1007877890, 1004809890];
 
-export const Transactions = [
-  {
-    createdOn: new Date(),
-    type: 'credit',
-    accountNumber: 1004837498,
-    cashier: 5,
-    amount: 150000.00,
-    oldBalance: 0.00,
-    newBalance: 150000.00,
-  },
-  {
-    createdOn: new Date(),
-    type: 'credit',
-    accountNumber: 1004837498,
-    cashier: 5,
-    amount: 150000.00,
-    oldBalance: 0.00,
-    newBalance: 150000.00,
-  },
-  {
-    createdOn: new Date(),
-    type: 'credit',
-    accountNumber: 1004837498,
-    cashier: 5,
-    amount: 10000.00,
-    oldBalance: 150000.00,
-    newBalance: 160000.00,
-  },
-  {
-    createdOn: new Date(),
-    type: 'credit',
-    accountNumber: 1004837498,
-    cashier: 5,
-    amount: 35000.00,
-    oldBalance: 160000.00,
-    newBalance: 125000.00,
-  },
-];
+const userPasswords = ['password', 'password', 'password', 'password', 'password', 'password', 'password', 'password'];
+const hashPass = userPasswords.map(password => hashPassword(password));
 
-export function addData() {
-  Users.forEach((object) => {
-    const hashPass = hashPassword(object.password);
-    object.password = hashPass;
-    store.userStore.create(object, (err, result1) => {
-      // console.log(err);
-      if (err) throw new Error('Error creating default users', err);
-    });
-  });
+const users = [['Peter', 'Tunde', emails[0], hashPass[0], 'client', false],
+  ['Aisha', 'Lawal', emails[1], hashPass[1], 'client', false],
+  ['Chukwudi', 'James', emails[2], hashPass[2], 'client', false],
+  ['Bill', 'Mark', emails[3], hashPass[3], 'client', false],
+  ['Amaka', 'Padi', emails[4], hashPass[4], 'staff', false],
+  ['Jeffery', 'Sunday', emails[5], hashPass[5], 'staff', false],
+  ['Onu', 'Monday', emails[6], hashPass[6], 'staff', true]];
 
-  Accounts.forEach((object) => {
-    store.bankAcctStore.create(object, (err, result1) => {
-      // console.log(err);
-      if (err) throw new Error('Error creating default bank accounts', err);
-    });
-  });
+const insertUsersQuery = format('INSERT INTO users(firstName, lastName, email, password, type, isAdmin) VALUES %L returning *', users);
 
-  Transactions.forEach((object) => {
-    store.transactionStore.create(object, (err, result1) => {
-      // console.log(err);
-      if (err) throw new Error('Error creating default transactions', err);
+const accounts = [[accountNumbers[0], 'petertunde@gmail.com', 'savings', 'active', 340000.00, new Date()],
+  [accountNumbers[1], 'petertunde@gmail.com', 'savings', 'active', 3000.00, new Date()],
+  [accountNumbers[2], 'petertunde@gmail.com', 'current', 'active', 0.00, new Date()],
+  [accountNumbers[3], 'aishalawal23@gmail.com', 'savings', 'active', 100.00, new Date()],
+  [accountNumbers[4], 'aishalawal23@gmail.com', 'current', 'active', 400000.00, new Date()],
+  [accountNumbers[5], 'aishalawal23@gmail.com', 'savings', 'dormant', 0.00, new Date()],
+  [accountNumbers[6], 'aishalawal23@gmail.com', 'savings', 'dormant', 23000.00, new Date()],
+  [accountNumbers[7], 'chukwudi.james@gmail.com', 'savings', 'dormant', 0.00, new Date()],
+  [accountNumbers[8], 'chukwudi.james@gmail.com', 'savings', 'active', 0.00, new Date()],
+  [accountNumbers[9], 'billmark56@gmail.com', 'savings', 'dormant', 0.00, new Date()]];
+
+const insertAccountsQuery = format('INSERT INTO bankaccounts(accountNumber, ownerEmail, type, status, balance, createdOn) VALUES %L RETURNING *', accounts);
+
+const transactions = [[1004837498, 'credit', 5, 150000.00, 0.00, 150000.00, new Date()],
+  [accountNumbers[7], 'credit', 5, 150000.00, 0.00, 150000.00, new Date()],
+  [accountNumbers[7], 'credit', 5, 150000.00, 10000.00, 160000.00, new Date()],
+  [accountNumbers[7], 'debit', 5, 160000.00, 35000.00, 125000.00, new Date()]];
+
+const insertTransactionsQuery = format('INSERT INTO transactions(accountNumber, type, cashier, amount, oldBalance, newBalance, createdOn) VALUES %L RETURNING *', transactions);
+
+export function addData(callback) {
+  store.userStore.compoundQuery(insertUsersQuery, (err, result) => {
+    console.log(err);
+    store.bankAcctStore.compoundQuery(insertAccountsQuery, (err1, result1) => {
+      console.log(err1);
+      store.transactionStore.compoundQuery(insertTransactionsQuery, (err2, result2) => {
+        console.log(err2);
+        callback();
+      });
     });
   });
 }
 
 export function removeData() {
-  Users.forEach((object) => {
-    store.userStore.remove({ email: `${object.email}` }, (err, result) => {
-      // console.log(err);
+  emails.forEach((email) => {
+    store.userStore.remove({ email }, (err, result) => {
+      console.log(err);
       if (err) throw new Error('Error removing default users', err);
     });
   });
 
-  Accounts.forEach((object) => {
-    store.bankAcctStore.remove({ accountnumber: `${object.accountNumber}` }, (err, result) => {
-      // console.log(err);
+  accountNumbers.forEach((accountNumber) => {
+    store.bankAcctStore.remove({ accountNumber }, (err, result) => {
+      console.log(err);
       if (err) throw new Error('Error removing default users', err);
     });
   });
 
-  Transactions.forEach((object) => {
-    store.transactionStore.remove({ accountnumber: `${object.accountNumber}` }, (err, result) => {
-      // console.log(err);
+  accountNumbers.forEach((accountNumber) => {
+    store.transactionStore.remove({ accountNumber }, (err, result) => {
+      console.log(err);
       if (err) throw new Error('Error removing default users', err);
     });
   });
-}
-
-export function addUsers(callback) {
-  Users.forEach((object) => {
-    const hashPass = hashPassword(object.password);
-    object.password = hashPass;
-    store.userStore.create(object, (err, result) => {
-      // console.log(err);
-      if (err) return callback(err);
-      return callback(null, result);
-    });
-  });
-}
-export function addAccounts(callback) {
-  Accounts.forEach((object) => {
-    store.bankAcctStore.create(object, (err, result) => {
-      // console.log(err);
-      if (err) return callback(err);
-      return callback(null, err);
-    });
-  });
-}
-
-export function removeUsers(callback) {
-  Users.forEach((object) => {
-    store.userStore.remove({ email: `${object.email}` }, (err, result) => {
-      // console.log(err);
-      if (err) throw new Error('Error removing default users', err);
-      return callback(null, result);
-    });
-  });
-}
-
-export function removeAccounts(callback) {
-  Accounts.forEach((object) => {
-    store.bankAcctStore.remove({ accountnumber: `${object.accountNumber}` }, (err, result) => {
-      // console.log(err);
-      if (err) throw new Error('Error removing default users', err);
-    });
-  });
-
 }

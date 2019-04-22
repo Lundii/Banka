@@ -18,6 +18,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
       .post('/api/v1/auth/signin')
       .send(body)
       .end((err, res) => {
+        console.log(res.body);
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
@@ -29,6 +30,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
           .send(body2)
           .set('Authorization', token)
           .end((er, resp) => {
+            console.log(resp.body);
             expect(resp).to.have.status(200);
             expect(resp).to.be.a('object');
             expect(resp.body).to.have.all.keys('status', 'data');

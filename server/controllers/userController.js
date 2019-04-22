@@ -24,7 +24,7 @@ class UserController {
     const data = {
       accountNumber,
       createdOn: new Date(),
-      owner: req.params.id,
+      ownerEmail: req.body.email,
       type: req.body.type,
       status: 'active',
       balance: 0.00,
