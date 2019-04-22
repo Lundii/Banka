@@ -20,9 +20,9 @@ describe('Staff can view specific user (client) bank accounts', () => {
       .end((err, res) => {
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
-        const { token, id, email } = res.body.data;
+        const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/staff/${id}/${email}/accounts`)
+          .get(`/api/v1/staff/${id}/aishalawal23@gmail.com/accounts`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(200);
@@ -53,7 +53,7 @@ describe('Staff can view specific user (client) bank accounts', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/staff/${id}/${email}/accounts`)
+          .get(`/api/v1/staff/${id}/aishalawal23@gmail.com/accounts`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(401);
@@ -77,8 +77,7 @@ describe('Staff can view specific user (client) bank accounts', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .patch(`/api/v1/staff/${id}/1234324878/account`)
-          .send(body2)
+          .get(`/api/v1/staff/${id}/email@email.com/accounts`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(400);

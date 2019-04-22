@@ -20,9 +20,9 @@ describe('Admin can view specific user (client) bank accounts', () => {
       .end((err, res) => {
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
-        const { token, id, email } = res.body.data;
+        const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/admin/${id}/${email}/accounts`)
+          .get(`/api/v1/admin/${id}/petertunde@gmail.com/accounts`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(200);
@@ -53,7 +53,7 @@ describe('Admin can view specific user (client) bank accounts', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/admin/${id}/${email}/accounts`)
+          .get(`/api/v1/admin/${id}/petertunde@gmail.com/accounts`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(401);
@@ -64,7 +64,7 @@ describe('Admin can view specific user (client) bank accounts', () => {
           });
       });
   });
-  it('should return a status 400 if account does not exit', (done) => {
+  it('should return a status 400 if user account does not exit', (done) => {
     const body = {
       email: 'onumonday@gmail.com',
       password: 'password',
@@ -77,8 +77,7 @@ describe('Admin can view specific user (client) bank accounts', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .patch(`/api/v1/admin/${id}/1234324878/account`)
-          .send(body2)
+          .get(`/api/v1/admin/${id}/email@email.com/accounts`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(400);
