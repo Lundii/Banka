@@ -79,7 +79,7 @@ class UserController {
         data: result[0],
       };
       res.status(200).json(resp);
-    });
+    }); 
   }
 }
 
