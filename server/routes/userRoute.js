@@ -37,8 +37,11 @@ export default class UserRouter {
           })],
         validate, this.userController.createAccount);
 
-    this.router.route('/:id/:accountnumber/transactions')
+    this.router.route('/:id/:accountNumber/transactions')
       .get(validateToken, this.verifyIsClient, this.userController.accountHistory);
+
+    this.router.route('/:id/transactions/:transId')
+      .get(validateToken, this.verifyIsClient, this.userController.specificTranHist)
       
     return this.router;
   }
