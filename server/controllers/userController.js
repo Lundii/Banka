@@ -13,6 +13,7 @@ class UserController {
     this.store = store;
     this.createAccount = this.createAccount.bind(this);
     this.accountHistory = this.accountHistory.bind(this);
+    this.specificTranHist = this.specificTranHist.bind(this);
   }
 
   /**
@@ -50,7 +51,7 @@ class UserController {
   }
 
   accountHistory(req, res) {
-    this.store.transactionStore.read({}, (err, result) => {
+    this.store.transactionStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
       if (result && !result.length) {
         return res.status(200).json({
           status: 200,
@@ -63,6 +64,22 @@ class UserController {
       };
       res.status(200).json(resp);
     });
+  }
+
+  specificTranHist(req, res) {
+    this.store.transactionStore.read({ id: req.params.transId }, (err, result) => {
+      if (result && !result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Transaction does not exit',
+        });
+      }
+      const resp = {
+        status: 200,
+        data: result[0],
+      };
+      res.status(200).json(resp);
+    }); 
   }
 }
 
