@@ -14,6 +14,7 @@ class UserController {
     this.createAccount = this.createAccount.bind(this);
     this.accountHistory = this.accountHistory.bind(this);
     this.specificTranHist = this.specificTranHist.bind(this);
+    this.specAcctDetails = this.specAcctDetails.bind(this);
   }
 
   /**
@@ -80,6 +81,22 @@ class UserController {
       };
       res.status(200).json(resp);
     });
+  }
+
+  specAcctDetails(req, res) {
+    this.store.bankAcctStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
+      if (result && !result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Account does not exit',
+        });
+      }
+      const resp = {
+        status: 200,
+        data: result[0],
+      };
+      res.status(200).json(resp);
+    }); 
   }
 }
 

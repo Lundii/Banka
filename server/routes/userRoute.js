@@ -41,7 +41,10 @@ export default class UserRouter {
       .get(validateToken, this.verifyIsClient, this.userController.accountHistory);
 
     this.router.route('/:id/transactions/:transId')
-      .get(validateToken, this.verifyIsClient, this.userController.specificTranHist)
+      .get(validateToken, this.verifyIsClient, this.userController.specificTranHist);
+
+    this.router.route('/:id/accounts/:accountNumber')
+      .get(validateToken, this.verifyIsClient, this.userController.specAcctDetails);
       
     return this.router;
   }

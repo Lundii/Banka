@@ -29,13 +29,13 @@ describe('User can view specific account details', () => {
             expect(resp).to.be.a('object');
             expect(resp.body).to.have.all.keys('status', 'data');
             expect(resp.body.data).to.be.a('object');
-            expect(resp.body.data).to.include.all.keys('id', 'createdon', 'accountnumber', 'amount', 'type', 'oldbalance', 'newbalance');
+            expect(resp.body.data).to.include.all.keys('id', 'createdon', 'accountnumber', 'owneremail', 'type', 'status', 'balance');
             expect(resp.body.data.accountnumber).to.be.a('Number');
             expect(resp.body.data.id).to.be.a('Number');
-            expect(resp.body.data.amount).to.be.a('Number');
+            expect(resp.body.data.owneremail).to.be.a('string');
             expect(resp.body.data.type).to.be.a('String');
-            expect(resp.body.data.oldbalance).to.be.a('Number');
-            expect(resp.body.data.newbalance).to.be.a('Number');
+            expect(resp.body.data.status).to.be.a('string');
+            expect(resp.body.data.balance).to.be.a('Number');
             done();
           });
       });
@@ -53,7 +53,7 @@ describe('User can view specific account details', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/user/${id}/accounts/1004848398`)
+          .get(`/api/v1/user/${id}/accounts/1004434908`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(400);
