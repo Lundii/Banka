@@ -11,6 +11,14 @@ const config = {
       type: 'staff',
       isAdmin: true,
     },
+    staffAccount: {
+      firstName: 'Staff',
+      lastName: 'BigMan',
+      email: 'staff@vipmail.com',
+      password: hashPassword('vippassword'),
+      type: 'staff',
+      isAdmin: false,
+    },
   },
   jwt_options: {
     expiresIn: '2h',
