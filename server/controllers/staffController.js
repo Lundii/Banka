@@ -1,3 +1,4 @@
+import Email from '../util/emailServices';
 /**
  * Staff route controller class
  * @class
@@ -106,6 +107,7 @@ class StaffController {
       };
       this.store.transactionStore.create(data, (err1, result1) => {
         if (err1) throw new Error('Error saving transaction');
+        Email.transactionAlert(result[0].owneremail, result1[0]);
         this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
           { balance: result1[0].newbalance }, (err2, result2) => {
             if (err2) throw new Error('Error updating transaction');
@@ -164,6 +166,7 @@ class StaffController {
       };
       this.store.transactionStore.create(data, (err1, result1) => {
         if (err1) throw new Error('Error saving transaction');
+        Email.transactionAlert(result[0].owneremail, result1[0]);
         this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
           { balance: result1[0].newbalance }, (err2, result2) => {
             if (err2) throw new Error('Error updating transaction');

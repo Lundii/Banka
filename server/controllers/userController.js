@@ -1,4 +1,6 @@
+// import nodemailer from 'nodemailer';
 import { generateAccountNumber } from '../util';
+import Email from '../util/emailServices';
 /**
  * Home route controller class
  * @class
@@ -34,6 +36,7 @@ class UserController {
     };
     this.store.bankAcctStore.create(data, (err, result) => {
       if (err) throw new Error('Error saving account Number');
+      Email.createAccount(req.body.email);
       const response = {
         status: 200,
         data: {

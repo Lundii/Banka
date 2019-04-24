@@ -10,7 +10,8 @@ class StorageInfrastructure {
     this.bankAcctStore = store.bankAcctStore;
     this.transactionStore = store.transactionStore;
     this.createTables = this.createTables.bind(this);
-    this.createDefaultAdmmin = this.createDefaultAdmmin.bind(this);
+    this.createDefaultAdmin = this.createDefaultAdmin.bind(this);
+    this.createDefaultStaff = this.createDefaultStaff.bind(this);
   }
 
   /**
@@ -24,16 +25,27 @@ class StorageInfrastructure {
     this.userStore.createTable((err, result) => {
       this.bankAcctStore.createTable((err1, result1) => {
         this.transactionStore.createTable((err2, result2) => {
-          this.createDefaultAdmmin();
+          this.createDefaultAdmin();
         });
       });
     });
   }
 
-  createDefaultAdmmin() {
+  createDefaultAdmin() {
     this.userStore.read({ email: config.development.adminAccount.email }, (err, result) => {
+      this.createDefaultStaff();
       if (result && !result.length) {
         this.userStore.create(config.development.adminAccount, (er, res) => {
+          this.createDefaultStaff();
+        });
+      }
+    });
+  }
+
+  createDefaultStaff() {
+    this.userStore.read({ email: config.development.staffAccount.email }, (err, result) => {
+      if (result && !result.length) {
+        this.userStore.create(config.development.staffAccount, (er, res) => {
         });
       }
     });
