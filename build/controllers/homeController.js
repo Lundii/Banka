@@ -7,11 +7,13 @@ exports["default"] = void 0;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
-var _check = require("express-validator/check");
+var _path = _interopRequireDefault(require("path"));
 
 var _util = require("../util");
 
 var _config = _interopRequireDefault(require("../config"));
+
+var _emailServices = _interopRequireDefault(require("../util/emailServices"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -39,6 +41,10 @@ function () {
     this.store = store;
     this.signup = this.signup.bind(this);
     this.signin = this.signin.bind(this);
+    this.getResetMail = this.getResetMail.bind(this);
+    this.sendResetLink = this.sendResetLink.bind(this);
+    this.sendResetForm = this.sendResetForm.bind(this);
+    this.resetPassword = this.resetPassword.bind(this);
   }
   /**
    * Method for handling signup route(POST api/v1/signup)
@@ -87,9 +93,18 @@ function () {
           var token = _jsonwebtoken["default"].sign(payload, secret, _config["default"].jwt_options);
 
           dataR[0].token = token;
+          var data1 = {
+            id: dataR[0].id,
+            firstName: dataR[0].firstname,
+            lastName: dataR[0].lastname,
+            email: dataR[0].email,
+            type: dataR[0].type,
+            isAdmin: dataR[0].isadmin,
+            token: dataR[0].token
+          };
           var response = {
             status: 200,
-            data: dataR[0]
+            data: data1
           };
           return res.status(200).json(response);
         });
@@ -135,11 +150,101 @@ function () {
         var token = _jsonwebtoken["default"].sign(payload, secret, _config["default"].jwt_options);
 
         result[0].token = token;
+        var resData = {
+          id: result[0].id,
+          firstName: result[0].firstname,
+          lastName: result[0].lastname,
+          email: result[0].email,
+          token: result[0].token
+        };
         var response = {
           status: 200,
-          data: result[0]
+          data: resData
         };
         return res.status(200).json(response);
+      });
+    }
+    /**
+     * Method for sending to input email for password reset
+     * @param {object} req - the request object
+     * @param {object} res  - the response object
+     */
+
+  }, {
+    key: "getResetMail",
+    value: function getResetMail(req, res) {
+      res.status(200).sendFile(_path["default"].join(__dirname, '/files/userEmail.html'));
+    }
+    /**
+     * Method for sending email reset link for password reset
+     * @param {object} req - the request object
+     * @param {object} res  - the response object
+     */
+
+  }, {
+    key: "sendResetLink",
+    value: function sendResetLink(req, res) {
+      this.store.userStore.read({
+        email: req.body.email
+      }, function (err, result) {
+        var payload = {
+          email: req.body.email,
+          password: result[0].password
+        };
+        var secret = result[0].password + req.body.email;
+
+        var token = _jsonwebtoken["default"].sign(payload, secret, _config["default"].jwt_options);
+
+        result[0].token = token;
+
+        _emailServices["default"].sendResetLink(result[0], function (err1, result1) {
+          if (err1) {
+            return res.status(500).json({
+              status: 500,
+              error: 'there was an error sending your reset link, make sure you are connected to the internet. Please re-enter your mail and resend'
+            });
+          }
+
+          res.status(200).sendFile(_path["default"].join(__dirname, '..', '/controllers/files/emailLink.html'));
+        });
+      });
+    }
+    /**
+     * Method for sending password reset form
+     * @param {object} req - the request object
+     * @param {object} res  - the response object
+     */
+
+  }, {
+    key: "sendResetForm",
+    value: function sendResetForm(req, res) {
+      res.cookie('auth', req.params.token, {
+        expires: new Date(Date.now() + 900000)
+      });
+      res.cookie('id', req.params.id, {
+        expires: new Date(Date.now() + 900000)
+      });
+      res.status(200).sendFile(_path["default"].join(__dirname, '..', '/controllers/files/passwordResetForm.html'));
+    }
+    /**
+     * Method for reseting the password
+     * @param {object} req - the request object
+     * @param {object} res  - the response object
+     */
+
+  }, {
+    key: "resetPassword",
+    value: function resetPassword(req, res) {
+      var hashPass = (0, _util.hashPassword)(req.body.password);
+      this.store.userStore.update({
+        id: req.cookies.id
+      }, {
+        password: hashPass
+      }, function (err, result) {
+        res.status(200).json({
+          status: 200,
+          message: 'password successfully changed'
+        });
       });
     }
   }]);

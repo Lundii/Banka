@@ -36,7 +36,9 @@ function () {
     _classCallCheck(this, UserRouter);
 
     this.router = router;
+    this.store = store;
     this.userController = new _controllers["default"].UserController(store);
+    this.verifyIsClient = this.verifyIsClient.bind(this);
   }
   /**
    * Method used for routing
@@ -55,7 +57,35 @@ function () {
 
         return Promise.resolve(true);
       })], _util.validate, this.userController.createAccount);
+      this.router.route('/:id/:accountNumber/transactions').get(_util.validateToken, this.verifyIsClient, this.userController.accountHistory);
+      this.router.route('/:id/transactions/:transId').get(_util.validateToken, this.verifyIsClient, this.userController.specificTranHist);
+      this.router.route('/:id/accounts/:accountNumber').get(_util.validateToken, this.verifyIsClient, this.userController.specAcctDetails);
       return this.router;
+    }
+    /**
+     * Private method used to check if user is a client
+     * @private
+     * @param {object} req - the server request object
+     * @param {object} res - the server response object
+     * @param {function} next - express middleware next() function
+     */
+
+  }, {
+    key: "verifyIsClient",
+    value: function verifyIsClient(req, res, next) {
+      req.params.id = parseInt(req.params.id, 10);
+      this.store.userStore.read({
+        id: req.params.id
+      }, function (err, result) {
+        if (result && !result.length || result[0].type !== 'client') {
+          return res.status(401).json({
+            status: 401,
+            error: 'Unauthorized access'
+          });
+        }
+
+        next();
+      });
     }
   }]);
 

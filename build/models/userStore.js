@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _table = _interopRequireDefault(require("../database/table"));
-
 var _store = _interopRequireDefault(require("./store"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -40,12 +38,11 @@ function (_Store) {
    * @param {sting} name - the name of store
    * @param {Database} database - the database to use for storage
    */
-  function UserStore(name, database) {
+  function UserStore(name, pool) {
     _classCallCheck(this, UserStore);
 
-    var table = new _table["default"](name);
-    database.createTable(table);
-    return _possibleConstructorReturn(this, _getPrototypeOf(UserStore).call(this, name, table));
+    var createUserTable = "CREATE TABLE IF NOT EXISTS ".concat(name, "(\n      id serial PRIMARY KEY,\n      firstName VARCHAR (50) NOT NULL,\n      lastName VARCHAR (50) NOT NULL,\n      email VARCHAR (300) UNIQUE NOT NULL,\n      password VARCHAR (500) NOT NULL,\n      type VARCHAR (20) NOT NULL,\n      isAdmin BOOLEAN\n    );");
+    return _possibleConstructorReturn(this, _getPrototypeOf(UserStore).call(this, name, pool, createUserTable));
   }
 
   return UserStore;

@@ -7,7 +7,7 @@
     "start": "node build/server.js",
     "start-dev": "nodemon --exec ./node_modules/.bin/babel-node ./server/server.js",
     "debug": "nodemon --exec ./node_modules/.bin/babel-node ./server/server.js --inspect",
-    "build": "babel server --out-dir build",
+    "build": "babel server --out-dir build --copy-files",
     "heroku-postbuild": "npm run build",
     "test": "nyc --reporter=text --reporter=lcov mocha server -recursive --require @babel/polyfill --require @babel/register --exit",
     "coverage": "nyc --reporter=lcov --reporter=text mocha server --recursive --require @babel/register --exit",

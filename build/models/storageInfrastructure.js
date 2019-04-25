@@ -5,11 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _defaultDatas = require("./defaultDatas");
+var _config = _interopRequireDefault(require("../config"));
 
-var _index = require("../util/index");
-
-var _assert = require("assert");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,15 +25,13 @@ function () {
   function StorageInfrastructure(store) {
     _classCallCheck(this, StorageInfrastructure);
 
-    if (!store.userStore) throw new Error('UserStore cannot be null');
-    if (!store.bankAcctStore) throw new Error('BankAcctStore cannot be null');
     this.init = this.init.bind(this);
     this.userStore = store.userStore;
     this.bankAcctStore = store.bankAcctStore;
     this.transactionStore = store.transactionStore;
-    this._createDefaultUsers = this._createDefaultUsers.bind(this);
-    this._createDafaultAccounts = this._createDafaultAccounts.bind(this);
-    this._createDefaultTransactions = this._createDefaultTransactions.bind(this);
+    this.createTables = this.createTables.bind(this);
+    this.createDefaultAdmin = this.createDefaultAdmin.bind(this);
+    this.createDefaultStaff = this.createDefaultStaff.bind(this);
   }
   /**
    * The initialization method
@@ -45,51 +41,61 @@ function () {
   _createClass(StorageInfrastructure, [{
     key: "init",
     value: function init() {
-      this._createDefaultUsers();
-
-      this._createDafaultAccounts();
-
-      this._createDefaultTransactions();
+      this.createTables();
     }
     /**
-     * Private method for creating default users
-     * @private
+     * Creates table for the database
      */
 
   }, {
-    key: "_createDefaultUsers",
-    value: function _createDefaultUsers() {
-      _defaultDatas.Users.forEach(function (object) {
-        var hashPass = (0, _index.hashPassword)(object.password);
-        object.password = hashPass;
-      });
+    key: "createTables",
+    value: function createTables() {
+      var _this = this;
 
-      this.userStore.create(_defaultDatas.Users, function (err, result) {
-        if (err) throw new Error('Error creating default users');
-      });
-    }
-    /**
-     * Private method for creating default accounts
-     * @private
-     */
-
-  }, {
-    key: "_createDafaultAccounts",
-    value: function _createDafaultAccounts() {
-      this.bankAcctStore.create(_defaultDatas.Accounts, function (err, result) {
-        if (err) throw new Error('Error creating default accounts');
+      this.userStore.createTable(function (err, result) {
+        _this.bankAcctStore.createTable(function (err1, result1) {
+          _this.transactionStore.createTable(function (err2, result2) {
+            _this.createDefaultAdmin();
+          });
+        });
       });
     }
     /**
-     * Private method for creating default transactions
-     * @private
+     * Creates a default admin for the application
      */
 
   }, {
-    key: "_createDefaultTransactions",
-    value: function _createDefaultTransactions() {
-      this.transactionStore.create(_defaultDatas.Accounts, function (err, result) {
-        if (err) throw new Error('Error creating default transactions');
+    key: "createDefaultAdmin",
+    value: function createDefaultAdmin() {
+      var _this2 = this;
+
+      this.userStore.read({
+        email: _config["default"].development.adminAccount.email
+      }, function (err, result) {
+        _this2.createDefaultStaff();
+
+        if (result && !result.length) {
+          _this2.userStore.create(_config["default"].development.adminAccount, function (er, res) {
+            _this2.createDefaultStaff();
+          });
+        }
+      });
+    }
+    /**
+     * Creates a default staff for the application
+     */
+
+  }, {
+    key: "createDefaultStaff",
+    value: function createDefaultStaff() {
+      var _this3 = this;
+
+      this.userStore.read({
+        email: _config["default"].development.staffAccount.email
+      }, function (err, result) {
+        if (result && !result.length) {
+          _this3.userStore.create(_config["default"].development.staffAccount, function (er, res) {});
+        }
       });
     }
   }]);

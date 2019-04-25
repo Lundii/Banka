@@ -143,7 +143,13 @@ function validateToken(req, res, next) {
       expiresIn: '2h',
       issuer: 'monday.lundii'
     };
-    var secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
+    var secret;
+
+    if (req.body && req.body.tokenSecret) {
+      secret = req.body.tokenSecret;
+    } else {
+      secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
+    }
 
     _jsonwebtoken["default"].verify(token, secret, options, function (er, payload) {
       if (er) {
@@ -159,9 +165,19 @@ function validateToken(req, res, next) {
       }
     });
   } else {
-    next();
+    return res.status(401).json({
+      status: 401,
+      error: 'Unauthorized access'
+    });
   }
 }
+/**
+ * Middleware to handle express-validator errors
+ * @param {object} req - the req object
+ * @param {object} res - the res object 
+ * @param {function} next - the next middleware method
+ */
+
 
 function validate(req, res, next) {
   var errors = (0, _check.validationResult)(req);

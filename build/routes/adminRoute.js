@@ -39,8 +39,7 @@ function () {
     this.store = store;
     this.adminController = new _controllers["default"].AdminController(store);
     this.staffController = new _controllers["default"].StaffController(store);
-    this._verifyIfAdmin = this._verifyIfAdmin.bind(this);
-    this._verifyIfStaff = this._verifyIfStaff.bind(this);
+    this.verifyIsAdmin = this.verifyIsAdmin.bind(this);
   }
   /**
    * Method used for routing
@@ -50,7 +49,7 @@ function () {
   _createClass(StaffRouter, [{
     key: "route",
     value: function route() {
-      this.router.route('/:id/account/:accountNumber').patch(_util.validateToken, this._verifyIfStaff, [(0, _check.body)('status', 'field is required').exists(), (0, _check.body)('status', 'cannot be empty').isLength({
+      this.router.route('/:id/account/:accountNumber').patch(_util.validateToken, this.verifyIsAdmin, [(0, _check.body)('status', 'field is required').exists(), (0, _check.body)('status', 'cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('status', 'Status can either be active or dormant').custom(function (value) {
         if (value !== 'dormant' && value !== 'active') {
@@ -59,33 +58,10 @@ function () {
 
         return Promise.resolve(true);
       })], _util.validate, this.staffController.actDeactAccount);
-      this.router.route('/:id/account/:accountNumber')["delete"](_util.validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
+      this.router.route('/:id/account/:accountNumber')["delete"](_util.validateToken, this.verifyIsAdmin, this.staffController.deleteAccount);
+      this.router.route('/:id/accounts').get(_util.validateToken, this.verifyIsAdmin, this.staffController.viewAccountList);
+      this.router.route('/:id/:email/accounts').get(_util.validateToken, this.verifyIsAdmin, this.staffController.viewSpecificAccount);
       return this.router;
-    }
-    /**
-     * Private method used to check if user is a staff
-     * @private
-     * @param {object} req - the server request object
-     * @param {object} res - the server response object
-     * @param {function} next - express middleware next() function
-     */
-
-  }, {
-    key: "_verifyIfStaff",
-    value: function _verifyIfStaff(req, res, next) {
-      req.params.id = parseInt(req.params.id);
-      this.store.userStore.read({
-        id: req.params.id
-      }, function (err, result) {
-        if (result.length && result[0].type !== 'staff') {
-          return res.status(401).json({
-            status: 401,
-            error: 'Unauthorized access'
-          });
-        }
-
-        next();
-      });
     }
     /**
      * Private method used to check if user is an staff
@@ -96,13 +72,13 @@ function () {
      */
 
   }, {
-    key: "_verifyIfAdmin",
-    value: function _verifyIfAdmin(req, res, next) {
+    key: "verifyIsAdmin",
+    value: function verifyIsAdmin(req, res, next) {
       req.params.id = parseInt(req.params.id);
       this.store.userStore.read({
         id: req.params.id
       }, function (err, result) {
-        if (result.length && result[0].isAdmin === false) {
+        if (result && !result.length || result[0].type !== 'staff' || result[0].isadmin === false) {
           return res.status(401).json({
             status: 401,
             error: 'Unauthorized access'

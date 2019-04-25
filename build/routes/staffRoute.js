@@ -38,8 +38,7 @@ function () {
     this.router = router;
     this.store = store;
     this.staffController = new _controllers["default"].StaffController(store);
-    this._verifyIfStaff = this._verifyIfStaff.bind(this);
-    this._verifyIsNotAdmin = this._verifyIsNotAdmin.bind(this);
+    this.verifyIsStaff = this.verifyIsStaff.bind(this);
   }
   /**
    * Method used for routing
@@ -49,7 +48,7 @@ function () {
   _createClass(StaffRouter, [{
     key: "route",
     value: function route() {
-      this.router.route('/:id/account/:accountNumber').patch(_util.validateToken, this._verifyIfStaff, [(0, _check.body)('status', 'field is required').exists(), (0, _check.body)('status', 'cannot be empty').isLength({
+      this.router.route('/:id/account/:accountNumber').patch(_util.validateToken, this.verifyIsStaff, [(0, _check.body)('status', 'field is required').exists(), (0, _check.body)('status', 'cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('status', 'Status can either be active or dormant').custom(function (value) {
         if (value !== 'dormant' && value !== 'active') {
@@ -58,13 +57,15 @@ function () {
 
         return Promise.resolve(true);
       })], _util.validate, this.staffController.actDeactAccount);
-      this.router.route('/:id/account/:accountNumber')["delete"](_util.validateToken, this._verifyIfStaff, this.staffController.deleteAccount);
-      this.router.route('/:id/transactions/:accountNumber/credit').post(_util.validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, [(0, _check.body)('creditAmount', 'field is required').exists(), (0, _check.body)('creditAmount', 'cannot be empty').isLength({
+      this.router.route('/:id/account/:accountNumber')["delete"](_util.validateToken, this.verifyIsStaff, this.staffController.deleteAccount);
+      this.router.route('/:id/transactions/:accountNumber/credit').post(_util.validateToken, this.verifyIsStaff, [(0, _check.body)('creditAmount', 'field is required').exists(), (0, _check.body)('creditAmount', 'cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('creditAmount', 'must be a number').isInt()], _util.validate, this.staffController.creditAccount);
-      this.router.route('/:id/transactions/:accountNumber/debit').post(_util.validateToken, this._verifyIfStaff, this._verifyIsNotAdmin, [(0, _check.body)('debitAmount', 'field is required').exists(), (0, _check.body)('debitAmount', 'cannot be empty').isLength({
+      this.router.route('/:id/transactions/:accountNumber/debit').post(_util.validateToken, this.verifyIsStaff, [(0, _check.body)('debitAmount', 'field is required').exists(), (0, _check.body)('debitAmount', 'cannot be empty').isLength({
         min: 1
       }), (0, _check.body)('debitAmount', 'must be a number').isInt()], _util.validate, this.staffController.debitAccount);
+      this.router.route('/:id/accounts').get(_util.validateToken, this.verifyIsStaff, this.staffController.viewAccountList);
+      this.router.route('/:id/:email/accounts').get(_util.validateToken, this.verifyIsStaff, this.staffController.viewSpecificAccount);
       return this.router;
     }
     /**
@@ -76,38 +77,13 @@ function () {
      */
 
   }, {
-    key: "_verifyIfStaff",
-    value: function _verifyIfStaff(req, res, next) {
+    key: "verifyIsStaff",
+    value: function verifyIsStaff(req, res, next) {
       req.params.id = parseInt(req.params.id);
       this.store.userStore.read({
         id: req.params.id
       }, function (err, result) {
-        if (result.length && result[0].type !== 'staff') {
-          return res.status(401).json({
-            status: 401,
-            error: 'Unauthorized access'
-          });
-        }
-
-        next();
-      });
-    }
-    /**
-     * Private method used to check if user is not an admin
-     * @private
-     * @param {object} req - the server request object
-     * @param {object} res - the server response object
-     * @param {function} next - express middleware next() function
-     */
-
-  }, {
-    key: "_verifyIsNotAdmin",
-    value: function _verifyIsNotAdmin(req, res, next) {
-      req.params.id = parseInt(req.params.id);
-      this.store.userStore.read({
-        id: req.params.id
-      }, function (err, result) {
-        if (result.length && result[0].isAdmin === true) {
+        if (result && !result.length || result[0].type !== 'staff' || result[0].isadmin === true) {
           return res.status(401).json({
             status: 401,
             error: 'Unauthorized access'

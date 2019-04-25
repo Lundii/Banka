@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _emailServices = _interopRequireDefault(require("../util/emailServices"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -31,6 +35,8 @@ function () {
     this.deleteAccount = this.deleteAccount.bind(this);
     this.creditAccount = this.creditAccount.bind(this);
     this.debitAccount = this.debitAccount.bind(this);
+    this.viewAccountList = this.viewAccountList.bind(this);
+    this.viewSpecificAccount = this.viewSpecificAccount.bind(this);
   }
   /**
    * Method for handling activating or deactivating account route(PATCH api/v1/staff/<id>/account/<accountNumber>)
@@ -72,7 +78,7 @@ function () {
           var response = {
             status: 200,
             data: {
-              accountNumber: result2[0].accountNumber,
+              accountNumber: result2[0].accountnumber,
               status: result2[0].status,
               message: message
             }
@@ -141,8 +147,7 @@ function () {
         }
 
         var data = {
-          id: 1,
-          createdOn: new Date().getDate,
+          createdOn: new Date(),
           type: 'credit',
           accountNumber: req.params.accountNumber,
           cashier: parseFloat(req.params.id),
@@ -154,10 +159,12 @@ function () {
         _this3.store.transactionStore.create(data, function (err1, result1) {
           if (err1) throw new Error('Error saving transaction');
 
+          _emailServices["default"].transactionAlert(result[0].owneremail, result1[0]);
+
           _this3.store.bankAcctStore.update({
             accountNumber: req.params.accountNumber
           }, {
-            balance: result1[0].newBalance
+            balance: result1[0].newbalance
           }, function (err2, result2) {
             if (err2) throw new Error('Error updating transaction');
             var resp = {
@@ -168,7 +175,7 @@ function () {
                 amount: parseFloat(result1[0].amount),
                 cashier: req.params.id,
                 transactionType: result1[0].type,
-                accountBalance: result1[0].newBalance.toString()
+                accountBalance: result1[0].newbalance.toString()
               }
             };
             res.status(200).json(resp);
@@ -177,7 +184,7 @@ function () {
       });
     }
     /**
-     * Method for handling deleting an account route(POST api/v1/staff/<id>/transactions/<accountNumber>/debit)
+    * Method for handling deleting an account route(POST api/v1/staff/<id>/transactions/<accountNumber>/debit)
      * @param {object} req - the request object
      * @param {object} res  - the response object
      */
@@ -215,8 +222,7 @@ function () {
         }
 
         var data = {
-          id: 1,
-          createdOn: new Date().getDate,
+          createdOn: new Date(),
           type: 'debit',
           accountNumber: req.params.accountNumber,
           cashier: parseFloat(req.params.id),
@@ -228,10 +234,12 @@ function () {
         _this4.store.transactionStore.create(data, function (err1, result1) {
           if (err1) throw new Error('Error saving transaction');
 
+          _emailServices["default"].transactionAlert(result[0].owneremail, result1[0]);
+
           _this4.store.bankAcctStore.update({
             accountNumber: req.params.accountNumber
           }, {
-            balance: result1[0].newBalance
+            balance: result1[0].newbalance
           }, function (err2, result2) {
             if (err2) throw new Error('Error updating transaction');
             var resp = {
@@ -242,11 +250,95 @@ function () {
                 amount: parseFloat(result1[0].amount),
                 cashier: req.params.id,
                 transactionType: result1[0].type,
-                accountBalance: result1[0].newBalance.toString()
+                accountBalance: result1[0].newbalance.toString()
               }
             };
             res.status(200).json(resp);
           });
+        });
+      });
+    }
+    /**
+    * Method for viewing all account list
+     * @param {object} req - the request object
+     * @param {object} res  - the response object
+     */
+
+  }, {
+    key: "viewAccountList",
+    value: function viewAccountList(req, res) {
+      if (req.query && req.query.status && req.query.status !== 'dormant' && req.query.status !== 'active') {
+        return res.status(400).json({
+          status: 400,
+          error: "".concat(req.query.status, " account does not exit")
+        });
+      }
+
+      if (req.query && Object.keys(req.query).length && Object.keys(req.query)[0] !== 'status') {
+        return res.status(400).json({
+          status: 400,
+          error: 'invalid query parameters'
+        });
+      }
+
+      if (req.query && req.query.status) {
+        this.store.bankAcctStore.read({
+          status: req.query.status
+        }, function (err, result) {
+          if (err) throw new Error('Error reading bank accounts');
+          var resp = {
+            status: 200,
+            data: result
+          };
+          res.status(200).json(resp);
+        });
+      } else {
+        this.store.bankAcctStore.read({}, function (err, result) {
+          if (err) throw new Error('Error reading bank accounts');
+          var resp = {
+            status: 200,
+            data: result
+          };
+          res.status(200).json(resp);
+        });
+      }
+    }
+    /**
+    * Method for viewing specific account
+     * @param {object} req - the request object
+     * @param {object} res  - the response object
+     */
+
+  }, {
+    key: "viewSpecificAccount",
+    value: function viewSpecificAccount(req, res) {
+      var _this5 = this;
+
+      this.store.userStore.read({
+        email: req.params.email
+      }, function (err, result) {
+        if (result && !result.length) {
+          return res.status(400).json({
+            status: 400,
+            error: 'User does not exit in the database'
+          });
+        }
+
+        _this5.store.bankAcctStore.read({
+          owneremail: req.params.email
+        }, function (err1, result1) {
+          if (result1 && !result1.length) {
+            return res.status(200).json({
+              status: 200,
+              message: 'No account found for this user'
+            });
+          }
+
+          var resp = {
+            status: 200,
+            data: result1
+          };
+          res.status(200).json(resp);
         });
       });
     }
