@@ -3,7 +3,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server';
-import { addData, removeData } from '../../models/defaultDatas';
+import { addData, removeData } from '../../models/seedData';
 
 const { expect } = chai;
 
@@ -78,7 +78,7 @@ describe('Test for Signin API', () => {
   });
   it('should return a status 403 if user is not in the database', (done) => {
     const body = {
-      email: 'testAdmin@com',
+      email: 'testAdmin@email.com',
       password: 'password',
     };
     chai.request(server)

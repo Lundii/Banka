@@ -35,8 +35,12 @@ class UserController {
       balance: 0.00,
     };
     this.store.bankAcctStore.create(data, (err, result) => {
+      console.log(err);
       if (err) throw new Error('Error saving account Number');
-      Email.createAccount(req.body.email);
+      result[0].firstName = req.body.firstName;
+      result[0].lastName = req.body.lastName;
+      result[0].email = req.body.email;
+      Email.createAccount(result[0]);
       const response = {
         status: 200,
         data: {
@@ -54,6 +58,11 @@ class UserController {
     });
   }
 
+  /**
+   * Method for getting account history
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
   accountHistory(req, res) {
     this.store.transactionStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
       if (result && !result.length) {
@@ -70,6 +79,11 @@ class UserController {
     });
   }
 
+  /**
+   * Method for getting a specific account transaction history
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
   specificTranHist(req, res) {
     this.store.transactionStore.read({ id: req.params.transId }, (err, result) => {
       if (result && !result.length) {
@@ -86,6 +100,11 @@ class UserController {
     });
   }
 
+  /**
+   * Method for getting a specific account details
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
   specAcctDetails(req, res) {
     this.store.bankAcctStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
       if (result && !result.length) {
@@ -99,7 +118,7 @@ class UserController {
         data: result[0],
       };
       res.status(200).json(resp);
-    }); 
+    });
   }
 }
 

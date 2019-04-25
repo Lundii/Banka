@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
-import { validationResult } from 'express-validator/check';
+import path from 'path';
 import {
-  checkReqFields,
   hashPassword,
   comparePassword,
 } from '../util';
 import config from '../config';
+import Email from '../util/emailServices';
 
 /**
  * Home route controller class
@@ -21,6 +21,10 @@ class HomeController {
     this.store = store;
     this.signup = this.signup.bind(this);
     this.signin = this.signin.bind(this);
+    this.getResetMail = this.getResetMail.bind(this);
+    this.sendResetLink = this.sendResetLink.bind(this);
+    this.sendResetForm = this.sendResetForm.bind(this);
+    this.resetPassword = this.resetPassword.bind(this);
   }
 
   /**
@@ -118,6 +122,67 @@ class HomeController {
         data: resData,
       };
       return res.status(200).json(response);
+    });
+  }
+
+  /**
+   * Method for sending to input email for password reset
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
+  getResetMail(req, res) {
+    res.status(200).sendFile(path.join(__dirname, '/files/userEmail.html'));
+  }
+
+  /**
+   * Method for sending email reset link for password reset
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
+  sendResetLink(req, res) {
+    this.store.userStore.read({ email: req.body.email }, (err, result) => {
+      const payload = {
+        email: req.body.email,
+        password: result[0].password,
+      };
+      const secret = result[0].password + req.body.email;
+      const token = jwt.sign(payload, secret, config.jwt_options);
+      result[0].token = token;
+      Email.sendResetLink(result[0], (err1, result1) => {
+        if (err1) {
+          return res.status(500).json({
+            status: 500,
+            error: 'there was an error sending your reset link, make sure you are connected to the internet. Please re-enter your mail and resend',
+          });
+        }
+        res.status(200).sendFile(path.join(__dirname, '..', '/controllers/files/emailLink.html'));
+      });
+    });
+  }
+
+  /**
+   * Method for sending password reset form
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
+  sendResetForm(req, res) {
+    res.cookie('auth', req.params.token, { expires: new Date(Date.now() + 900000) });
+    res.cookie('id', req.params.id, { expires: new Date(Date.now() + 900000) });
+    res.status(200).sendFile(path.join(__dirname, '..', '/controllers/files/passwordResetForm.html'));
+  }
+
+  /**
+   * Method for reseting the password
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
+  resetPassword(req, res) {
+    const hashPass = hashPassword(req.body.password);
+    this.store.userStore.update({ id: req.cookies.id }, { password: hashPass }, (err, result) => {
+      res.status(200).json({
+        status: 200,
+        message: 'password successfully changed',
+      });
     });
   }
 }
