@@ -110,7 +110,12 @@ export function validateToken(req, res, next) {
       expiresIn: '2h',
       issuer: 'monday.lundii',
     };
-    const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
+    let secret;
+    if (req.body && req.body.tokenSecret) {
+      secret = req.body.tokenSecret;
+    } else {
+      secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
+    }
     jwt.verify(token, secret, options, (er, payload) => {
       if (er) {
         return res.status(401).json({
@@ -124,10 +129,19 @@ export function validateToken(req, res, next) {
       }
     });
   } else {
-    next();
+    return res.status(401).json({
+      status: 401,
+      error: 'Unauthorized access',
+    });
   }
 }
 
+/**
+ * Middleware to handle express-validator errors
+ * @param {object} req - the req object
+ * @param {object} res - the res object 
+ * @param {function} next - the next middleware method
+ */
 export function validate(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

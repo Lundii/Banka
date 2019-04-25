@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { debug } from 'debug';
 import { Pool } from 'pg';
@@ -34,6 +35,7 @@ function Init() {
   StorageInfrastructure.init();
 }
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -51,7 +53,7 @@ app.use('/api/v1/admin', adminRoute.route());
 app.use((req, res) => {
   res.status(404).json({
     status: 404,
-    error: 'The page you are looking for does not exit please check our your URL and try again',
+    error: 'URL does not exit please check our your URL and try again',
   });
 });
 

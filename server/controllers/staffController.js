@@ -187,6 +187,11 @@ class StaffController {
     });
   }
 
+  /**
+  * Method for viewing all account list
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
   viewAccountList(req, res) {
     if ((req.query && req.query.status) && (req.query.status !== 'dormant' && req.query.status !== 'active')) {
       return res.status(400).json({
@@ -221,6 +226,11 @@ class StaffController {
     }
   }
 
+  /**
+  * Method for viewing specific account
+   * @param {object} req - the request object
+   * @param {object} res  - the response object
+   */
   viewSpecificAccount(req, res) {
     this.store.userStore.read({ email: req.params.email }, (err, result) => {
       if (result && !result.length) {

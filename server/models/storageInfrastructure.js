@@ -21,6 +21,9 @@ class StorageInfrastructure {
     this.createTables();
   }
 
+  /**
+   * Creates table for the database
+   */
   createTables() {
     this.userStore.createTable((err, result) => {
       this.bankAcctStore.createTable((err1, result1) => {
@@ -31,6 +34,9 @@ class StorageInfrastructure {
     });
   }
 
+  /**
+   * Creates a default admin for the application
+   */
   createDefaultAdmin() {
     this.userStore.read({ email: config.development.adminAccount.email }, (err, result) => {
       this.createDefaultStaff();
@@ -42,6 +48,9 @@ class StorageInfrastructure {
     });
   }
 
+  /**
+   * Creates a default staff for the application
+   */
   createDefaultStaff() {
     this.userStore.read({ email: config.development.staffAccount.email }, (err, result) => {
       if (result && !result.length) {
