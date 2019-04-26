@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('User can view account transaction history', () => {
   it('should return a status 200 if the request is successful', (done) => {
     const body = {
-      email: 'chukwudi.james@gmail.com',
+      email: 'chukwudi.james@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -22,7 +22,7 @@ describe('User can view account transaction history', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/user/${id}/1004848398/transactions`)
+          .get(`/api/v1/user/${id}/accounts/1004848398/transactions`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(200);
@@ -43,7 +43,7 @@ describe('User can view account transaction history', () => {
   });
   it('should return a status 401 if the client is not a user (client)', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -54,7 +54,7 @@ describe('User can view account transaction history', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/user/${id}/1004837498/transactions`)
+          .get(`/api/v1/user/${id}/accounts/1004837498/transactions`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(401);
@@ -68,7 +68,7 @@ describe('User can view account transaction history', () => {
   it('should return a status 401 is user does not have a valid or expired token', (done) => {
     const id = 50048987839302;
     chai.request(server)
-      .get(`/api/v1/user/${id}/1004837498/transactions`)
+      .get(`/api/v1/user/${id}/accounts/1004837498/transactions`)
       .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
       .end((err, res) => {
         expect(res).to.have.status(401);

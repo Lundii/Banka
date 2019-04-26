@@ -18,7 +18,7 @@ _chai["default"].use(_chaiHttp["default"]);
 describe('Staff can view all dormant/active accounts', function () {
   it('should return a status 200 if the request is successful', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 
@@ -48,7 +48,7 @@ describe('Staff can view all dormant/active accounts', function () {
   });
   it('should return a status 401 if the user is not a staff or admin', function (done) {
     var body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password'
     };
 
@@ -70,7 +70,7 @@ describe('Staff can view all dormant/active accounts', function () {
   });
   it('should return a status 400 if query parameter \'status\' is not equal dormant', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 
@@ -92,7 +92,7 @@ describe('Staff can view all dormant/active accounts', function () {
   });
   it('should return a status 400 if query parameter is not status', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 

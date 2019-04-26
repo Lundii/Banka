@@ -16,7 +16,7 @@ describe('Staff can credit an account Number', () => {
   });
   it('should return a status 200 if the account is successfully credited', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -47,9 +47,37 @@ describe('Staff can credit an account Number', () => {
           });
       });
   });
+  it('should return a status 400 if the amount is less than zero(0)', (done) => {
+    const body = {
+      email: 'amaka.padi@email.com',
+      password: 'password',
+    };
+    chai.request(server)
+      .post('/api/v1/auth/signin')
+      .send(body)
+      .end((err, res) => {
+        expect(res.body.data).to.include.all.keys('token');
+        expect(res.body.data.token).to.be.a('String');
+        const { token, id } = res.body.data;
+        const body2 = {
+          creditAmount: -200000,
+        };
+        chai.request(server)
+          .post(`/api/v1/staff/${id}/transactions/1004870909/credit`)
+          .send(body2)
+          .set('Authorization', token)
+          .end((er, resp) => {
+            expect(resp).to.have.status(400);
+            expect(resp).to.be.a('object');
+            expect(resp.body).to.have.all.keys('status', 'error');
+            expect(resp.body.error).to.be.a('String');
+            done();
+          });
+      });
+  });
   it('should return a status 401 if the user is not a staff(cahier)', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -77,7 +105,7 @@ describe('Staff can credit an account Number', () => {
   });
   it('should return a status 400 if account does not exit', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)

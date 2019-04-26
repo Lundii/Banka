@@ -27,7 +27,7 @@ after(function (done) {
 describe('Test for Signin API', () => {
   it('should return a status 200 if all username and password is correct', (done) => {
     const body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -63,7 +63,7 @@ describe('Test for Signin API', () => {
   });
   it('should return a status 400 if password field is absent', (done) => {
     const body = {
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
     };
     chai.request(server)
       .post('/api/v1/auth/signin')
@@ -94,7 +94,7 @@ describe('Test for Signin API', () => {
   });
   it('should return a status 403 if user inputs wrong password', (done) => {
     const body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password1',
     };
     chai.request(server)

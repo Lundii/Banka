@@ -10,29 +10,70 @@ chai.use(chaiHttp);
 
 describe('Create Bank Account', () => {
   after((done) => {
-    store.userStore.remove({ email: 'differentmail@gmail.com' }, (err, result) => {
+    store.userStore.remove({ email: 'differentmail@email.com' }, (err, result) => {
       done();
     });
   });
-
-  it('should return a status 200 if user is registered and have a valid token', (done) => {
+  // it('should return a status 200 if user is registered and have a valid token', (done) => {
+  //   const body = {
+  //     firstName: 'Sunday',
+  //     lastName: 'Monday',
+  //     email: 'differentmail@email.com',
+  //     password: 'password',
+  //     confirmPassword: 'password',
+  //   };
+  //   chai.request(server)
+  //     .post('/api/v1/auth/signup')
+  //     .send(body)
+  //     .end((err, res) => {
+  //       expect(res.body.data).to.include.all.keys('token');
+  //       expect(res.body.data.token).to.be.a('String');
+  //       const { token, id } = res.body.data;
+  //       const body2 = {
+  //         email: res.body.data.email,
+  //         type: 'savings',
+  //       };
+  //       chai.request(server)
+  //         .get(`/api/v1/user/${id}/confirmEmail/${token}`)
+  //         .end((err1, res1) => {
+  //           chai.request(server)
+  //             .post(`/api/v1/user/${id}/accounts`)
+  //             .send(body2)
+  //             .set('Authorization', token)
+  //             .end((er, resp) => {
+  //               expect(resp).to.have.status(200);
+  //               expect(resp).to.be.a('object');
+  //               expect(resp.body).to.have.all.keys('status', 'data');
+  //               expect(resp.body.data).to.include.all.keys('accountNumber', 'firstName', 'lastName', 'email', 'type', 'openingBalance');
+  //               expect(resp.body.data.accountNumber).to.be.a('Number');
+  //               expect(resp.body.data.firstName).to.be.a('String');
+  //               expect(resp.body.data.lastName).to.be.a('String');
+  //               expect(resp.body.data.email).to.be.a('String');
+  //               expect(resp.body.data.type).to.be.a('String');
+  //               expect(resp.body.data.openingBalance).to.be.a('Number');
+  //               store.bankAcctStore.remove({ accountNumber: resp.body.data.accountNumber }, (error, re) => {
+  //                 done();
+  //               });
+  //             });
+  //         });
+  //     });
+  // });
+  it('should return a status 403 if email is not confirmed', (done) => {
     const body = {
       firstName: 'Sunday',
       lastName: 'Monday',
-      email: 'differentmail@gmail.com',
+      email: 'differentmail@email.com',
       password: 'password',
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res.body.data).to.include.all.keys('token');
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         const body2 = {
-          firstName: res.body.data.firstName,
-          lastName: res.body.data.lastName,
           email: res.body.data.email,
           type: 'savings',
         };
@@ -41,27 +82,17 @@ describe('Create Bank Account', () => {
           .send(body2)
           .set('Authorization', token)
           .end((er, resp) => {
-            expect(resp).to.have.status(200);
+            expect(resp).to.have.status(403);
             expect(resp).to.be.a('object');
-            expect(resp.body).to.have.all.keys('status', 'data');
-            expect(resp.body.data).to.include.all.keys('accountNumber', 'firstName', 'lastName', 'email', 'type', 'openingBalance');
-            expect(resp.body.data.accountNumber).to.be.a('Number');
-            expect(resp.body.data.firstName).to.be.a('String');
-            expect(resp.body.data.lastName).to.be.a('String');
-            expect(resp.body.data.email).to.be.a('String');
-            expect(resp.body.data.type).to.be.a('String');
-            expect(resp.body.data.openingBalance).to.be.a('Number');
-            store.bankAcctStore.remove({ accountNumber: resp.body.data.accountNumber }, (error, re) => {
-              done();
-            });
+            expect(resp.body).to.have.all.keys('status', 'message');
+            expect(resp.body.message).to.be.a('String');
+            done();
           });
       });
   });
   it('should return a status 401 is user does not have a valid or expired token', (done) => {
     const body = {
-      firstName: 'Sunday',
-      lastName: 'Monday',
-      email: 'differentmail@gmail.com',
+      email: 'differentmail@email.com',
       type: 'savings',
     };
     chai.request(server)

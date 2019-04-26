@@ -10,6 +10,7 @@ const config = {
       password: hashPassword('vippassword'),
       type: 'staff',
       isAdmin: true,
+      emailConfirmed: true,
     },
     staffAccount: {
       firstName: 'Staff',
@@ -18,6 +19,7 @@ const config = {
       password: hashPassword('vippassword'),
       type: 'staff',
       isAdmin: false,
+      emailConfirmed: true,
     },
   },
   jwt_options: {

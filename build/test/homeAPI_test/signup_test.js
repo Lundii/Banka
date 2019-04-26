@@ -20,7 +20,7 @@ _chai["default"].use(_chaiHttp["default"]);
 describe('Test for signup API', function () {
   after(function (done) {
     _server.store.userStore.remove({
-      email: 'testAdmin@gmail.com'
+      email: 'testAdmin@email.com'
     }, function (err, result) {
       done();
     });
@@ -29,7 +29,7 @@ describe('Test for signup API', function () {
     var body = {
       firstName: 'Onu',
       lastName: 'Wednesday',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       password: 'password',
       confirmPassword: 'password'
     };
@@ -50,7 +50,7 @@ describe('Test for signup API', function () {
   it('should return a status 400 if firstName field is absent', function (done) {
     var body = {
       lastName: 'Monday',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       password: 'password',
       confirmPassword: 'password'
     };
@@ -66,7 +66,7 @@ describe('Test for signup API', function () {
   it('should return a status 400 if lastName field is absent', function (done) {
     var body = {
       firstName: 'Monday',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       password: 'password',
       confirmPassword: 'password'
     };
@@ -99,7 +99,7 @@ describe('Test for signup API', function () {
     var body = {
       firstName: 'Monday',
       lastName: 'Onu',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       confirmPassword: 'password'
     };
 
@@ -115,7 +115,7 @@ describe('Test for signup API', function () {
     var body = {
       firstName: 'Monday',
       lastName: 'Onu',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       password: 'password'
     };
 
@@ -165,7 +165,7 @@ describe('Test for signup API', function () {
     var body = {
       firstName: 'Peter',
       lastName: 'Tunde',
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password',
       confirmPassword: 'password'
     };

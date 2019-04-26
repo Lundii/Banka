@@ -7,49 +7,49 @@ exports.Transactions = exports.Accounts = exports.Users = void 0;
 var Users = [{
   firstName: 'Peter',
   lastName: 'Tunde',
-  email: 'petertunde@gmail.com',
+  email: 'peter123tunde@email.com',
   password: 'password',
   type: 'client',
   isAdmin: false
 }, {
   firstName: 'Aisha',
   lastName: 'Lawal',
-  email: 'aishalawal23@gmail.com',
+  email: 'aishalawal23@email.com',
   password: 'password',
   type: 'client',
   isAdmin: false
 }, {
   firstName: 'Chukwudi',
   lastName: 'James',
-  email: 'chukwudi.james@gmail.com',
+  email: 'chukwudi.james@email.com',
   password: 'password',
   type: 'client',
   isAdmin: false
 }, {
   firstName: 'Bill',
   lastName: 'Mark',
-  email: 'billmark56@gmail.com',
+  email: 'billmark56@email.com',
   password: 'password',
   type: 'client',
   isAdmin: false
 }, {
   firstName: 'Amaka',
   lastName: 'Padi',
-  email: 'amaka.padi@gmail.com',
+  email: 'amaka.padi@email.com',
   password: 'password',
   type: 'staff',
   isAdmin: false
 }, {
   firstName: 'Jeffery',
   lastName: 'Sunday',
-  email: 'jefferysunday12@gmail.com',
+  email: 'jefferysunday12@email.com',
   password: 'password',
   type: 'staff',
   isAdmin: false
 }, {
   firstName: 'Onu',
   lastName: 'Monday',
-  email: 'onumonday@gmail.com',
+  email: 'onumonday@email.com',
   password: 'password',
   type: 'staff',
   isAdmin: true

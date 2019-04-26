@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('Staff can view all bank accounts', () => {
   it('should return a status 200 if the request is successful', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -42,7 +42,7 @@ describe('Staff can view all bank accounts', () => {
   });
   it('should return a status 401 if the user is not a staff or admin', (done) => {
     const body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password',
     };
     chai.request(server)

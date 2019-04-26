@@ -18,7 +18,7 @@ _chai["default"].use(_chaiHttp["default"]);
 describe('Staff can delete an account number', function () {
   it('should return a status 200 if the account is successfully deleted', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 
@@ -40,7 +40,7 @@ describe('Staff can delete an account number', function () {
   });
   it('should return a status 401 if the user is not a staff or admin', function (done) {
     var body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password'
     };
 
@@ -62,7 +62,7 @@ describe('Staff can delete an account number', function () {
   });
   it('should return a status 400 if account does not exit', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 

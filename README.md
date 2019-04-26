@@ -34,7 +34,7 @@ This application is hosted on heroku. Follow the [Heroku Link](https://mighty-re
 Admin
 ```
 {
-    email: 'onumonday@gmail.com',
+    email: 'onumonday@email.com',
     password: 'password',
 }
 ```
@@ -43,7 +43,7 @@ Admin
 Staff(Cashier)
 ```
 {
-    email: 'amaka.padi@gmail.com',
+    email: 'amaka.padi@email.com',
     password: 'password',
 }
 ```
