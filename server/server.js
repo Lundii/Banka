@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { debug } from 'debug';
+import cors from 'cors';
 import { Pool } from 'pg';
 import config from './config';
 import routes from './routes';
@@ -38,6 +39,7 @@ function Init() {
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(express.static('public'));
 
 const homeRoute = new routes.HomeRoute(homeRouter, store);

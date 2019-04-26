@@ -4,6 +4,7 @@ import Email from '../util/emailServices';
  * @class
  */
 class StaffController {
+  
   /**
    * Constructor for staff route controller class
    * @constructor
