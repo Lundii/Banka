@@ -13,7 +13,7 @@ import { store } from '../server';
 export function verifyIsStaff(req, res, next) {
   req.params.id = parseInt(req.params.id, 10);
   store.userStore.read({ id: req.params.id }, (err, result) => {
-    if ((result && !result.length) || (result[0].type !== 'staff' || result[0].isadmin === true)) {
+    if ((result && !result.length) || (result[0].type !== 'staff' || result[0].isadmin === true) || result[0].email !== req.payload.email) {
       return res.status(401).json({
         status: 401,
         error: 'Unauthorized access',
@@ -33,7 +33,7 @@ export function verifyIsStaff(req, res, next) {
 export function verifyIsAdmin(req, res, next) {
   req.params.id = parseInt(req.params.id, 10);
   store.userStore.read({ id: req.params.id }, (err, result) => {
-    if ((result && !result.length) || (result[0].type !== 'staff' || result[0].isadmin === false)) {
+    if ((result && !result.length) || (result[0].type !== 'staff' || result[0].isadmin === false) || result[0].email !== req.payload.email) {
       return res.status(401).json({
         status: 401,
         error: 'Unauthorized access',
@@ -52,7 +52,6 @@ export function verifyIsAdmin(req, res, next) {
    * @param {function} next - express middleware next() function
    */
 export function setHeadersparams(req, res, next) {
-  console.log(req.params.token);
   req.headers.authorization = req.params.token;
   store.userStore.read({ id: req.params.id }, (err, result) => {
     if (result && result.length) {
@@ -102,7 +101,7 @@ export function setHeaderscookies(req, res, next) {
 export function verifyIsClient(req, res, next) {
   req.params.id = parseInt(req.params.id, 10);
   store.userStore.read({ id: req.params.id }, (err, result) => {
-    if ((result && !result.length) || (result[0].type !== 'client')) {
+    if ((result && !result.length) || (result[0].type !== 'client') || result[0].email !== req.payload.email) {
       return res.status(401).json({
         status: 401,
         error: 'Unauthorized access',
