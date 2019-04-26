@@ -36,9 +36,7 @@ class UserController {
       status: 'active',
       balance: 0.00,
     };
-    console.log(req.body.email);
     this.store.userStore.read({ email: req.body.email }, (err, result) => {
-      console.log(result)
       if (result && !result.length) {
         return res.status.json({
           status: 400,
@@ -151,7 +149,7 @@ class UserController {
       if (err) throw new Error('Error updating');
       res.status(200).json({
         status: 200,
-        message: 'Email confirmed. Proceed to create an account',
+        message: 'Email confirmed. Proceed to create a bank account',
       });
     });
   }
