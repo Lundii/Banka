@@ -41,7 +41,7 @@ export default class UserRouter {
       .get(validateToken, verifyIsClient, this.userController.specAcctDetails);
       
     this.router.route('/:id/confirmEmail/:token')
-      .get(setHeadersparams2, validateToken, this.userController.confirmEmail);
+      .get(setHeadersparams2, validateToken, verifyIsClient, this.userController.confirmEmail);
     return this.router;
   }
 }
