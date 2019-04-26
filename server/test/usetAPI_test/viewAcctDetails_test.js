@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('User can view specific account details', () => {
   it('should return a status 200 if the request is successful', (done) => {
     const body = {
-      email: 'chukwudi.james@gmail.com',
+      email: 'chukwudi.james@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -42,7 +42,7 @@ describe('User can view specific account details', () => {
   });
   it('should return a status 400 if account number is invalid/incorrect', (done) => {
     const body = {
-      email: 'chukwudi.james@gmail.com',
+      email: 'chukwudi.james@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -66,7 +66,7 @@ describe('User can view specific account details', () => {
   });
   it('should return a status 401 if the client is not a user (client)', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)

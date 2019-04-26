@@ -18,7 +18,7 @@ _chai["default"].use(_chaiHttp["default"]);
 describe('User can view specific account transaction history', function () {
   it('should return a status 200 if the request is successful', function (done) {
     var body = {
-      email: 'chukwudi.james@gmail.com',
+      email: 'chukwudi.james@email.com',
       password: 'password'
     };
 
@@ -51,7 +51,7 @@ describe('User can view specific account transaction history', function () {
   });
   it('should return a status 400 if transaction id is invalid/incorrect', function (done) {
     var body = {
-      email: 'chukwudi.james@gmail.com',
+      email: 'chukwudi.james@email.com',
       password: 'password'
     };
 
@@ -75,7 +75,7 @@ describe('User can view specific account transaction history', function () {
   });
   it('should return a status 401 if the client is not a user (client)', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 

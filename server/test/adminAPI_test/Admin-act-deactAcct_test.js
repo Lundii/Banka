@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('Admin can Activate or deactivate an account Number', () => {
   it('should return a status 200 if the account is successfully de-activated if activated initially', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -42,7 +42,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 400 if the account is already active', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -70,7 +70,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 200 if the account is successfully activated if de-activated initially', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -101,7 +101,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 400 if the account is already dormant', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -129,7 +129,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 401 if the user is not a staff or admin', (done) => {
     const body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -157,7 +157,7 @@ describe('Admin can Activate or deactivate an account Number', () => {
   });
   it('should return a status 400 if account does not exit', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)

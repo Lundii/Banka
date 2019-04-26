@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 describe('Test for signup API', () => {
   after((done) => {
-    store.userStore.remove({ email: 'testAdmin@gmail.com' }, (err, result) => {
+    store.userStore.remove({ email: 'testAdmin@email.com' }, (err, result) => {
       done();
     });
   });
@@ -18,12 +18,12 @@ describe('Test for signup API', () => {
     const body = {
       firstName: 'Onu',
       lastName: 'Wednesday',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       password: 'password',
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -38,15 +38,34 @@ describe('Test for signup API', () => {
         done();
       });
   });
-  it('should return a status 400 if firstName field is absent', (done) => {
+  it('should return a status 400 if firstName or lastname is not a number', (done) => {
     const body = {
-      lastName: 'Monday',
-      email: 'testAdmin@gmail.com',
+      firstName: '7pe',
+      lastName: 'Wednes123',
+      email: 'testAdmin@email.com',
       password: 'password',
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
+      .send(body)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res).to.be.a('object');
+        expect(res.body).to.have.all.keys('status', 'error');
+        expect(res.body.error).to.be.a('String');
+        done();
+      });
+  });
+  it('should return a status 400 if firstName field is absent', (done) => {
+    const body = {
+      lastName: 'Monday',
+      email: 'testAdmin@email.com',
+      password: 'password',
+      confirmPassword: 'password',
+    };
+    chai.request(server)
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -59,12 +78,12 @@ describe('Test for signup API', () => {
   it('should return a status 400 if lastName field is absent', (done) => {
     const body = {
       firstName: 'Monday',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       password: 'password',
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -82,7 +101,7 @@ describe('Test for signup API', () => {
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -96,11 +115,11 @@ describe('Test for signup API', () => {
     const body = {
       firstName: 'Monday',
       lastName: 'Onu',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -114,11 +133,11 @@ describe('Test for signup API', () => {
     const body = {
       firstName: 'Monday',
       lastName: 'Onu',
-      email: 'testAdmin@gmail.com',
+      email: 'testAdmin@email.com',
       password: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -137,7 +156,7 @@ describe('Test for signup API', () => {
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -156,7 +175,7 @@ describe('Test for signup API', () => {
       confirmPassword: 'password2',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -170,12 +189,12 @@ describe('Test for signup API', () => {
     const body = {
       firstName: 'Peter',
       lastName: 'Tunde',
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password',
       confirmPassword: 'password',
     };
     chai.request(server)
-      .post('/api/v1/signup')
+      .post('/api/v1/auth/signup')
       .send(body)
       .end((err, res) => {
         expect(res).to.have.status(400);

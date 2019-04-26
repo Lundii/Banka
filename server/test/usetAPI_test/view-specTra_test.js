@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('User can view specific account transaction history', () => {
   it('should return a status 200 if the request is successful', (done) => {
     const body = {
-      email: 'chukwudi.james@gmail.com',
+      email: 'chukwudi.james@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -22,7 +22,7 @@ describe('User can view specific account transaction history', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .get(`/api/v1/user/${id}/1004848398/transactions`)
+          .get(`/api/v1/user/${id}/accounts/1004848398/transactions`)
           .set('Authorization', token)
           .end((er, resp) => {
             const transId = resp.body.data[0].id;
@@ -48,7 +48,7 @@ describe('User can view specific account transaction history', () => {
   });
   it('should return a status 400 if transaction id is invalid/incorrect', (done) => {
     const body = {
-      email: 'chukwudi.james@gmail.com',
+      email: 'chukwudi.james@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -77,7 +77,7 @@ describe('User can view specific account transaction history', () => {
   });
   it('should return a status 401 if the client is not a user (client)', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)

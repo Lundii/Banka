@@ -27,7 +27,7 @@ describe('Staff can credit an account Number', function () {
   });
   it('should return a status 200 if the account is successfully credited', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 
@@ -57,7 +57,7 @@ describe('Staff can credit an account Number', function () {
   });
   it('should return a status 401 if the user is not a staff(cahier)', function (done) {
     var body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password'
     };
 
@@ -82,7 +82,7 @@ describe('Staff can credit an account Number', function () {
   });
   it('should return a status 400 if account does not exit', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 

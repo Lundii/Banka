@@ -1,7 +1,11 @@
-/* eslint-disable no-trailing-spaces */
-import { body } from 'express-validator/check';
+/* eslint-disable import/no-cycle */
 import Controllers from '../controllers';
 import { validateToken, validate } from '../util';
+import {
+  verifyIsClient,
+  createAccountValidator,
+  setHeadersparams2,
+} from '../util/middlewares';
 
 /**
  * Creates a router class for using page APIs
@@ -16,57 +20,28 @@ export default class UserRouter {
    */
   constructor(router, store) {
     this.router = router;
-    this.store = store;
     this.userController = new Controllers.UserController(store);
-    this.verifyIsClient = this.verifyIsClient.bind(this);
   }
-  
+
   /**
    * Method used for routing
    */
   route() {
     this.router.route('/:id/accounts')
-      .post(validateToken, 
-        [body(['firstName', 'lastName', 'email', 'type'], 'field is required').exists(),
-          body(['firstName', 'lastName', 'type'], ' cannot be empty').isLength({ min: 1 }),
-          body('type', 'Account type can either be savings or current').custom((value) => {
-            if (value !== 'savings' && value !== 'current') {
-              return Promise.reject(new Error('Account type can either be savings or current'));
-            }
-            return Promise.resolve(true);
-          })],
+      .post(validateToken, verifyIsClient, createAccountValidator,
         validate, this.userController.createAccount);
 
-    this.router.route('/:id/:accountNumber/transactions')
-      .get(validateToken, this.verifyIsClient, this.userController.accountHistory);
+    this.router.route('/:id/accounts/:accountNumber/transactions')
+      .get(validateToken, verifyIsClient, this.userController.accountHistory);
 
     this.router.route('/:id/transactions/:transId')
-      .get(validateToken, this.verifyIsClient, this.userController.specificTranHist);
+      .get(validateToken, verifyIsClient, this.userController.specificTranHist);
 
     this.router.route('/:id/accounts/:accountNumber')
-      .get(validateToken, this.verifyIsClient, this.userController.specAcctDetails);
+      .get(validateToken, verifyIsClient, this.userController.specAcctDetails);
       
+    this.router.route('/:id/confirmEmail/:token')
+      .get(setHeadersparams2, validateToken, this.userController.confirmEmail);
     return this.router;
-  }
-
-  
-  /**
-   * Private method used to check if user is a client
-   * @private
-   * @param {object} req - the server request object
-   * @param {object} res - the server response object
-   * @param {function} next - express middleware next() function
-   */  
-  verifyIsClient(req, res, next) {
-    req.params.id = parseInt(req.params.id, 10);
-    this.store.userStore.read({ id: req.params.id }, (err, result) => {
-      if ((result && !result.length) || (result[0].type !== 'client')) {
-        return res.status(401).json({
-          status: 401,
-          error: 'Unauthorized access',
-        });
-      }
-      next();
-    });
   }
 }

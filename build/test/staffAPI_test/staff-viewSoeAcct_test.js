@@ -18,7 +18,7 @@ _chai["default"].use(_chaiHttp["default"]);
 describe('Staff can view specific user (client) bank accounts', function () {
   it('should return a status 200 if the request is successful', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 
@@ -29,7 +29,7 @@ describe('Staff can view specific user (client) bank accounts', function () {
           token = _res$body$data.token,
           id = _res$body$data.id;
 
-      _chai["default"].request(_server["default"]).get("/api/v1/staff/".concat(id, "/aishalawal23@gmail.com/accounts")).set('Authorization', token).end(function (er, resp) {
+      _chai["default"].request(_server["default"]).get("/api/v1/staff/".concat(id, "/aishalawal23@email.com/accounts")).set('Authorization', token).end(function (er, resp) {
         expect(resp).to.have.status(200);
         expect(resp).to.be.a('object');
         expect(resp.body).to.have.all.keys('status', 'data');
@@ -47,7 +47,7 @@ describe('Staff can view specific user (client) bank accounts', function () {
   });
   it('should return a status 401 if the user is not a staff or admin', function (done) {
     var body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password'
     };
 
@@ -58,7 +58,7 @@ describe('Staff can view specific user (client) bank accounts', function () {
           token = _res$body$data2.token,
           id = _res$body$data2.id;
 
-      _chai["default"].request(_server["default"]).get("/api/v1/staff/".concat(id, "/aishalawal23@gmail.com/accounts")).set('Authorization', token).end(function (er, resp) {
+      _chai["default"].request(_server["default"]).get("/api/v1/staff/".concat(id, "/aishalawal23@email.com/accounts")).set('Authorization', token).end(function (er, resp) {
         expect(resp).to.have.status(401);
         expect(resp).to.be.a('object');
         expect(resp.body).to.have.all.keys('status', 'error');
@@ -69,7 +69,7 @@ describe('Staff can view specific user (client) bank accounts', function () {
   });
   it('should return a status 400 if account does not exit', function (done) {
     var body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password'
     };
 
@@ -92,7 +92,7 @@ describe('Staff can view specific user (client) bank accounts', function () {
   it('should return a status 401 is user does not have a valid or expired token', function (done) {
     var id = 50048987839302;
 
-    _chai["default"].request(_server["default"]).get("/api/v1/staff/".concat(id, "/amaka.padi@gmail.com/accounts")).set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU').end(function (err, res) {
+    _chai["default"].request(_server["default"]).get("/api/v1/staff/".concat(id, "/amaka.padi@email.com/accounts")).set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU').end(function (err, res) {
       expect(res).to.have.status(401);
       expect(res).to.be.a('object');
       expect(res.body).to.have.all.keys('status', 'error');

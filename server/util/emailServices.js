@@ -154,6 +154,26 @@ class EmailServices {
   }
 
   /**
+   * Method for sending password reset link to the user
+   * @param {object} user - the user object
+   * @param {function} callback - the callback function
+   * @returns - the callback function
+   */
+  sendConfirmationEmail(user, callback) {
+    const transporter = this.getTransporter();
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: 'Email confirmation link',
+      html: `<div>
+              <h3>Please, click on the link below to confirm your email</h3>
+              <a href="http://localhost:3000/api/v1/user/${user.id}/confirmEmail/${user.token}">Email confirmation link</a>
+            </div>`,
+    };
+    this.sendMail(transporter, mailOptions, callback);
+  }
+
+  /**
    * For geeting nodemailer transporter object
    * @private
    * @returns - the transporter object

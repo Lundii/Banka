@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('Admin can view all dormant/active bank accounts', () => {
   it('should return a status 200 if the request is successful', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -43,7 +43,7 @@ describe('Admin can view all dormant/active bank accounts', () => {
   });
   it('should return a status 401 if the user is not a staff or admin', (done) => {
     const body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -67,7 +67,7 @@ describe('Admin can view all dormant/active bank accounts', () => {
   });
   it('should return a status 400 if query parameter \'status\' is not equal dormant', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -91,7 +91,7 @@ describe('Admin can view all dormant/active bank accounts', () => {
   });
   it('should return a status 400 if query parameter is not status', (done) => {
     const body = {
-      email: 'onumonday@gmail.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)

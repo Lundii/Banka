@@ -45,12 +45,13 @@ class HomeController {
       const hashPass = hashPassword(req.body.password);
       req.body.password = hashPass;
       const data = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+        firstName: req.body.firstName.trim().toUpperCase(),
+        lastName: req.body.lastName.trim().toUpperCase(),
         email: req.body.email,
         password: req.body.password,
         type: 'client',
         isAdmin: 'false',
+        emailConfirmed: 'false',
       };
       this.store.userStore.create(data, (er, dataR) => {
         if (er) throw new Error('Error creating file');
@@ -60,7 +61,9 @@ class HomeController {
         };
         const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
         const token = jwt.sign(payload, secret, config.jwt_options);
+
         dataR[0].token = token;
+        Email.sendConfirmationEmail(dataR[0]);
         const data1 = {
           id: dataR[0].id,
           firstName: dataR[0].firstname,
@@ -69,6 +72,7 @@ class HomeController {
           type: dataR[0].type,
           isAdmin: dataR[0].isadmin,
           token: dataR[0].token,
+          message: 'Please, click on the link sent to your email for confirmation before creating an account number',
         };
         const response = {
           status: 200,

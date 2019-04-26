@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('Staff can delete an account number', () => {
   it('should return a status 200 if the account is successfully deleted', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -22,7 +22,7 @@ describe('Staff can delete an account number', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .delete(`/api/v1/staff/${id}/account/1007877890`)
+          .delete(`/api/v1/staff/${id}/accounts/1007877890`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(200);
@@ -35,7 +35,7 @@ describe('Staff can delete an account number', () => {
   });
   it('should return a status 401 if the user is not a staff or admin', (done) => {
     const body = {
-      email: 'petertunde@gmail.com',
+      email: 'peter123tunde@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -46,7 +46,7 @@ describe('Staff can delete an account number', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .delete(`/api/v1/staff/${id}/account/100495432`)
+          .delete(`/api/v1/staff/${id}/accounts/100495432`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(401);
@@ -59,7 +59,7 @@ describe('Staff can delete an account number', () => {
   });
   it('should return a status 400 if account does not exit', (done) => {
     const body = {
-      email: 'amaka.padi@gmail.com',
+      email: 'amaka.padi@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -70,7 +70,7 @@ describe('Staff can delete an account number', () => {
         expect(res.body.data.token).to.be.a('String');
         const { token, id } = res.body.data;
         chai.request(server)
-          .delete(`/api/v1/staff/${id}/account/107495432`)
+          .delete(`/api/v1/staff/${id}/accounts/107495432`)
           .set('Authorization', token)
           .end((er, resp) => {
             expect(resp).to.have.status(400);
@@ -84,7 +84,7 @@ describe('Staff can delete an account number', () => {
   it('should return a status 401 is user does not have a valid or expired token', (done) => {
     const id = 50048987839302;
     chai.request(server)
-      .delete(`/api/v1/staff/${id}/account/100495432`)
+      .delete(`/api/v1/staff/${id}/accounts/100495432`)
       .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
       .end((err, res) => {
         expect(res).to.have.status(401);

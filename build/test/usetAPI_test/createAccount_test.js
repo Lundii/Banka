@@ -20,7 +20,7 @@ _chai["default"].use(_chaiHttp["default"]);
 describe('Create Bank Account', function () {
   after(function (done) {
     _server.store.userStore.remove({
-      email: 'differentmail@gmail.com'
+      email: 'differentmail@email.com'
     }, function (err, result) {
       done();
     });
@@ -29,7 +29,7 @@ describe('Create Bank Account', function () {
     var body = {
       firstName: 'Sunday',
       lastName: 'Monday',
-      email: 'differentmail@gmail.com',
+      email: 'differentmail@email.com',
       password: 'password',
       confirmPassword: 'password'
     };
@@ -71,7 +71,7 @@ describe('Create Bank Account', function () {
     var body = {
       firstName: 'Sunday',
       lastName: 'Monday',
-      email: 'differentmail@gmail.com',
+      email: 'differentmail@email.com',
       type: 'savings'
     };
 
