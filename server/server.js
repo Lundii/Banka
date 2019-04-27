@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import { debug } from 'debug';
 import cors from 'cors';
 import { Pool } from 'pg';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocs from './docs/swagger.json';
 import config from './config';
 import routes from './routes';
 import storeLib from './models';
@@ -47,6 +49,7 @@ const userRoute = new routes.UserRoute(userRouter, store);
 const staffRoute = new routes.StaffRoute(staffRouter, store);
 const adminRoute = new routes.AdminRoute(adminRouter, store);
 
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api/v1/', homeRoute.route());
 app.use('/api/v1/user', userRoute.route());
 app.use('/api/v1/staff', staffRoute.route());

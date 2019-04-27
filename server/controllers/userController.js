@@ -31,12 +31,12 @@ class UserController {
     const data = {
       accountNumber,
       createdOn: new Date(),
-      ownerEmail: req.body.email,
+      ownerEmail: req.payload.email,
       type: req.body.type,
       status: 'active',
       balance: 0.00,
     };
-    this.store.userStore.read({ email: req.body.email }, (err, result) => {
+    this.store.userStore.read({ email: req.payload.email }, (err, result) => {
       if (result && !result.length) {
         return res.status.json({
           status: 400,
@@ -45,8 +45,8 @@ class UserController {
       }
       if (result && result.length && result[0].emailconfirmed === false) {
         const payload = {
-          email: req.body.email,
           password: result[0].password,
+          email: result[0].email,
         };
         const secret = process.env.JWT_SECRET || 'yougofindmesoteyyougotire';
         const token = jwt.sign(payload, secret, config.jwt_options);
