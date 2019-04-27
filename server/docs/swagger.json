@@ -1,0 +1,1363 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.",
+    "version": "1.0.0",
+    "title": "Banka"
+  },
+  "host": "mighty-retreat-71326.herokuapp.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Home",
+      "description": "Home related routing"
+    },
+    {
+      "name": "User",
+      "description": "Access to Petstore orders"
+    },
+    {
+      "name": "Staff",
+      "description": "Operations about user"
+    },
+    {
+      "name": "Admin",
+      "description": "Access to Petstore orders"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Home"
+        ],
+        "summary": "Creates user account",
+        "description": "",
+        "operationId": "addPet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object to be stored",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account successfully created",
+            "schema": {
+              "$ref": "#/definitions/SignupSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Home"
+        ],
+        "summary": "Signs in a user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Username and password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SignIn"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed in successful",
+            "schema": {
+              "$ref": "#/definitions/SignupSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}/accounts": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Creates a new account number",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body of the request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAccount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "account number successfully created",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/user/{userId}/accounts/{account-number}/transactions": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "View an account transaction history",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "account-number",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of transaction history",
+            "schema": {
+              "$ref": "#/definitions/AccountTransHist"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/user/{userId}/transactions/{transaction-id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "View a specific transaction history",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "transaction-id",
+            "in": "path",
+            "description": "ID of the transaction",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction history",
+            "schema": {
+              "$ref": "#/definitions/SpecTransHist"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/user/{userId}/accounts/{account-number}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "View a specific account details",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "account-number",
+            "in": "path",
+            "description": "ID of the transaction",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction history",
+            "schema": {
+              "$ref": "#/definitions/SpecAcctDetails"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/staff/{staffId}/account/{accountNumber}": {
+      "patch": {
+        "tags": [
+          "Staff"
+        ],
+        "summary": "Activate or deactivate an account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "staffId",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body of the request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status changed successfully",
+            "schema": {
+              "$ref": "#/definitions/AccountStatus"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/staff/{staffId}/user/{user-email-address}/accounts": {
+      "get": {
+        "tags": [
+          "Staff"
+        ],
+        "summary": "View all accounts owned by a specific user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "staffId",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "user-email-address",
+            "in": "path",
+            "description": "user email address",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status changed successfully",
+            "schema": {
+              "$ref": "#/definitions/AccountDetails"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/staff/{staffId}/accounts": {
+      "get": {
+        "tags": [
+          "Staff"
+        ],
+        "summary": "View all accounts owned by a specific user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "staffId",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "active or dormant",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status changed successfully",
+            "schema": {
+              "$ref": "#/definitions/BankAccounts"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/staff/{staffId}/transactions{accountNumber}/debit": {
+      "post": {
+        "tags": [
+          "Staff"
+        ],
+        "summary": "Debit an account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "staffId",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body of the request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/debitAmount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful debit tranasaction",
+            "schema": {
+              "$ref": "#/definitions/TransactionSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/staff/{staffId}/transactions/{accountNumber}/credit": {
+      "post": {
+        "tags": [
+          "Staff"
+        ],
+        "summary": "Credit an account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "staffId",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body of the request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/creditAmount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful credit tranasaction",
+            "schema": {
+              "$ref": "#/definitions/TransactionSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/admin/{adminId}/account/{accountNumber}": {
+      "patch": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Activate or deactivate an account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "path",
+            "description": "ID of the admin",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "description": "ID of the admin",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body of the request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status changed successfully",
+            "schema": {
+              "$ref": "#/definitions/AccountStatus"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/admin/{adminId}/accounts": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "View all accounts owned by a specific user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "path",
+            "description": "ID of the staff",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "active or dormant",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status changed successfully",
+            "schema": {
+              "$ref": "#/definitions/BankAccounts"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/admin/{adminId}/accounts/{accountNumber}": {
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Delete an account number",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "path",
+            "description": "ID of the admin",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "description": "ID of the admin",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status changed successfully",
+            "schema": {
+              "$ref": "#/definitions/deleteSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/admin/{adminId}/user/{user-email-address}/accounts": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "View all accounts owned by a specific user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "path",
+            "description": "ID of the admin",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "user-email-address",
+            "in": "path",
+            "description": "user email address",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status changed successfully",
+            "schema": {
+              "$ref": "#/definitions/AccountDetails"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Account": {
+      "type": "object",
+      "required": [
+        "status",
+        "data"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "id",
+            "accountNumber",
+            "firstName",
+            "lastName",
+            "email",
+            "type",
+            "openingBalance"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "accountNumber": {
+              "type": "integer"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "example": "current or savings"
+            },
+            "openingBalance": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Signup": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "confirmPassword"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "SignIn": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "confirmPassword"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "SignupSuccess": {
+      "type": "object",
+      "required": [
+        "status",
+        "data"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "id",
+            "firstName",
+            "lastName",
+            "email",
+            "token"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "deleteSuccess": {
+      "type": "object",
+      "required": [
+        "status",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "createAccount": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "savings or current"
+        }
+      }
+    },
+    "accountStatus": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "active or dormant"
+        }
+      }
+    },
+    "AccountStatus": {
+      "type": "object",
+      "required": [
+        "status",
+        "data"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "accountNumber",
+            "status"
+          ],
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "example": "active or dormant"
+            }
+          }
+        }
+      }
+    },
+    "TransactionSuccess": {
+      "type": "object",
+      "required": [
+        "status",
+        "data"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "transactionid",
+            "accountNumber",
+            "amount",
+            "cahier",
+            "transactiontype",
+            "accountBalance"
+          ],
+          "properties": {
+            "transactionid": {
+              "type": "integer"
+            },
+            "accountNumber": {
+              "type": "integer"
+            },
+            "amount": {
+              "type": "integer"
+            },
+            "cahier": {
+              "type": "integer"
+            },
+            "transactiontype": {
+              "type": "string",
+              "example": "credit or debit"
+            },
+            "accountBalance": {
+              "type": "string"
+            },
+            "openingBalance": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "debitAmount": {
+      "type": "object",
+      "required": [
+        "debitAmount"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        }
+      }
+    },
+    "creditAmount": {
+      "type": "object",
+      "required": [
+        "creditAmount"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        }
+      }
+    },
+    "BadRequest": {
+      "type": "object",
+      "required": [
+        "status",
+        "error"
+      ],
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "AccountTransHist": {
+      "type": "object",
+      "required": [
+        "status",
+        "data"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "transactionId": {
+                "type": "integer"
+              },
+              "createdOn": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "oldBalance": {
+                "type": "integer"
+              },
+              "newBalance": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "SpecTransHist": {
+      "type": "object",
+      "required": [
+        "status",
+        "data"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "integer"
+            },
+            "createdOn": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "accountNumber": {
+              "type": "integer"
+            },
+            "amount": {
+              "type": "integer"
+            },
+            "oldBalance": {
+              "type": "integer"
+            },
+            "newBalance": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "AccountDetails": {
+      "type": "object",
+      "required": [
+        "status",
+        "accounts"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "accounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "createdOn": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "balance": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "SpecAcctDetails": {
+      "type": "object",
+      "required": [
+        "status",
+        "data"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "createdOn": {
+              "type": "string"
+            },
+            "accountNumber": {
+              "type": "integer"
+            },
+            "ownerEmail": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "balance": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "BankAccounts": {
+      "type": "object",
+      "required": [
+        "status",
+        "accounts"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "accounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "createdOn": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "ownerEmail": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "balance": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

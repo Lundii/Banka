@@ -128,8 +128,7 @@ export function verifyUser(req, res, next) {
 }
 
 export const createAccountValidator = [
-  body(['email', 'type'], 'field is required').exists(),
-  body('email', 'is invalid').isEmail(),
+  body(['type'], 'field is required').exists(),
   body(['type'], ' cannot be empty').isLength({ min: 1 }),
   body('type', 'Account type can either be savings or current').custom((value) => {
     if (value !== 'savings' && value !== 'current') {
