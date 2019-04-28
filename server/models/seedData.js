@@ -13,15 +13,15 @@ const accountNumbers = [1004875498, 1004870909, 1004848398, 1003847890, 10000478
 const userPasswords = ['password', 'password', 'password', 'password', 'password', 'password', 'password', 'password'];
 const hashPass = userPasswords.map(password => hashPassword(password));
 
-const users = [['Peter', 'Tunde', emails[0], hashPass[0], 'client', false, true],
-  ['Aisha', 'Lawal', emails[1], hashPass[1], 'client', false, true],
-  ['Chukwudi', 'James', emails[2], hashPass[2], 'client', false, true],
-  ['Bill', 'Mark', emails[3], hashPass[3], 'client', false, true],
-  ['Amaka', 'Padi', emails[4], hashPass[4], 'staff', false, true],
-  ['Jeffery', 'Sunday', emails[5], hashPass[5], 'staff', false, true],
-  ['Onu', 'Monday', emails[6], hashPass[6], 'staff', true, true]];
+const users = [['Peter', 'Tunde', emails[0], hashPass[0], 'client', false, true, false],
+  ['Aisha', 'Lawal', emails[1], hashPass[1], 'client', false, true, false],
+  ['Chukwudi', 'James', emails[2], hashPass[2], 'client', false, true, false],
+  ['Bill', 'Mark', emails[3], hashPass[3], 'client', false, true, false],
+  ['Amaka', 'Padi', emails[4], hashPass[4], 'staff', false, true, false],
+  ['Jeffery', 'Sunday', emails[5], hashPass[5], 'staff', false, true, false],
+  ['Onu', 'Monday', emails[6], hashPass[6], 'staff', true, true, false]];
 
-const insertUsersQuery = format('INSERT INTO users(firstName, lastName, email, password, type, isAdmin, emailConfirmed) VALUES %L returning *', users);
+const insertUsersQuery = format('INSERT INTO users(firstName, lastName, email, password, type, isAdmin, emailConfirmed, createdAnAccount) VALUES %L returning *', users);
 
 const accounts = [[accountNumbers[0], 'peter123tunde@email.com', 'savings', 'active', 340000.00, new Date()],
   [accountNumbers[1], 'peter123tunde@email.com', 'savings', 'active', 3000.00, new Date()],

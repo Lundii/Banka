@@ -19,6 +19,7 @@ class UserController {
     this.specificTranHist = this.specificTranHist.bind(this);
     this.specAcctDetails = this.specAcctDetails.bind(this);
     this.confirmEmail = this.confirmEmail.bind(this);
+    this.getAccounts = this.getAccounts.bind(this);
   }
 
   /**
@@ -61,22 +62,25 @@ class UserController {
         if (err) throw new Error('Error saving account Number');
         result1[0].firstName = result[0].firstname;
         result1[0].lastName = result[0].lastname;
-        result1[0].email = req.body.email;
-        Email.createAccount(result1[0]);
-        const response = {
-          status: 200,
-          data: {
-            id: result1[0].id,
-            firstName: result[0].firstname,
-            lastName: result[0].lastname,
-            accountNumber: result1[0].accountnumber,
-            email: req.body.email,
-            type: result1[0].type,
-            status: result1[0].status,
-            openingBalance: result1[0].balance,
-          },
-        };
-        res.status(200).json(response);
+        result1[0].email = req.payload.email;
+
+        this.store.userStore.update({ email: req.payload.email }, { createdAnAccount: true }, (err2, result2) => {
+          Email.createAccount(result1[0]);
+          const response = {
+            status: 200,
+            data: {
+              id: result1[0].id,
+              firstName: result[0].firstname,
+              lastName: result[0].lastname,
+              accountNumber: result1[0].accountnumber,
+              email: req.body.email,
+              type: result1[0].type,
+              status: result1[0].status,
+              openingBalance: result1[0].balance,
+            },
+          };
+          res.status(200).json(response);
+        });
       });
     });
   }
@@ -150,6 +154,23 @@ class UserController {
       res.status(200).json({
         status: 200,
         message: 'Email confirmed. Proceed to create a bank account',
+      });
+    });
+  }
+
+  getAccounts(req, res) {
+    const query = `SELECT 
+                    users.firstname,
+                    users.lastname,
+                    bankaccounts.*
+                  FROM users 
+                  INNER JOIN bankaccounts ON users.email = bankaccounts.owneremail
+                  WHERE owneremail = '${req.payload.email}'
+  `;
+    this.store.userStore.compoundQuery(query, (err, result) => {
+      res.status(200).json({
+        status: 200,
+        data: result,
       });
     });
   }

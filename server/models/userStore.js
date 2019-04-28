@@ -20,7 +20,8 @@ class UserStore extends Store {
       password VARCHAR (500) NOT NULL,
       type VARCHAR (20) NOT NULL,
       isAdmin BOOLEAN NOT NULL,
-      emailConfirmed BOOLEAN NOT NULL
+      emailConfirmed BOOLEAN NOT NULL,
+      createdAnAccount BOOLEAN NOT NULL
     );`;
     super(name, pool, createUserTable);
   }

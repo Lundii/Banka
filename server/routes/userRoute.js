@@ -28,6 +28,7 @@ export default class UserRouter {
    */
   route() {
     this.router.route('/:id/accounts')
+      .get(validateToken, verifyIsClient, this.userController.getAccounts)
       .post(validateToken, verifyIsClient, createAccountValidator,
         validate, this.userController.createAccount);
 
@@ -42,6 +43,7 @@ export default class UserRouter {
       
     this.router.route('/:id/confirmEmail/:token')
       .get(setHeadersparams2, validateToken, verifyIsClient, this.userController.confirmEmail);
+
     return this.router;
   }
 }

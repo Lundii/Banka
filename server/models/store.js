@@ -72,7 +72,7 @@ class Store {
   update(query, newObject, callback) {
     const key = Object.keys(query);
     const key2 = Object.keys(newObject);
-    const text = `UPDATE ${this.name} SET ${key2[0]} = '${newObject[key2[0]]}' WHERE ${key[0]} = ${query[key[0]]} RETURNING *;`;
+    const text = `UPDATE ${this.name} SET ${key2[0]} = '${newObject[key2[0]]}' WHERE ${key[0]} = '${query[key[0]]}' RETURNING *;`;
     this.pool.query(text, (err, result) => {
       if (err) return callback(err);
       return callback(null, result.rows);
