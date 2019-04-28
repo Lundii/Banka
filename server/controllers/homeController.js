@@ -50,8 +50,9 @@ class HomeController {
         email: req.body.email,
         password: req.body.password,
         type: 'client',
-        isAdmin: 'false',
-        emailConfirmed: 'false',
+        isAdmin: false,
+        emailConfirmed: false,
+        createdanaccount: false,
       };
       this.store.userStore.create(data, (er, dataR) => {
         if (er) throw new Error('Error creating file');
@@ -119,6 +120,7 @@ class HomeController {
         lastName: result[0].lastname,
         email: result[0].email,
         token: result[0].token,
+        createdanaccount: result[0].createdanaccount,
       };
 
       const response = {

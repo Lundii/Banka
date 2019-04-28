@@ -11,6 +11,7 @@ const config = {
       type: 'staff',
       isAdmin: true,
       emailConfirmed: true,
+      createdAnAccount: true,
     },
     staffAccount: {
       firstName: 'Staff',
@@ -20,6 +21,7 @@ const config = {
       type: 'staff',
       isAdmin: false,
       emailConfirmed: true,
+      createdAnAccount: true,
     },
   },
   jwt_options: {
