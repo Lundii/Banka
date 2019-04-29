@@ -23,6 +23,13 @@ body.image2 {
     background-repeat: no-repeat; 
     background-position: center;
 }
+div.passport {
+    background-image: url('../../public/images/passport.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    min-height: 150px;
+}
 .z-md {
     z-index:1;
 }
