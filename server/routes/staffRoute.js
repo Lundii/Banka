@@ -35,6 +35,7 @@ export default class StaffRouter {
         this.staffController.actDeactAccount);
 
     this.router.route('/:id/accounts/:accountNumber')
+      .get(validateToken, verifyIsStaff, this.staffController.getAccountDetails)
       .delete(validateToken, verifyIsStaff, this.staffController.deleteAccount);
 
     this.router.route('/:id/transactions/:accountNumber/credit')

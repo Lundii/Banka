@@ -120,6 +120,8 @@ class HomeController {
         lastName: result[0].lastname,
         email: result[0].email,
         token: result[0].token,
+        type: result[0].type,
+        isadmin: result[0].isadmin,
         createdanaccount: result[0].createdanaccount,
       };
 

@@ -18,6 +18,7 @@ class StaffController {
     this.debitAccount = this.debitAccount.bind(this);
     this.viewAccountList = this.viewAccountList.bind(this);
     this.viewSpecificAccount = this.viewSpecificAccount.bind(this);
+    this.getAccountDetails = this.getAccountDetails.bind(this);
   }
 
   /**
@@ -216,7 +217,14 @@ class StaffController {
         res.status(200).json(resp);
       });
     } else {
-      this.store.bankAcctStore.read({}, (err, result) => {
+      const query = `SELECT 
+                      users.firstname,
+                      users.lastname,
+                      bankaccounts.*
+                    FROM users 
+                    INNER JOIN bankaccounts ON users.email = bankaccounts.owneremail
+    `;
+      this.store.userStore.compoundQuery(query, (err, result) => {
         if (err) throw new Error('Error reading bank accounts');
         const resp = {
           status: 200,
@@ -252,6 +260,29 @@ class StaffController {
           data: result1,
         };
         res.status(200).json(resp);
+      });
+    });
+  }
+
+  getAccountDetails(req, res) {
+    const query = `SELECT 
+                    users.firstname,
+                    users.lastname,
+                    bankaccounts.*
+                  FROM users 
+                  INNER JOIN bankaccounts ON users.email = bankaccounts.owneremail
+                  WHERE accountnumber = '${req.params.accountNumber}'
+  `;
+    this.store.userStore.compoundQuery(query, (err, result) => {
+      if (result && !result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Account does not exit',
+        });
+      }
+      res.status(200).json({
+        status: 200,
+        data: result,
       });
     });
   }
