@@ -11,7 +11,7 @@ body {
     background-color: white
 }
 body.image1 {
-    background-image: url('../../public/images/image4.jpg'); 
+    background-color: #d9e3e6; 
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center;
