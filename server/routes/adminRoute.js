@@ -18,6 +18,7 @@ export default class StaffRouter {
     this.router = router;
     this.adminController = new Controllers.AdminController(store);
     this.staffController = new Controllers.StaffController(store);
+    this.userController = new Controllers.UserController(store);
   }
 
   /**
@@ -37,6 +38,9 @@ export default class StaffRouter {
 
     this.router.route('/:id/:email/accounts')
       .get(validateToken, verifyIsAdmin, this.staffController.viewSpecificAccount);
+
+    this.router.route('/:id/accounts/:accountNumber/transactions')
+      .get(validateToken, verifyIsAdmin, this.userController.accountHistory);
          
     return this.router;
   }
