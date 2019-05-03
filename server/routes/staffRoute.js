@@ -23,6 +23,7 @@ export default class StaffRouter {
   constructor(router, store) {
     this.router = router;
     this.staffController = new Controllers.StaffController(store);
+    this.userController = new Controllers.UserController(store);
   }
   
   /**
@@ -52,6 +53,9 @@ export default class StaffRouter {
     this.router.route('/:id/:email/accounts')
       .get(validateToken, verifyIsStaff, this.staffController.viewSpecificAccount);
       
+    this.router.route('/:id/accounts/:accountNumber/transactions')
+      .get(validateToken, verifyIsStaff, this.userController.accountHistory);
+
     return this.router;
   }
 }
