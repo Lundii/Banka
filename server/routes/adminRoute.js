@@ -1,7 +1,11 @@
 /* eslint-disable import/no-cycle */
 import Controllers from '../controllers';
 import { validateToken, validate } from '../util';
-import { verifyIsAdmin, actDeactAccountValidator } from '../util/middlewares';
+import {
+  verifyIsAdmin,
+  actDeactAccountValidator,
+  changePasswordValidator,
+} from '../util/middlewares';
 
 /**
  * Creates a router class for staff page APIs
@@ -41,9 +45,12 @@ export default class StaffRouter {
 
     this.router.route('/:id/accounts/:accountNumber/transactions')
       .get(validateToken, verifyIsAdmin, this.userController.accountHistory);
-    
+
     this.router.route('/:id/users')
       .get(validateToken, verifyIsAdmin, this.adminController.getUsers);
+
+    this.router.route('/:id/changePassword')
+      .patch(validateToken, verifyIsAdmin, changePasswordValidator, validate, this.userController.changePassword);
     return this.router;
   }
 }
