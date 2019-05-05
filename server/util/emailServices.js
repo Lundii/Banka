@@ -167,7 +167,7 @@ class EmailServices {
       subject: 'Email confirmation link',
       html: `<div>
               <h3>Please, click on the link below to confirm your email</h3>
-              <a href="https://mighty-retreat-71326.herokuapp.com/api/v1/user/${user.id}/confirmEmail/${user.token}">Email confirmation link</a>
+              <a href="http://localhost:3000/api/v1/user/${user.id}/confirmEmail/${user.token}">Email confirmation link</a>
             </div>`,
     };
     this.sendMail(transporter, mailOptions, callback);

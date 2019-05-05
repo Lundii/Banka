@@ -4,7 +4,6 @@ import Email from '../util/emailServices';
  * @class
  */
 class StaffController {
-  
   /**
    * Constructor for staff route controller class
    * @constructor
@@ -195,7 +194,7 @@ class StaffController {
    * @param {object} res  - the response object
    */
   viewAccountList(req, res) {
-    if ((req.query && req.query.status) && (req.query.status !== 'dormant' && req.query.status !== 'active')) {
+    if ((req.query.status && !req.query.status) || (req.query.status && req.query.status !== 'dormant' && req.query.status !== 'active')) {
       return res.status(400).json({
         status: 400,
         error: `${req.query.status} account does not exit`,
@@ -207,7 +206,7 @@ class StaffController {
         error: 'invalid query parameters',
       });
     }
-    if (req.query && req.query.status) {
+    if (req.query.status) {
       this.store.bankAcctStore.read({ status: req.query.status }, (err, result) => {
         if (err) throw new Error('Error reading bank accounts');
         const resp = {
