@@ -7,6 +7,7 @@ import {
   creditAccountValidator, 
   debitAccountValidator,
   actDeactAccountValidator,
+  changePasswordValidator,
 } from '../util/middlewares';
 
 /**
@@ -55,6 +56,9 @@ export default class StaffRouter {
       
     this.router.route('/:id/accounts/:accountNumber/transactions')
       .get(validateToken, verifyIsStaff, this.userController.accountHistory);
+
+    this.router.route('/:id/changePassword')
+      .patch(validateToken, verifyIsStaff, changePasswordValidator, validate, this.userController.changePassword);
 
     return this.router;
   }

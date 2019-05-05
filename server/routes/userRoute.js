@@ -5,6 +5,7 @@ import {
   verifyIsClient,
   createAccountValidator,
   setHeadersparams2,
+  changePasswordValidator,
 } from '../util/middlewares';
 
 /**
@@ -43,6 +44,9 @@ export default class UserRouter {
       
     this.router.route('/:id/confirmEmail/:token')
       .get(setHeadersparams2, validateToken, verifyIsClient, this.userController.confirmEmail);
+
+    this.router.route('/:id/changePassword')
+      .patch(validateToken, verifyIsClient, changePasswordValidator, validate, this.userController.changePassword);
 
     return this.router;
   }

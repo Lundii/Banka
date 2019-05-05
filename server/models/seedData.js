@@ -5,12 +5,12 @@ import { hashPassword } from '../util/index';
 import { store } from '../server';
 
 const emails = ['peter123tunde@email.com', 'aishalawal23@email.com', 'chukwudi.james@email.com', 'billmark56@email.com',
-  'amaka.padi@email.com', 'jefferysunday12@email.com', 'onumonday@email.com'];
+  'amaka.padi@email.com', 'jefferysunday12@email.com', 'peacejoy@email.com', 'onumonday@email.com'];
 
 const accountNumbers = [1004875498, 1004870909, 1004848398, 1003847890, 1000047890, 1004839098, 1003437498,
   1004837498, 1007877890, 1004809890];
 
-const userPasswords = ['password', 'password', 'password', 'password', 'password', 'password', 'password', 'password'];
+const userPasswords = ['password', 'password', 'password', 'password', 'password', 'password', 'password', 'password', 'password'];
 const hashPass = userPasswords.map(password => hashPassword(password));
 
 const users = [['Peter', 'Tunde', emails[0], hashPass[0], 'client', false, true, false],
@@ -19,7 +19,8 @@ const users = [['Peter', 'Tunde', emails[0], hashPass[0], 'client', false, true,
   ['Bill', 'Mark', emails[3], hashPass[3], 'client', false, true, false],
   ['Amaka', 'Padi', emails[4], hashPass[4], 'staff', false, true, false],
   ['Jeffery', 'Sunday', emails[5], hashPass[5], 'staff', false, true, false],
-  ['Onu', 'Monday', emails[6], hashPass[6], 'staff', true, true, false]];
+  ['Peace', 'Joy', emails[6], hashPass[6], 'staff', true, true, false],
+  ['Onu', 'Monday', emails[7], hashPass[7], 'staff', true, true, false]];
 
 const insertUsersQuery = format('INSERT INTO users(firstName, lastName, email, password, type, isAdmin, emailConfirmed, createdAnAccount) VALUES %L returning *', users);
 

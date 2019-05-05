@@ -208,3 +208,14 @@ export const actDeactAccountValidator = [
     return Promise.resolve(true);
   }),
 ];
+
+export const changePasswordValidator = [
+  body(['oldPassword', 'newPassword', 'confirmPassword'], 'field is required').exists(),
+  body(['oldPassword', 'newPassword', 'confirmPassword'], ' cannot be empty').isLength({ min: 1 }),
+  body('confirmPassword', 'Confirm password does not match password').custom((value, { req }) => {
+    if (value !== req.body.newPassword) {
+      return Promise.reject(new Error('Confirm password does not match password'));
+    }
+    return Promise.resolve(true);
+  }),
+];

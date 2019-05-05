@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { generateAccountNumber } from '../util';
+import { generateAccountNumber, comparePassword, hashPassword, } from '../util';
 import Email from '../util/emailServices';
 import config from '../config';
 /**
@@ -20,6 +20,7 @@ class UserController {
     this.specAcctDetails = this.specAcctDetails.bind(this);
     this.confirmEmail = this.confirmEmail.bind(this);
     this.getAccounts = this.getAccounts.bind(this);
+    this.changePassword = this.changePassword.bind(this);
   }
 
   /**
@@ -171,6 +172,28 @@ class UserController {
       res.status(200).json({
         status: 200,
         data: result,
+      });
+    });
+  }
+
+  changePassword(req, res) {
+    this.store.userStore.read({ id: req.params.id }, (err, result) => {
+      if (result && result.length) {
+        const verifypassword = comparePassword(req.body.oldPassword, result[0].password);
+        if (!verifypassword) {
+          return res.status(403).json({
+            status: 403,
+            error: 'Password is incorrect',
+          });
+        }
+      }
+      const hashPass = hashPassword(req.body.newPassword);
+      this.store.userStore.update({ id: req.params.id }, { password: hashPass }, (err1, result1) => {
+        if (err1) throw new Error('Error updating password');
+        return res.status(200).json({
+          status: 200,
+          message: 'Password successfully changed',
+        });
       });
     });
   }
