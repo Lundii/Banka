@@ -41,7 +41,9 @@ export default class StaffRouter {
 
     this.router.route('/:id/accounts/:accountNumber/transactions')
       .get(validateToken, verifyIsAdmin, this.userController.accountHistory);
-         
+    
+    this.router.route('/:id/users')
+      .get(validateToken, verifyIsAdmin, this.adminController.getUsers);
     return this.router;
   }
 }
