@@ -5,13 +5,14 @@ import {
   verifyIsAdmin,
   actDeactAccountValidator,
   changePasswordValidator,
+  createStaffValidator,
 } from '../util/middlewares';
 
 /**
  * Creates a router class for staff page APIs
  * @class
  */
-export default class StaffRouter {
+export default class AdminRouter {
   /**
    * Constructor for creating the AdminRouter class
    * @constructor
@@ -47,10 +48,12 @@ export default class StaffRouter {
       .get(validateToken, verifyIsAdmin, this.userController.accountHistory);
 
     this.router.route('/:id/users')
-      .get(validateToken, verifyIsAdmin, this.adminController.getUsers);
+      .get(validateToken, verifyIsAdmin, this.adminController.getStaffs)
+      .post(validateToken, verifyIsAdmin, createStaffValidator, validate, this.adminController.createStaff);
 
     this.router.route('/:id/changePassword')
       .patch(validateToken, verifyIsAdmin, changePasswordValidator, validate, this.userController.changePassword);
+
     return this.router;
   }
 }

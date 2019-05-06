@@ -219,3 +219,16 @@ export const changePasswordValidator = [
     return Promise.resolve(true);
   }),
 ];
+
+export const createStaffValidator = [
+  body(['firstName', 'lastName', 'email', 'isadmin'], 'field is required').exists(),
+  body('email', 'is invalid').isEmail(),
+  body(['firstName', 'lastName', 'isadmin'], ' cannot be empty').isLength({ min: 1 }),
+  body(['firstName', 'lastName'], ' should contain only letters').isAlpha(),
+  body('isadmin', 'isadmin field can either be true or false').custom((value, { req }) => {
+    if (value !== true && value !== false) {
+      return Promise.reject(new Error('isadmin field can either be true or false'));
+    }
+    return Promise.resolve(true);
+  }),
+];

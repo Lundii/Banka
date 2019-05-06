@@ -1,3 +1,7 @@
+
+import {
+  hashPassword,
+} from '../util';
 /**
  * Admin route controller class
  * @class
@@ -10,10 +14,11 @@ class AdminController {
      */
   constructor(store) {
     this.store = store;
-    this.getUsers = this.getUsers.bind(this);
+    this.getStaffs = this.getStaffs.bind(this);
+    this.createStaff = this.createStaff.bind(this);
   }
 
-  getUsers(req, res) {
+  getStaffs(req, res) {
     if ((req.query.type && !req.query.type) || (req.query.type && req.query.type !== 'staff' && req.query.type !== 'admin')) {
       return res.status(400).json({
         status: 400,
@@ -53,6 +58,49 @@ class AdminController {
         res.status(200).json(resp);
       });
     }
+  }
+
+  createStaff(req, res) {
+    const emailField = { email: req.body.email };
+    this.store.userStore.read(emailField, (err, result) => {
+      if (err) throw new Error('Error reading data');
+      if (result && result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Email already exits',
+        });
+      }
+      const password = `${req.body.firstName.toLowerCase()}${req.body.lastName.toLowerCase()}`
+      const hashPass = hashPassword(password);
+      req.body.password = hashPass;
+      const data = {
+        firstName: req.body.firstName.trim().toUpperCase(),
+        lastName: req.body.lastName.trim().toUpperCase(),
+        email: req.body.email,
+        password: req.body.password,
+        type: 'staff',
+        isAdmin: req.body.isadmin,
+        emailConfirmed: false,
+        createdanaccount: false,
+      };
+      this.store.userStore.create(data, (er, dataR) => {
+        if (er) throw new Error('Error creating file');
+        const data1 = {
+          id: dataR[0].id,
+          firstname: dataR[0].firstname,
+          lastname: dataR[0].lastname,
+          email: dataR[0].email,
+          type: dataR[0].type,
+          isadmin: dataR[0].isadmin,
+          message: 'Staff successfully created',
+        };
+        const response = {
+          status: 200,
+          data: data1,
+        };
+        return res.status(200).json(response);
+      });
+    });
   }
 }
 
