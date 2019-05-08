@@ -232,3 +232,8 @@ export const createStaffValidator = [
     return Promise.resolve(true);
   }),
 ];
+
+export const deleteStaffValidator = [
+  body('staffemail', 'field is required').exists(),
+  body('staffemail', 'cannot be empty').isLength({ min: 1 }),
+];

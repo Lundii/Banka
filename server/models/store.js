@@ -87,7 +87,7 @@ class Store {
    */
   remove(query, callback) {
     const key = Object.keys(query);
-    const text = `DELETE FROM ${this.name} WHERE ${key[0]} = '${query[key[0]]}';`;
+    const text = `DELETE FROM ${this.name} WHERE ${key[0]} = '${query[key[0]]}' RETURNING *;`;
     this.pool.query(text, (err, result) => {
       if (err) return callback(err);
       return callback(null, result.rows);
