@@ -6,6 +6,7 @@ import {
   actDeactAccountValidator,
   changePasswordValidator,
   createStaffValidator,
+  deleteStaffValidator,
 } from '../util/middlewares';
 
 /**
@@ -49,7 +50,8 @@ export default class AdminRouter {
 
     this.router.route('/:id/users')
       .get(validateToken, verifyIsAdmin, this.adminController.getStaffs)
-      .post(validateToken, verifyIsAdmin, createStaffValidator, validate, this.adminController.createStaff);
+      .post(validateToken, verifyIsAdmin, createStaffValidator, validate, this.adminController.createStaff)
+      .delete(validateToken, verifyIsAdmin, deleteStaffValidator, validate, this.adminController.deleteStaff);
 
     this.router.route('/:id/changePassword')
       .patch(validateToken, verifyIsAdmin, changePasswordValidator, validate, this.userController.changePassword);

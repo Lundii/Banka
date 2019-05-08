@@ -164,7 +164,6 @@ describe('Admin can create new staffs', () => {
           .send(body2)
           .set('Authorization', token)
           .end((er, resp) => {
-            console.log(resp.body);
             expect(resp).to.have.status(400);
             expect(resp).to.be.a('object');
             expect(resp.body).to.have.all.keys('status', 'error');

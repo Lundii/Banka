@@ -16,6 +16,7 @@ class AdminController {
     this.store = store;
     this.getStaffs = this.getStaffs.bind(this);
     this.createStaff = this.createStaff.bind(this);
+    this.deleteStaff = this.deleteStaff.bind(this);
   }
 
   getStaffs(req, res) {
@@ -70,7 +71,7 @@ class AdminController {
           error: 'Email already exits',
         });
       }
-      const password = `${req.body.firstName.toLowerCase()}${req.body.lastName.toLowerCase()}`
+      const password = `${req.body.firstName.toLowerCase()}${req.body.lastName.toLowerCase()}`;
       const hashPass = hashPassword(password);
       req.body.password = hashPass;
       const data = {
@@ -99,6 +100,24 @@ class AdminController {
           data: data1,
         };
         return res.status(200).json(response);
+      });
+    });
+  }
+
+  deleteStaff(req, res) {
+    this.store.userStore.read({ email: req.body.staffemail }, (err, result) => {
+      if (result && !result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Staff not found',
+        });
+      }
+      this.store.userStore.remove({ email: req.body.staffemail }, (err1, result1) => {
+        if (err1) throw new Error('Eror deleting staff');
+        return res.status(200).json({
+          status: 200,
+          message: `${result1[0].isadmin ? 'Admin' : 'Staff'} successfully deleted`,
+        });
       });
     });
   }
