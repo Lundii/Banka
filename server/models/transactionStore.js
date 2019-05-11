@@ -14,7 +14,7 @@ class TransactionStore extends Store {
   constructor(name, pool) {
     const createTransactionTable = `CREATE TABLE IF NOT EXISTS ${name}(
       id SERIAL PRIMARY KEY,
-      accountNumber INTEGER REFERENCES bankAccounts(accountNumber) ON DELETE CASCADE NOT NULL,
+      accountNumber INTEGER REFERENCES bankAccounts(accountNumber) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
       type VARCHAR (50) NOT NULL,
       cashier INTEGER NOT NULL,
       amount REAL NOT NULL,

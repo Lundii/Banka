@@ -17,6 +17,7 @@ class AdminController {
     this.getStaffs = this.getStaffs.bind(this);
     this.createStaff = this.createStaff.bind(this);
     this.deleteStaff = this.deleteStaff.bind(this);
+    this.editClient = this.editClient.bind(this);
   }
 
   getStaffs(req, res) {
@@ -118,6 +119,34 @@ class AdminController {
           status: 200,
           message: `${result1[0].isadmin ? 'Admin' : 'Staff'} successfully deleted`,
         });
+      });
+    });
+  }
+
+  editClient(req, res) {
+    this.store.userStore.read({ email: req.body.clientEmail }, (err, result) => {
+      if (result[0].type !== 'client') {
+        return res.status(401).json({
+          status: '401',
+          error: 'Unauthorized access',
+        });
+      }
+      const query = `UPDATE users 
+        SET firstName = '${req.body.firstName || result[0].firstname}',
+            lastName = '${req.body.lastName || result[0].lastname}',
+            email = '${req.body.email || result[0].email}'
+        WHERE email = '${req.body.clientEmail}' RETURNING *`;
+      this.store.userStore.compoundQuery(query, (err1, result1) => {
+        const resdata = {
+          status: 200,
+          data: {
+            firstName: req.body.firstName || result1[0].firstname,
+            lastName: req.body.lastName || result1[0].lastname,
+            email: req.body.email || result1[0].email,
+            message: 'Update successful',
+          },
+        };
+        return res.status(200).json(resdata);
       });
     });
   }

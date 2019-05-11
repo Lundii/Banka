@@ -5,13 +5,13 @@ import { hashPassword } from '../util/index';
 import { store } from '../server';
 
 const emails = ['peter123tunde@email.com', 'aishalawal23@email.com', 'chukwudi.james@email.com', 'billmark56@email.com',
-  'amaka.padi@email.com', 'jefferysunday12@email.com', 'peacejoy@email.com', 'obinnaharrison@email.com',
+  'amaka.padi@email.com', 'jefferysunday12@email.com', 'peacejoy@email.com', 'obinnaharrison@email.com', 'edituser@email.com',
   'onumonday@email.com'];
 
 const accountNumbers = [1004875498, 1004870909, 1004848398, 1003847890, 1000047890, 1004839098, 1003437498,
-  1004837498, 1007877890, 1004809890];
+  1004837498, 1007877890, 1004809890, 1003454390];
 
-const userPasswords = ['password', 'password', 'password', 'password',
+const userPasswords = ['password', 'password', 'password', 'password', 'password',
   'password', 'password', 'password', 'password', 'password', 'password'];
 const hashPass = userPasswords.map(password => hashPassword(password));
 
@@ -23,7 +23,8 @@ const users = [['Peter', 'Tunde', emails[0], hashPass[0], 'client', false, true,
   ['Jeffery', 'Sunday', emails[5], hashPass[5], 'staff', false, true, false],
   ['Peace', 'Joy', emails[6], hashPass[6], 'staff', true, true, false],
   ['Obinna', 'Harrison', emails[7], hashPass[7], 'staff', true, true, false],
-  ['Onu', 'Monday', emails[8], hashPass[8], 'staff', true, true, false]];
+  ['Edit', 'User', emails[8], hashPass[8], 'client', false, true, false],
+  ['Onu', 'Monday', emails[9], hashPass[9], 'staff', true, true, false]];
 
 const insertUsersQuery = format('INSERT INTO users(firstName, lastName, email, password, type, isAdmin, emailConfirmed, createdAnAccount) VALUES %L returning *', users);
 
@@ -36,7 +37,8 @@ const accounts = [[accountNumbers[0], 'peter123tunde@email.com', 'savings', 'act
   [accountNumbers[6], 'aishalawal23@email.com', 'savings', 'dormant', 23000.00, new Date()],
   [accountNumbers[7], 'chukwudi.james@email.com', 'savings', 'dormant', 0.00, new Date()],
   [accountNumbers[8], 'chukwudi.james@email.com', 'savings', 'active', 0.00, new Date()],
-  [accountNumbers[9], 'billmark56@email.com', 'savings', 'dormant', 0.00, new Date()]];
+  [accountNumbers[9], 'billmark56@email.com', 'savings', 'dormant', 0.00, new Date()],
+  [accountNumbers[10], 'edituser@email.com', 'savings', 'active', 0.00, new Date()]];
 
 const insertAccountsQuery = format('INSERT INTO bankaccounts(accountNumber, ownerEmail, type, status, balance, createdOn) VALUES %L RETURNING *', accounts);
 

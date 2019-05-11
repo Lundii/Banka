@@ -8,6 +8,7 @@ import {
   debitAccountValidator,
   actDeactAccountValidator,
   changePasswordValidator,
+  editClientValidator,
 } from '../util/middlewares';
 
 /**
@@ -25,6 +26,7 @@ export default class StaffRouter {
     this.router = router;
     this.staffController = new Controllers.StaffController(store);
     this.userController = new Controllers.UserController(store);
+    this.adminController = new Controllers.AdminController(store);
   }
   
   /**
@@ -59,6 +61,9 @@ export default class StaffRouter {
 
     this.router.route('/:id/changePassword')
       .patch(validateToken, verifyIsStaff, changePasswordValidator, validate, this.userController.changePassword);
+
+    this.router.route('/:id/users')
+      .patch(validateToken, verifyIsStaff, editClientValidator, validate, this.adminController.editClient);
 
     return this.router;
   }
