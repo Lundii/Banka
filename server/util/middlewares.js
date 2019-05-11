@@ -237,3 +237,9 @@ export const deleteStaffValidator = [
   body('staffemail', 'field is required').exists(),
   body('staffemail', 'cannot be empty').isLength({ min: 1 }),
 ];
+
+export const editClientValidator = [
+  body('clientEmail', 'field is required').exists(),
+  body('clientEmail', 'must be a valid email').isEmail(),
+  body('clientEmail', 'cannot be empty').isLength({ min: 1 }),
+];
