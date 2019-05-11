@@ -243,3 +243,9 @@ export const editClientValidator = [
   body('clientEmail', 'must be a valid email').isEmail(),
   body('clientEmail', 'cannot be empty').isLength({ min: 1 }),
 ];
+
+export const editUserValidator = [
+  body('userEmail', 'field is required').exists(),
+  body('userEmail', 'must be a valid email').isEmail(),
+  body('userEmail', 'cannot be empty').isLength({ min: 1 }),
+];
