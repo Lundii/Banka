@@ -8,10 +8,10 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-describe('Staff can edit client details', () => {
+describe('Admin can edit specific user details', () => {
   it('should return a status 200 if the request is successful', (done) => {
     const body = {
-      email: 'amaka.padi@email.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -31,14 +31,14 @@ describe('Staff can edit client details', () => {
           .end((err1, res1) => {
             expect(res1.body.data).to.include.all.keys('token');
             expect(res1.body.data.token).to.be.a('String');
-            const clientEmail = res1.body.data.email;
+            const userEmail = res1.body.data.email;
             const body3 = {
-              clientEmail,
+              userEmail,
               firstName: 'Halimat',
               lastName: 'Disu',
             };
             chai.request(server)
-              .patch(`/api/v1/staff/${id}/users`)
+              .patch(`/api/v1/admin/${id}/users`)
               .send(body3)
               .set('Authorization', token)
               .end((err2, res2) => {
@@ -53,9 +53,9 @@ describe('Staff can edit client details', () => {
           });
       });
   });
-  it('should return a status 400 if clientEmail is not present', (done) => {
+  it('should return a status 400 if userEmail is not present', (done) => {
     const body = {
-      email: 'amaka.padi@email.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -80,7 +80,7 @@ describe('Staff can edit client details', () => {
               lastname: 'Disu',
             };
             chai.request(server)
-              .patch(`/api/v1/staff/${id}/users`)
+              .patch(`/api/v1/admin/${id}/users`)
               .send(body3)
               .set('Authorization', token)
               .end((err2, res2) => {
@@ -93,9 +93,9 @@ describe('Staff can edit client details', () => {
           });
       });
   });
-  it('should return a status 400 if clientEmail is invalid', (done) => {
+  it('should return a status 400 if userEmail is invalid', (done) => {
     const body = {
-      email: 'amaka.padi@email.com',
+      email: 'onumonday@email.com',
       password: 'password',
     };
     chai.request(server)
@@ -116,12 +116,12 @@ describe('Staff can edit client details', () => {
             expect(res1.body.data).to.include.all.keys('token');
             expect(res1.body.data.token).to.be.a('String');
             const body3 = {
-              clientEmail: 'invalid.com',
+              userEmail: 'invalid.com',
               firstname: 'Halimat',
               lastname: 'Disu',
             };
             chai.request(server)
-              .patch(`/api/v1/staff/${id}/users`)
+              .patch(`/api/v1/admin/${id}/users`)
               .send(body3)
               .set('Authorization', token)
               .end((err2, res2) => {
@@ -134,7 +134,7 @@ describe('Staff can edit client details', () => {
           });
       });
   });
-  it('should return a status 401 if user is not a staff', (done) => {
+  it('should return a status 401 if user is not an admin', (done) => {
     const body = {
       email: 'peter123tunde@email.com',
       password: 'password',
@@ -156,14 +156,14 @@ describe('Staff can edit client details', () => {
           .end((err1, res1) => {
             expect(res1.body.data).to.include.all.keys('token');
             expect(res1.body.data.token).to.be.a('String');
-            const clientEmail = res.body.data.email;
+            const userEmail = res.body.data.email;
             const body3 = {
-              clientEmail,
+              userEmail,
               firstname: 'Halimat',
               lastname: 'Disu',
             };
             chai.request(server)
-              .patch(`/api/v1/staff/${id}/users`)
+              .patch(`/api/v1/admin/${id}/users`)
               .send(body3)
               .set('Authorization', token)
               .end((err2, res2) => {
@@ -179,7 +179,7 @@ describe('Staff can edit client details', () => {
   it('should return a status 401 is user does not have a valid or expired token', (done) => {
     const id = 50048987839302;
     chai.request(server)
-      .patch(`/api/v1/staff/${id}/users`)
+      .patch(`/api/v1/admin/${id}/users`)
       .set('Authorization', 'ghjklldiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJtb25kYXkiLCJlbWFpbCI6Im1vbmRheXR1ZXNkYXlAZ21haWwuY29tIiwiaWF0IjoxNTU0OTM3Njc4LCJleHAiOjE1NTQ5NDQ4NzgsImlzcyI6Im1vbmRheS5sdW5kaWkifQ.XBP-AmW9ssM6T3GYeQIY-GUGMu7vjR2bbXey3Hc0dUU')
       .end((err, res) => {
         expect(res).to.have.status(401);

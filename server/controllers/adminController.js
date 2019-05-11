@@ -124,25 +124,26 @@ class AdminController {
   }
 
   editClient(req, res) {
-    this.store.userStore.read({ email: req.body.clientEmail }, (err, result) => {
-      if (result[0].type !== 'client') {
-        return res.status(401).json({
-          status: '401',
-          error: 'Unauthorized access',
-        });
+    this.store.userStore.read({ email: req.body.clientEmail || req.body.userEmail }, (err, result) => {
+      if (req.body.clientEmail) {
+        if (result[0].type !== 'client') {
+          return res.status(401).json({
+            status: '401',
+            error: 'Unauthorized access',
+          });
+        }
       }
       const query = `UPDATE users 
         SET firstName = '${req.body.firstName || result[0].firstname}',
-            lastName = '${req.body.lastName || result[0].lastname}',
-            email = '${req.body.email || result[0].email}'
-        WHERE email = '${req.body.clientEmail}' RETURNING *`;
+            lastName = '${req.body.lastName || result[0].lastname}'
+        WHERE email = '${req.body.clientEmail || req.body.userEmail}' RETURNING *`;
       this.store.userStore.compoundQuery(query, (err1, result1) => {
+        if (err1) throw err1;
         const resdata = {
           status: 200,
           data: {
             firstName: req.body.firstName || result1[0].firstname,
             lastName: req.body.lastName || result1[0].lastname,
-            email: req.body.email || result1[0].email,
             message: 'Update successful',
           },
         };
