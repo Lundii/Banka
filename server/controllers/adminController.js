@@ -44,6 +44,13 @@ class AdminController {
                    WHERE type = 'staff' AND isadmin = true`;
       }
       this.store.userStore.compoundQuery(query, (err, result) => {
+        if (result && !result.length) {
+          return res.status(200).json({
+            status: 200,
+            data: result,
+            message: `No ${req.query.type} found`,
+          });
+        }
         if (err) throw new Error('Error reading staffs');
         const resp = {
           status: 200,

@@ -6,6 +6,7 @@ import {
   createAccountValidator,
   setHeadersparams2,
   changePasswordValidator,
+  transferFundValidator,
 } from '../util/middlewares';
 
 /**
@@ -47,6 +48,9 @@ export default class UserRouter {
 
     this.router.route('/:id/changePassword')
       .patch(validateToken, verifyIsClient, changePasswordValidator, validate, this.userController.changePassword);
+
+    this.router.route('/:id/transactions/:accountNumber/transfer')
+      .post(validateToken, verifyIsClient, transferFundValidator, validate, this.userController.transferFunds);
 
     return this.router;
   }

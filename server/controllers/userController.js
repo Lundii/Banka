@@ -21,6 +21,7 @@ class UserController {
     this.confirmEmail = this.confirmEmail.bind(this);
     this.getAccounts = this.getAccounts.bind(this);
     this.changePassword = this.changePassword.bind(this);
+    this.transferFunds = this.transferFunds.bind(this);
   }
 
   /**
@@ -135,7 +136,15 @@ class UserController {
    * @param {object} res  - the response object
    */
   specAcctDetails(req, res) {
-    this.store.bankAcctStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
+    const query = `SELECT 
+                    users.firstname,
+                    users.lastname,
+                    bankaccounts.*
+                  FROM users 
+                  INNER JOIN bankaccounts ON users.email = bankaccounts.owneremail
+                  WHERE accountnumber = '${req.params.accountNumber}'
+  `;
+    this.store.bankAcctStore.compoundQuery(query, (err, result) => {
       if (result && !result.length) {
         return res.status(400).json({
           status: 400,
@@ -170,6 +179,13 @@ class UserController {
                   WHERE owneremail = '${req.payload.email}'
   `;
     this.store.userStore.compoundQuery(query, (err, result) => {
+      if (result && !result.length) {
+        return res.status(200).json({
+          status: 200,
+          data: result,
+          message: 'No account found',
+        });
+      }
       res.status(200).json({
         status: 200,
         data: result,
@@ -195,6 +211,95 @@ class UserController {
           status: 200,
           message: 'Password successfully changed',
         });
+      });
+    });
+  }
+
+  transferFunds(req, res) {
+    // debit sender account
+    req.params.accountNumber = parseInt(req.params.accountNumber, 10);
+    this.store.bankAcctStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
+      if (err) throw new Error('Cannot find account');
+      if (!result.length) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Account number does not exit in the database',
+        });
+      }
+      if (result[0].owneremail !== req.payload.email) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Unauthorized access',
+        });
+      }
+      if (parseFloat(req.body.transferAmount) > result[0].balance) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Insufficient Balance',
+        });
+      }
+      if (result[0].status === 'dormant') {
+        return res.status(400).json({
+          status: 400,
+          error: 'Account dormant',
+        });
+      }
+      const data = {
+        createdOn: new Date(),
+        type: 'debit',
+        accountNumber: req.params.accountNumber,
+        cashier: parseFloat(req.params.id),
+        amount: parseFloat(req.body.transferAmount),
+        oldBalance: result[0].balance,
+        newBalance: result[0].balance - parseFloat(req.body.transferAmount),
+      };
+      this.store.transactionStore.create(data, (err1, result1) => {
+        if (err1) throw new Error('Error saving transaction');
+        Email.transactionAlert(result[0].owneremail, result1[0]);
+        this.store.bankAcctStore.update({ accountNumber: req.params.accountNumber },
+          { balance: result1[0].newbalance }, (err2, result2) => {
+            // credit receiver account
+            req.body.receiverAcctNum = parseInt(req.body.receiverAcctNum, 10);
+            this.store.bankAcctStore.read({ accountNumber: req.body.receiverAcctNum }, (err3, result3) => {
+              if (err3) throw new Error('Cannot find account');
+              if (!result3.length) {
+                return res.status(400).json({
+                  status: 400,
+                  error: 'Receiver account number does not exit in the database',
+                });
+              }
+              const data2 = {
+                createdOn: new Date(),
+                type: 'credit',
+                accountNumber: req.body.receiverAcctNum,
+                cashier: parseFloat(req.params.id),
+                amount: parseFloat(req.body.transferAmount),
+                oldBalance: result3[0].balance,
+                newBalance: result3[0].balance + parseFloat(req.body.transferAmount),
+              };
+              this.store.transactionStore.create(data2, (err4, result4) => {
+                if (err1) throw new Error('Error saving transaction');
+                Email.transactionAlert(result[0].owneremail, result4[0]);
+                this.store.bankAcctStore.update({ accountNumber: req.body.receiverAcctNum },
+                  { balance: result4[0].newbalance }, (err5, result5) => {
+                    if (err5) throw new Error('Error updating transaction');
+                    const resp = {
+                      status: 200,
+                      data: {
+                        transactionId: result1[0].id,
+                        accountNumber: req.params.accountNumber.toString(),
+                        amount: parseFloat(result1[0].amount),
+                        cashier: req.params.id,
+                        transactionType: result1[0].type,
+                        accountBalance: result1[0].newbalance.toString(),
+                      },
+                      message: 'Transfer succesful',
+                    };
+                    res.status(200).json(resp);
+                  });
+              });
+            });
+          });
       });
     });
   }

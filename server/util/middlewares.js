@@ -255,3 +255,16 @@ export const editUserValidator = [
   body('userEmail', 'must be a valid email').isEmail(),
   body('userEmail', 'cannot be empty').isLength({ min: 1 }),
 ];
+
+export const transferFundValidator = [
+  body(['receiverAcctNum', 'transferAmount'], 'field is required').exists(),
+  body(['receiverAcctNum', 'transferAmount'], 'cannot be empty').isLength({ min: 1 }),
+  body(['transferAmount', 'receiverAcctNum'], 'must be a number').isInt(),
+  body('transferAmount', 'must be greater than 0').custom((value, { req }) => {
+    if (!(parseInt(value, 10) > 0)) {
+      return Promise.reject(new Error('must be greater than zero(0)'));
+    }
+    return Promise.resolve(true);
+  }),
+];
+

@@ -35,7 +35,7 @@ const accounts = [[accountNumbers[0], 'peter123tunde@email.com', 'savings', 'act
   [accountNumbers[4], 'aishalawal23@email.com', 'current', 'active', 400000.00, new Date()],
   [accountNumbers[5], 'aishalawal23@email.com', 'savings', 'dormant', 0.00, new Date()],
   [accountNumbers[6], 'aishalawal23@email.com', 'savings', 'dormant', 23000.00, new Date()],
-  [accountNumbers[7], 'chukwudi.james@email.com', 'savings', 'dormant', 0.00, new Date()],
+  [accountNumbers[7], 'chukwudi.james@email.com', 'savings', 'dormant', 550000.00, new Date()],
   [accountNumbers[8], 'chukwudi.james@email.com', 'savings', 'active', 0.00, new Date()],
   [accountNumbers[9], 'billmark56@email.com', 'savings', 'dormant', 0.00, new Date()],
   [accountNumbers[10], 'edituser@email.com', 'savings', 'active', 0.00, new Date()]];
