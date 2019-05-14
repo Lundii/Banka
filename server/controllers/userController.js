@@ -79,6 +79,7 @@ class UserController {
               status: result1[0].status,
               openingBalance: result1[0].balance,
             },
+            message: 'Account successfully created',
           };
           res.status(200).json(response);
         });

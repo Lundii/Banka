@@ -49,8 +49,8 @@ class StaffController {
           data: {
             accountNumber: result2[0].accountnumber,
             status: result2[0].status,
-            message,
           },
+          message,
         };
         res.status(200).json(response);
       });
@@ -122,6 +122,7 @@ class StaffController {
                 transactionType: result1[0].type,
                 accountBalance: result1[0].newbalance.toString(),
               },
+              message: 'Account successfully credited',
             };
             res.status(200).json(resp);
           });
@@ -181,6 +182,7 @@ class StaffController {
                 transactionType: result1[0].type,
                 accountBalance: result1[0].newbalance.toString(),
               },
+              message: 'Account successfully debited',
             };
             res.status(200).json(resp);
           });

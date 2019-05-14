@@ -36,7 +36,7 @@ describe('Staff can debit an account Number', () => {
           .end((er, resp) => {
             expect(resp).to.have.status(200);
             expect(resp).to.be.a('object');
-            expect(resp.body).to.have.all.keys('status', 'data');
+            expect(resp.body).to.have.include.all.keys('status', 'data');
             expect(resp.body.data).to.include.all.keys('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
             expect(resp.body.data.transactionId).to.be.a('Number');
             expect(resp.body.data.accountNumber).to.be.a('String');

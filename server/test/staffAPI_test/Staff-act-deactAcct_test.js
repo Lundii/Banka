@@ -31,11 +31,10 @@ describe('Staff can Activate or deactivate an account Number', () => {
           .end((er, resp) => {
             expect(resp).to.have.status(200);
             expect(resp).to.be.a('object');
-            expect(resp.body).to.have.all.keys('status', 'data');
-            expect(resp.body.data).to.include.all.keys('accountNumber', 'status', 'message');
+            expect(resp.body).to.have.include.all.keys('status', 'data');
+            expect(resp.body.data).to.include.all.keys('accountNumber', 'status');
             expect(resp.body.data.accountNumber).to.be.a('Number');
             expect(resp.body.data.status).to.be.a('String');
-            expect(resp.body.data.message).to.be.a('String');
             done();
           });
       });
@@ -90,11 +89,10 @@ describe('Staff can Activate or deactivate an account Number', () => {
           .end((er, resp) => {
             expect(resp).to.have.status(200);
             expect(resp).to.be.a('object');
-            expect(resp.body).to.have.all.keys('status', 'data');
-            expect(resp.body.data).to.include.all.keys('accountNumber', 'status', 'message');
+            expect(resp.body).to.have.include.all.keys('status', 'data');
+            expect(resp.body.data).to.include.all.keys('accountNumber', 'status');
             expect(resp.body.data.accountNumber).to.be.a('Number');
             expect(resp.body.data.status).to.be.a('String');
-            expect(resp.body.data.message).to.be.a('String');
             done();
           });
       });
