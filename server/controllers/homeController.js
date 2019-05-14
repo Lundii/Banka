@@ -3,6 +3,7 @@ import path from 'path';
 import {
   hashPassword,
   comparePassword,
+  firstLetterUppercase,
 } from '../util';
 import config from '../config';
 import Email from '../util/emailServices';
@@ -27,6 +28,7 @@ class HomeController {
     this.resetPassword = this.resetPassword.bind(this);
   }
 
+
   /**
    * Method for handling signup route(POST api/v1/signup)
    * @param {object} req - the request object
@@ -45,8 +47,8 @@ class HomeController {
       const hashPass = hashPassword(req.body.password);
       req.body.password = hashPass;
       const data = {
-        firstName: req.body.firstName.trim().toUpperCase(),
-        lastName: req.body.lastName.trim().toUpperCase(),
+        firstName: firstLetterUppercase(req.body.firstName.trim()),
+        lastName: firstLetterUppercase(req.body.lastName.trim()),
         email: req.body.email,
         password: req.body.password,
         type: 'client',
@@ -73,11 +75,11 @@ class HomeController {
           type: dataR[0].type,
           isAdmin: dataR[0].isadmin,
           token: dataR[0].token,
-          message: 'Please, click on the link sent to your email for confirmation before creating an account number',
         };
         const response = {
           status: 200,
           data: data1,
+          message: 'Please, click on the link sent to your email for confirmation before creating an account number',
         };
         return res.status(200).json(response);
       });

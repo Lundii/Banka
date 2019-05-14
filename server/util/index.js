@@ -136,6 +136,10 @@ export function validateToken(req, res, next) {
   }
 }
 
+export function firstLetterUppercase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 /**
  * Middleware to handle express-validator errors
  * @param {object} req - the req object
@@ -145,7 +149,7 @@ export function validateToken(req, res, next) {
 export function validate(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const errMessage = errors.array().reduce((err, current) => `${err} ${current.param} ${current.msg} | `, '');
+    const errMessage = errors.array().reduce((err, current) => `${err} ${firstLetterUppercase(current.param)} ${current.msg} | `, '');
     return res.status(400).json({
       status: 400,
       error: errMessage,

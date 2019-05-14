@@ -130,7 +130,7 @@ export function verifyUser(req, res, next) {
 export const createAccountValidator = [
   body(['type'], 'field is required').exists(),
   body(['type'], ' cannot be empty').isLength({ min: 1 }),
-  body('type', 'Account type can either be savings or current').custom((value) => {
+  body('type', 'type can either be savings or current').custom((value) => {
     if (value !== 'savings' && value !== 'current') {
       return Promise.reject(new Error('Account type can either be savings or current'));
     }
@@ -143,7 +143,7 @@ export const signupValidator = [
   body('email', 'is invalid').isEmail(),
   body(['firstName', 'lastName', 'password', 'confirmPassword'], ' cannot be empty').isLength({ min: 1 }),
   body(['firstName', 'lastName'], ' should contain only letters').isAlpha(),
-  body('confirmPassword', 'Confirm password does not match password').custom((value, { req }) => {
+  body('confirmPassword', 'does not match password').custom((value, { req }) => {
     if (value !== req.body.password) {
       return Promise.reject(new Error('Confirm password does not match password'));
     }
@@ -166,7 +166,7 @@ export const sendResetLinkValidator = [
 export const resetPasswordValidator = [
   body(['password', 'confirmPassword'], 'field is required').exists(),
   body(['password', 'confirmPassword'], ' cannot be empty').isLength({ min: 1 }),
-  body('confirmPassword', 'Confirm password does not match password').custom((value, { req }) => {
+  body('confirmPassword', 'does not match password').custom((value, { req }) => {
     if (value !== req.body.password) {
       return Promise.reject(new Error('Confirm password does not match password'));
     }
@@ -201,7 +201,7 @@ export const debitAccountValidator = [
 export const actDeactAccountValidator = [
   body('status', 'field is required').exists(),
   body('status', 'cannot be empty').isLength({ min: 1 }),
-  body('status', 'Status can either be active or dormant').custom((value) => {
+  body('status', 'can either be active or dormant').custom((value) => {
     if (value !== 'dormant' && value !== 'active') {
       return Promise.reject(new Error('Status can either be active or dormant'));
     }
@@ -212,9 +212,15 @@ export const actDeactAccountValidator = [
 export const changePasswordValidator = [
   body(['oldPassword', 'newPassword', 'confirmPassword'], 'field is required').exists(),
   body(['oldPassword', 'newPassword', 'confirmPassword'], ' cannot be empty').isLength({ min: 1 }),
-  body('confirmPassword', 'Confirm password does not match password').custom((value, { req }) => {
+  body('confirmPassword', 'does not match password').custom((value, { req }) => {
     if (value !== req.body.newPassword) {
-      return Promise.reject(new Error('Confirm password does not match password'));
+      return Promise.reject(new Error('does not match password'));
+    }
+    return Promise.resolve(true);
+  }),
+  body('newPassword', 'must be different from old password ').custom((value, { req }) => {
+    if (value === req.body.oldPassword) {
+      return Promise.reject(new Error('must be different from old password '));
     }
     return Promise.resolve(true);
   }),
@@ -225,7 +231,7 @@ export const createStaffValidator = [
   body('email', 'is invalid').isEmail(),
   body(['firstName', 'lastName', 'isadmin'], ' cannot be empty').isLength({ min: 1 }),
   body(['firstName', 'lastName'], ' should contain only letters').isAlpha(),
-  body('isadmin', 'isadmin field can either be true or false').custom((value, { req }) => {
+  body('isadmin', 'field can either be true or false').custom((value, { req }) => {
     if (value !== true && value !== false) {
       return Promise.reject(new Error('isadmin field can either be true or false'));
     }

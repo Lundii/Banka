@@ -39,7 +39,7 @@ describe('Admin can create new staffs', () => {
           .end((er, resp) => {
             expect(resp).to.have.status(200);
             expect(resp).to.be.a('object');
-            expect(resp.body).to.have.all.keys('status', 'data');
+            expect(resp.body).to.have.include.all.keys('status', 'data');
             expect(resp.body.data).to.be.a('object');
             expect(resp.body.data).to.include.all.keys('firstname', 'lastname', 'email', 'type', 'isadmin');
             expect(resp.body.data.firstname).to.be.a('String');

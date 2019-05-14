@@ -1,6 +1,7 @@
 
 import {
   hashPassword,
+  firstLetterUppercase,
 } from '../util';
 /**
  * Admin route controller class
@@ -76,8 +77,8 @@ class AdminController {
       const hashPass = hashPassword(password);
       req.body.password = hashPass;
       const data = {
-        firstName: req.body.firstName.trim().toUpperCase(),
-        lastName: req.body.lastName.trim().toUpperCase(),
+        firstName: firstLetterUppercase(req.body.firstName.trim()),
+        lastName: firstLetterUppercase(req.body.lastName.trim()),
         email: req.body.email,
         password: req.body.password,
         type: 'staff',
@@ -94,11 +95,11 @@ class AdminController {
           email: dataR[0].email,
           type: dataR[0].type,
           isadmin: dataR[0].isadmin,
-          message: 'Staff successfully created',
         };
         const response = {
           status: 200,
           data: data1,
+          message: 'Staff successfully created',
         };
         return res.status(200).json(response);
       });
@@ -134,8 +135,8 @@ class AdminController {
         }
       }
       const query = `UPDATE users 
-        SET firstName = '${req.body.firstName || result[0].firstname}',
-            lastName = '${req.body.lastName || result[0].lastname}'
+        SET firstName = '${firstLetterUppercase(req.body.firstName) || firstLetterUppercase(result[0].firstname)}',
+            lastName = '${firstLetterUppercase(req.body.lastName) || firstLetterUppercase(result[0].lastname)}'
         WHERE email = '${req.body.clientEmail || req.body.userEmail}' RETURNING *`;
       this.store.userStore.compoundQuery(query, (err1, result1) => {
         if (err1) throw err1;
@@ -144,8 +145,8 @@ class AdminController {
           data: {
             firstName: req.body.firstName || result1[0].firstname,
             lastName: req.body.lastName || result1[0].lastname,
-            message: 'Update successful',
           },
+          message: 'Update successful',
         };
         return res.status(200).json(resdata);
       });

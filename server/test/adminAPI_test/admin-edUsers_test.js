@@ -44,7 +44,7 @@ describe('Admin can edit specific user details', () => {
               .end((err2, res2) => {
                 expect(res2).to.have.status(200);
                 expect(res2).to.be.a('object');
-                expect(res2.body).to.have.all.keys('status', 'data');
+                expect(res2.body).to.have.include.all.keys('status', 'data');
                 expect(res2.body.data).to.include.all.keys('firstName', 'lastName');
                 expect(res2.body.data.firstName).to.be.a('String');
                 expect(res2.body.data.lastName).to.be.a('String');
