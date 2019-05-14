@@ -227,6 +227,13 @@ class StaffController {
     `;
       this.store.userStore.compoundQuery(query, (err, result) => {
         if (err) throw new Error('Error reading bank accounts');
+        if (result && !result.length) {
+          return res.status(200).json({
+            status: 200,
+            data: result,
+            message: 'No account found',
+          });
+        }
         const resp = {
           status: 200,
           data: result,
