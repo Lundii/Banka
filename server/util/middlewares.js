@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import path from 'path';
-import { body } from 'express-validator/check';
+import { body, query } from 'express-validator/check';
 import { store } from '../server';
 
 /**
@@ -303,6 +303,30 @@ export const airtimeValidator = [
         break;
       default:
         return Promise.reject(new Error('is invalid'));
+    }
+    return Promise.resolve(true);
+  }),
+];
+
+export const getAccountsValidator = [
+  query(['status', 'email', 'accountNumber'], 'cannot be empty').optional().isLength({ min: 1 }),
+  query('accountNumber', 'must be a number').optional().isInt(),
+  query('email', 'must be a valid email').optional().isEmail(),
+  query('status', 'must be active or dormant').optional().custom((value, { req }) => {
+    if (value !== 'dormant' && value !== 'active') {
+      return Promise.reject(new Error('must be active or dormant'));
+    }
+    return Promise.resolve(true);
+  }),
+];
+
+export const getUsersValidator = [
+  query(['type', 'email', 'id'], 'cannot be empty').optional().isLength({ min: 1 }),
+  query('id', 'must be a number').optional().isInt(),
+  query('email', 'must be a valid email').optional().isEmail(),
+  query('type', 'must be staff or admin').optional().custom((value, { req }) => {
+    if (value !== 'staff' && value !== 'admin') {
+      return Promise.reject(new Error('must be staff or admin'));
     }
     return Promise.resolve(true);
   }),
