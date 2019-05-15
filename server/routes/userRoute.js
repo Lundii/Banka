@@ -7,6 +7,7 @@ import {
   setHeadersparams2,
   changePasswordValidator,
   transferFundValidator,
+  airtimeValidator,
 } from '../util/middlewares';
 
 /**
@@ -23,6 +24,7 @@ export default class UserRouter {
   constructor(router, store) {
     this.router = router;
     this.userController = new Controllers.UserController(store);
+    this.staffController = new Controllers.StaffController(store);
   }
 
   /**
@@ -51,6 +53,10 @@ export default class UserRouter {
 
     this.router.route('/:id/transactions/:accountNumber/transfer')
       .post(validateToken, verifyIsClient, transferFundValidator, validate, this.userController.transferFunds);
+
+    this.router.route('/:id/transactions/:accountNumber/airtime')
+      .post(validateToken, verifyIsClient, airtimeValidator, validate,
+        this.userController.buyAirtime, this.staffController.debitAccount);
 
     return this.router;
   }

@@ -268,3 +268,42 @@ export const transferFundValidator = [
   }),
 ];
 
+export const airtimeValidator = [
+  body(['airtimeAmount', 'phoneNumber', 'network'], 'field is required').exists(),
+  body(['airtimeAmount', 'network'], 'cannot be empty').isLength({ min: 1 }),
+  body('phoneNumber', 'not valid').isLength({ min: 11, max: 11 }),
+  body('airtimeAmount', 'must be a number').isInt(),
+  body('airtimeAmount', 'must be greater than 0').custom((value, { req }) => {
+    if (!(parseInt(value, 10) > 0)) {
+      return Promise.reject(new Error('must be greater than zero(0)'));
+    }
+    return Promise.resolve(true);
+  }),
+  body('network', 'number is not valid').custom((value, { req }) => {
+    switch (value.toLowerCase()) {
+      case 'mtn':
+        if (!(/^(0[789][01][364])/).test(req.body.phoneNumber)) {
+          return Promise.reject(new Error('number is invalid'));
+        }
+        break;
+      case '9mobile':
+        if (!(/^(0[789][01][978])/).test(req.body.phoneNumber)) {
+          return Promise.reject(new Error('number is invalid'));
+        }
+        break;
+      case 'airtel':
+        if (!(/^(0[789][01][8271])/).test(req.body.phoneNumber)) {
+          return Promise.reject(new Error('number is invalid'));
+        }
+        break;
+      case 'glo':
+        if (!(/^(0[789][01][517])/).test(req.body.phoneNumber)) {
+          return Promise.reject(new Error('number is invalid'));
+        }
+        break;
+      default:
+        return Promise.reject(new Error('is invalid'));
+    }
+    return Promise.resolve(true);
+  }),
+];
