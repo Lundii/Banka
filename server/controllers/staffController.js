@@ -196,51 +196,43 @@ class StaffController {
    * @param {object} res  - the response object
    */
   viewAccountList(req, res) {
-    if ((req.query.status && !req.query.status) || (req.query.status && req.query.status !== 'dormant' && req.query.status !== 'active')) {
+    if (Object.keys(req.query).length && ((Object.keys(req.query)[0] !== 'status')
+    && (Object.keys(req.query)[0] !== 'email') && (Object.keys(req.query)[0] !== 'accountNumber'))) {
       return res.status(400).json({
         status: 400,
-        error: `${req.query.status} account does not exit`,
+        error: 'Invalid query parameters',
       });
     }
-    if (req.query && Object.keys(req.query).length && Object.keys(req.query)[0] !== 'status') {
-      return res.status(400).json({
-        status: 400,
-        error: 'invalid query parameters',
-      });
-    }
+    let query = `SELECT 
+            users.firstname,
+            users.lastname,
+            bankaccounts.*
+          FROM bankaccounts 
+          INNER JOIN users ON users.email = bankaccounts.owneremail`;
     if (req.query.status) {
-      this.store.bankAcctStore.read({ status: req.query.status }, (err, result) => {
-        if (err) throw new Error('Error reading bank accounts');
-        const resp = {
-          status: 200,
-          data: result,
-        };
-        res.status(200).json(resp);
-      });
-    } else {
-      const query = `SELECT 
-                      users.firstname,
-                      users.lastname,
-                      bankaccounts.*
-                    FROM users 
-                    INNER JOIN bankaccounts ON users.email = bankaccounts.owneremail
-    `;
-      this.store.userStore.compoundQuery(query, (err, result) => {
-        if (err) throw new Error('Error reading bank accounts');
-        if (result && !result.length) {
-          return res.status(200).json({
-            status: 200,
-            data: result,
-            message: 'No account found',
-          });
-        }
-        const resp = {
-          status: 200,
-          data: result,
-        };
-        res.status(200).json(resp);
-      });
+      query = query.concat(' \n', `AND bankaccounts.status = '${req.query.status}'`);
     }
+    if (req.query.email) {
+      query = query.concat(' \n', `AND bankaccounts.owneremail = '${req.query.email}'`);
+    }
+    if (req.query.accountNumber) {
+      query = query.concat(' \n', `AND bankaccounts.accountNumber = '${req.query.accountNumber}'`);
+    }
+    this.store.userStore.compoundQuery(query, (err, result) => {
+      if (err) throw new Error('Error reading bank accounts');
+      if (result && !result.length) {
+        return res.status(200).json({
+          status: 200,
+          data: result,
+          message: 'No account found',
+        });
+      }
+      const resp = {
+        status: 200,
+        data: result,
+      };
+      res.status(200).json(resp);
+    });
   }
 
   /**

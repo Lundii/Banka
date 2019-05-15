@@ -65,6 +65,30 @@ describe('Admin can view all staffs in the database', () => {
           });
       });
   });
+  it('should return a status 200 if no record found', (done) => {
+    const body = {
+      email: 'onumonday@email.com',
+      password: 'password',
+    };
+    chai.request(server)
+      .post('/api/v1/auth/signin')
+      .send(body)
+      .end((err, res) => {
+        expect(res.body.data).to.include.all.keys('token');
+        expect(res.body.data.token).to.be.a('String');
+        const { token, id } = res.body.data;
+        chai.request(server)
+          .get(`/api/v1/admin/${id}/users?type=staff&id=1234&email=some@email.com`)
+          .set('Authorization', token)
+          .end((er, resp) => {
+            expect(resp).to.have.status(200);
+            expect(resp).to.be.a('object');
+            expect(resp.body).to.have.include.all.keys('status', 'message');
+            expect(resp.body.message).to.be.a('String');
+            done();
+          });
+      });
+  });
   it('should return a status 400 if query parameter is not type', (done) => {
     const body = {
       email: 'onumonday@email.com',

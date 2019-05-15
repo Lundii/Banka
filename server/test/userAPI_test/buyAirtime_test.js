@@ -24,15 +24,14 @@ describe('User can buy airtime from their account', () => {
         const { token, id } = res.body.data;
         const body2 = {
           airtimeAmount: 2000,
-          network: 'mtn',
-          phoneNumber: '07068989767',
+          network: 'glo',
+          phoneNumber: '07058989767',
         };
         chai.request(server)
           .post(`/api/v1/user/${id}/transactions/1003437498/airtime`)
           .send(body2)
           .set('Authorization', token)
           .end((er, resp) => {
-            console.log(resp.body);
             expect(resp).to.have.status(200);
             expect(resp).to.be.a('object');
             expect(resp.body).to.have.include.all.keys('status', 'data');
@@ -60,8 +59,8 @@ describe('User can buy airtime from their account', () => {
         const { token, id } = res.body.data;
         const body2 = {
           airtimeAmount: 20000000,
-          network: 'mtn',
-          phoneNumber: '07068989767',
+          network: 'airtel',
+          phoneNumber: '07028989767',
         };
         chai.request(server)
           .post(`/api/v1/user/${id}/transactions/1003437498/airtime`)
@@ -98,7 +97,6 @@ describe('User can buy airtime from their account', () => {
           .send(body2)
           .set('Authorization', token)
           .end((er, resp) => {
-            console.log(resp.body);
             expect(resp).to.have.status(400);
             expect(resp).to.be.a('object');
             expect(resp.body).to.have.all.keys('status', 'error');
@@ -121,8 +119,8 @@ describe('User can buy airtime from their account', () => {
         const { token, id } = res.body.data;
         const body2 = {
           airtimeAmount: -20000,
-          network: 'mtn',
-          phoneNumber: '07068989767',
+          network: '9mobile',
+          phoneNumber: '07098989767',
         };
         chai.request(server)
           .post(`/api/v1/user/${id}/transactions/1003437498/airtime`)
@@ -306,7 +304,6 @@ describe('User can buy airtime from their account', () => {
           .send(body2)
           .set('Authorization', token)
           .end((er, resp) => {
-            console.log(resp.body)
             expect(resp).to.have.status(401);
             expect(resp).to.be.a('object');
             expect(resp.body).to.have.all.keys('status', 'error');

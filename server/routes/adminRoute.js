@@ -8,6 +8,8 @@ import {
   createStaffValidator,
   deleteStaffValidator,
   editUserValidator,
+  getAccountsValidator,
+  getUsersValidator,
 } from '../util/middlewares';
 
 /**
@@ -41,7 +43,7 @@ export default class AdminRouter {
       .delete(validateToken, verifyIsAdmin, this.staffController.deleteAccount);
 
     this.router.route('/:id/accounts')
-      .get(validateToken, verifyIsAdmin, this.staffController.viewAccountList);
+      .get(validateToken, verifyIsAdmin, getAccountsValidator, validate, this.staffController.viewAccountList);
 
     this.router.route('/:id/:email/accounts')
       .get(validateToken, verifyIsAdmin, this.staffController.viewSpecificAccount);
@@ -50,7 +52,7 @@ export default class AdminRouter {
       .get(validateToken, verifyIsAdmin, this.userController.accountHistory);
 
     this.router.route('/:id/users')
-      .get(validateToken, verifyIsAdmin, this.adminController.getStaffs)
+      .get(validateToken, verifyIsAdmin, getUsersValidator, validate, this.adminController.getStaffs)
       .post(validateToken, verifyIsAdmin, createStaffValidator, validate, this.adminController.createStaff)
       .delete(validateToken, verifyIsAdmin, deleteStaffValidator, validate, this.adminController.deleteStaff)
       .patch(validateToken, verifyIsAdmin, editUserValidator, validate, this.adminController.editClient);

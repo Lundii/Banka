@@ -22,13 +22,8 @@ class AdminController {
   }
 
   getStaffs(req, res) {
-    if ((req.query.type && !req.query.type) || (req.query.type && req.query.type !== 'staff' && req.query.type !== 'admin')) {
-      return res.status(400).json({
-        status: 400,
-        error: `${req.query.type} account does not exit`,
-      });
-    }
-    if (req.query && Object.keys(req.query).length && Object.keys(req.query)[0] !== 'type') {
+    if (req.query && Object.keys(req.query).length && ((Object.keys(req.query)[0] !== 'type')
+    && (Object.keys(req.query)[0] !== 'email') && (Object.keys(req.query)[0] !== 'id'))) {
       return res.status(400).json({
         status: 400,
         error: 'invalid query parameters',
@@ -39,9 +34,21 @@ class AdminController {
       if (req.query.type === 'staff') {
         query = `SELECT * FROM users
                    WHERE type = 'staff' AND isadmin = false`;
+        if (req.query.email) {
+          query = query.concat(' \n', `AND email = '${req.query.email}'`);
+        }
+        if (req.query.id) {
+          query = query.concat(' \n', `AND id = '${req.query.id}'`);
+        }
       } else if (req.query.type === 'admin') {
         query = `SELECT * FROM users
                    WHERE type = 'staff' AND isadmin = true`;
+        if (req.query.email) {
+          query = query.concat(' \n', `AND email = '${req.query.email}'`);
+        }
+        if (req.query.id) {
+          query = query.concat(' \n', `AND id = '${req.query.id}'`);
+        }
       }
       this.store.userStore.compoundQuery(query, (err, result) => {
         if (result && !result.length) {

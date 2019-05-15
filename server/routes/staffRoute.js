@@ -9,6 +9,7 @@ import {
   actDeactAccountValidator,
   changePasswordValidator,
   editClientValidator,
+  getAccountsValidator,
 } from '../util/middlewares';
 
 /**
@@ -51,7 +52,7 @@ export default class StaffRouter {
         this.staffController.debitAccount);
     
     this.router.route('/:id/accounts')
-      .get(validateToken, verifyIsStaff, this.staffController.viewAccountList);
+      .get(validateToken, verifyIsStaff, getAccountsValidator, validate, this.staffController.viewAccountList);
 
     this.router.route('/:id/:email/accounts')
       .get(validateToken, verifyIsStaff, this.staffController.viewSpecificAccount);
