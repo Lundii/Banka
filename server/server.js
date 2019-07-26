@@ -43,13 +43,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
-app.use('/server/passports', express.static(`${__dirname}/passports/`));
+app.use(`/${process.env.SERVER_FOLDER}passports`, express.static(`${__dirname}/passports/`));
 
 const homeRoute = new routes.HomeRoute(homeRouter, store);
 const userRoute = new routes.UserRoute(userRouter, store);
 const staffRoute = new routes.StaffRoute(staffRouter, store);
 const adminRoute = new routes.AdminRoute(adminRouter, store);
 
+app.get('/', (req, res) => {
+  res.redirect('/api/v1');
+});
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api/v1/', homeRoute.route());
 app.use('/api/v1/user', userRoute.route());

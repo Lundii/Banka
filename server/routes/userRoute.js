@@ -13,7 +13,7 @@ import {
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, './server/passports/');
+    callback(null, `./${process.env.SERVER_FOLDER}passports/`);
   },
   filename: (req, file, callback) => {
     callback(null, new Date().toISOString() + file.originalname);
