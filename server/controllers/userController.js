@@ -360,7 +360,6 @@ class UserController {
   }
 
   uploadPassport(req, res) {
-    console.log(req.file);
     this.store.userStore.update(
       { id: req.params.id },
       { avatar: req.file.path }, (err, file) => {
