@@ -43,6 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
+app.use('/server/passports', express.static(`${__dirname}/passports/`));
 
 const homeRoute = new routes.HomeRoute(homeRouter, store);
 const userRoute = new routes.UserRoute(userRouter, store);

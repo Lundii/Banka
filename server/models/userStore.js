@@ -19,6 +19,7 @@ class UserStore extends Store {
       email VARCHAR (300) UNIQUE NOT NULL,
       password VARCHAR (500) NOT NULL,
       type VARCHAR (20) NOT NULL,
+      avatar VARCHAR (200), 
       isAdmin BOOLEAN NOT NULL,
       emailConfirmed BOOLEAN NOT NULL,
       createdAnAccount BOOLEAN NOT NULL

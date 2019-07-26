@@ -1,4 +1,5 @@
 /* eslint-disable import/no-cycle */
+import multer from 'multer';
 import Controllers from '../controllers';
 import { validateToken, validate } from '../util';
 import {
@@ -9,6 +10,21 @@ import {
   transferFundValidator,
   airtimeValidator,
 } from '../util/middlewares';
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, './server/passports/');
+  },
+  filename: (req, file, callback) => {
+    callback(null, new Date().toISOString() + file.originalname);
+  },
+});
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 1024 * 1024,
+  },
+});
 
 /**
  * Creates a router class for using page APIs
@@ -31,32 +47,72 @@ export default class UserRouter {
    * Method used for routing
    */
   route() {
-    this.router.route('/:id/accounts')
+    this.router
+      .route('/:id/accounts')
       .get(validateToken, verifyIsClient, this.userController.getAccounts)
-      .post(validateToken, verifyIsClient, createAccountValidator,
-        validate, this.userController.createAccount);
+      .post(
+        validateToken,
+        verifyIsClient,
+        createAccountValidator,
+        validate,
+        this.userController.createAccount,
+      );
 
-    this.router.route('/:id/accounts/:accountNumber/transactions')
+    this.router
+      .route('/:id/accounts/:accountNumber/transactions')
       .get(validateToken, verifyIsClient, this.userController.accountHistory);
 
-    this.router.route('/:id/transactions/:transId')
+    this.router
+      .route('/:id/transactions/:transId')
       .get(validateToken, verifyIsClient, this.userController.specificTranHist);
 
-    this.router.route('/:id/accounts/:accountNumber')
+    this.router
+      .route('/:id/accounts/:accountNumber')
       .get(validateToken, verifyIsClient, this.userController.specAcctDetails);
-      
-    this.router.route('/:id/confirmEmail/:token')
-      .get(setHeadersparams2, validateToken, verifyIsClient, this.userController.confirmEmail);
 
-    this.router.route('/:id/changePassword')
-      .patch(validateToken, verifyIsClient, changePasswordValidator, validate, this.userController.changePassword);
+    this.router
+      .route('/:id/confirmEmail/:token')
+      .get(
+        setHeadersparams2,
+        validateToken,
+        verifyIsClient,
+        this.userController.confirmEmail,
+      );
 
-    this.router.route('/:id/transactions/:accountNumber/transfer')
-      .post(validateToken, verifyIsClient, transferFundValidator, validate, this.userController.transferFunds);
+    this.router
+      .route('/:id/changePassword')
+      .patch(
+        validateToken,
+        verifyIsClient,
+        changePasswordValidator,
+        validate,
+        this.userController.changePassword,
+      );
 
-    this.router.route('/:id/transactions/:accountNumber/airtime')
-      .post(validateToken, verifyIsClient, airtimeValidator, validate,
-        this.userController.buyAirtime, this.staffController.debitAccount);
+    this.router
+      .route('/:id/transactions/:accountNumber/transfer')
+      .post(
+        validateToken,
+        verifyIsClient,
+        transferFundValidator,
+        validate,
+        this.userController.transferFunds,
+      );
+
+    this.router
+      .route('/:id/transactions/:accountNumber/airtime')
+      .post(
+        validateToken,
+        verifyIsClient,
+        airtimeValidator,
+        validate,
+        this.userController.buyAirtime,
+        this.staffController.debitAccount,
+      );
+
+    this.router
+      .route('/:id/upload')
+      .post(upload.single('passport'), this.userController.uploadPassport);
 
     return this.router;
   }
