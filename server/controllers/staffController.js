@@ -145,7 +145,7 @@ class StaffController {
           error: 'Account number does not exit in the database',
         });
       }
-      if (parseFloat(req.body.debitAmount) > result[0].balance) {
+      if (parseFloat(req.body.debitAmount || req.body.airtimeAmount) > result[0].balance) {
         return res.status(400).json({
           status: 400,
           error: 'Insufficient Balance',
@@ -162,9 +162,9 @@ class StaffController {
         type: 'debit',
         accountNumber: req.params.accountNumber,
         cashier: parseFloat(req.params.id),
-        amount: parseFloat(req.body.debitAmount),
+        amount: parseFloat(req.body.debitAmount || req.body.airtimeAmount),
         oldBalance: result[0].balance,
-        newBalance: result[0].balance - parseFloat(req.body.debitAmount),
+        newBalance: result[0].balance - parseFloat(req.body.debitAmount || req.body.airtimeAmount),
       };
       this.store.transactionStore.create(data, (err1, result1) => {
         if (err1) throw new Error('Error saving transaction');
@@ -182,7 +182,7 @@ class StaffController {
                 transactionType: result1[0].type,
                 accountBalance: result1[0].newbalance.toString(),
               },
-              message: 'Account successfully debited',
+              message: `${req.body.debitAccount ? 'Account successfully debited' : 'Recharge succesful'}`,
             };
             res.status(200).json(resp);
           });

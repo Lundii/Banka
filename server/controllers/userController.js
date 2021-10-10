@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { generateAccountNumber, comparePassword, hashPassword, } from '../util';
+import { generateAccountNumber, comparePassword, hashPassword } from '../util';
 import Email from '../util/emailServices';
 import config from '../config';
 /**
@@ -22,6 +22,7 @@ class UserController {
     this.getAccounts = this.getAccounts.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.transferFunds = this.transferFunds.bind(this);
+    this.buyAirtime = this.buyAirtime.bind(this);
   }
 
   /**
@@ -301,6 +302,19 @@ class UserController {
             });
           });
       });
+    });
+  }
+
+  buyAirtime(req, res, next) {
+    this.store.bankAcctStore.read({ accountNumber: req.params.accountNumber }, (err, result) => {
+      if (err) throw new Error('Cannot find account');
+      if (result.length && (result[0].owneremail !== req.payload.email)) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Unauthorized access',
+        });
+      }
+      next();
     });
   }
 }
